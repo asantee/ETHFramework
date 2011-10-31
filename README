@@ -4,5 +4,8 @@ Ethanon Programming patterns:
 
 -Use g_ on globals
 -Use m_ on members
+-Use UPPER_CASE_LETTERS on constants
+-Use UPPER_CASE_LETTERS on funcdef's
+-Singleton classes with prefix s (e.g. sGlobalScale)
 -Include all files in a single IncludeModules.angelscript
 -All helper functions shall be in their own "header" file with their own variations and overloads
