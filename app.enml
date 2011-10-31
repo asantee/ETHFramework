@@ -1,0 +1,17 @@
+window
+{
+	title = ETHFramework sample;
+
+	width = 854; height = 480;		// Motorola Defy/Droid
+	//width = 480; height = 320;	// Samsung Ace
+	//width = 960; height = 640;	// iPhone 4
+	//width = 1280; height = 800;	// Motorola Zoom
+
+	windowed = true;
+	vsync = true;
+}
+
+rendering
+{
+	richLighting = true;
+}
