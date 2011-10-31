@@ -15,7 +15,7 @@ void loop()
 
 void preLoop()
 {
-	SetBackgroundColor(0xFFFF0000);
+	//SetBackgroundColor(0xFFFF0000);
 	// atualiza global scale para evitar dimensoes falsas do Xoom
 	g_scale.updateScaleFactor(DEFAULT_SCALE_HEIGHT);
 	g_stateManager.runCurrentPreLoopFunction();
