@@ -1,0 +1,8 @@
+Ethanon engine base framework with game state manager, simple UI system, samples and other utilities
+
+Ethanon Programming patterns:
+
+-Use g_ on globals
+-Use m_ on members
+-Include all files in a single IncludeModules.angelscript
+-All helper functions shall be in their own "header" file with their own variations and overloads
