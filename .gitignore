@@ -21,6 +21,7 @@ gdb.setup
 gdbserver
 
 # MSVC
+*.exe
 *.ilk
 *.manifest
 *.user
