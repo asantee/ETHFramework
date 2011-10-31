@@ -27,3 +27,4 @@
 
 // States
 #include "ETHFrameworkModules/MainMenu.angelscript" 
+#include "ETHFrameworkModules/GameState.angelscript" 

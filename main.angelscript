@@ -3,8 +3,18 @@
 void main()
 {
 	g_scale.updateScaleFactor(DEFAULT_SCALE_HEIGHT);
-	g_stateManager.setState(MainMenu());
+	g_stateManager.setState(createMenuState());
 	SetPersistentResources(true);
+}
+
+State@ createGameState()
+{
+	return GameState("empty", vector2(1.0f, 0.0f));
+}
+
+State@ createMenuState()
+{
+	return MainMenu("empty", vector2(0.75f, 0.5f), vector2(0.25f, 0.5f));
 }
 
 void loop()
