@@ -17,6 +17,17 @@
 	void hide(const bool hide)
 	{
 		m_hidden = hide;
+		if (m_hidden)
+		{
+			for (uint t = 0; t < m_buttons.length(); t++)
+			{
+				m_buttons[t].reset();
+			}
+			for (uint t = 0; t < m_sprites.length(); t++)
+			{
+				m_sprites[t].reset();
+			}
+		}
 	}
 
 	void addButton(const string &in name, const string &in spriteName, const vector2 &in normPos, const vector2 &in origin, const float superScale)

@@ -1,4 +1,4 @@
-﻿class UISprite
+﻿class UISprite : UIElement
 {
 	private string m_spriteName;
 	private uint m_color;
@@ -30,7 +30,12 @@
 		init();
 		m_size = _size;
 	}
-	
+
+	void reset()
+	{
+		m_interp.reset(m_pos, m_pos, 1000);
+	}
+
 	private void init()
 	{
 		LoadSprite(m_spriteName);

@@ -1,18 +1,25 @@
-﻿class UIButton : Button
+﻿class UIButton : Button, UIElement
 {
 	private vector2 m_destPos;
 	private PositionInterpolator m_interp;
+	private vector2 m_initPos;
 
 	UIButton(const string _name, const vector2 &in _pos, const float _buttonScale,
 			 const vector2 &in _origin = vector2(0.5f, 0.5f), const float effectScale = 1.0f)
 	{
 		const vector2 _initPos = _pos + (normalize(_pos - (GetScreenSize() * 0.5f)) * g_scale.scale(32)) * effectScale;
 		super(_name, _initPos, _buttonScale, _origin);
+		m_initPos = _initPos;
 		m_destPos = _pos;
 		m_interp = PositionInterpolator(_initPos, _pos, 700);
 		setColor(0.0f);
 	}
-	
+
+	void reset()
+	{
+		m_interp.reset(m_initPos, m_destPos, 700);
+	}
+
 	void update()
 	{
 		if (!isAnimationFinished())
@@ -20,6 +27,11 @@
 		m_pos = m_interp.getCurrentPos();
 		Button::update();
 		setColor(m_interp.getBias());
+	}
+
+	void draw()
+	{
+		Button::draw();
 	}
 
 	private void setColor(const float alpha)

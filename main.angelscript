@@ -3,30 +3,41 @@
 void main()
 {
 	g_scale.updateScaleFactor(DEFAULT_SCALE_HEIGHT);
-	g_stateManager.setState(createMenuState());
+	@g_gameStateFactory = sMyStateFactory();
+	g_stateManager.setState(g_gameStateFactory.createMenuState());
 	SetPersistentResources(true);
 }
 
-State@ createGameState()
+class sMyStateFactory : sGameStateFactory
 {
-	return GameState("empty", vector2(1.0f, 0.0f));
-}
+	State@ createMenuState()
+	{
+		return MainMenu("empty", vector2(0.75f, 0.5f), vector2(0.25f, 0.5f));
+	}
 
-State@ createMenuState()
-{
-	return MainMenu("empty", vector2(0.75f, 0.5f), vector2(0.25f, 0.5f));
+	State@ createLevelSelectState()
+	{
+		PageProperties props;
+		return LevelSelector("empty", @props);
+	}
+
+	State@ createGameState(const uint idx)
+	{
+		return GameState(idx, "empty", vector2(1.0f, 0.0f));
+	}
 }
 
 void loop()
 {
 	g_stateManager.runCurrentLoopFunction();
-	//DrawText(vector2(0,30), "" + GetFPSRate() + "/" + GetNumEntities(), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+
+	#if TESTING
+		DrawText(vector2(0,0), "" + GetFPSRate(), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	#endif
 }
 
 void preLoop()
 {
-	//SetBackgroundColor(0xFFFF0000);
-	// atualiza global scale para evitar dimensoes falsas do Xoom
 	g_scale.updateScaleFactor(DEFAULT_SCALE_HEIGHT);
 	g_stateManager.runCurrentPreLoopFunction();
 

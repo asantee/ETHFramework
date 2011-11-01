@@ -1,6 +1,6 @@
 Ethanon engine base framework with game state manager, simple UI system, samples and other utilities
 
-Ethanon Programming patterns:
+Ethanon Programming style and patterns:
 
 -Use g_ on globals
 -Use m_ on members
@@ -11,3 +11,4 @@ Ethanon Programming patterns:
 -All helper functions shall be in their own "header" file with their own variations and overloads
 -Misc utility functions must be grouped in util- prefixed files  (e.g. utilSprite.angelscript)
 -Functions that are directly related to a class functionality range may be placed along with the main class definition (e.g. class Interpolator and function interpolate(...))
+-All singletons must be available anytime, anywhere

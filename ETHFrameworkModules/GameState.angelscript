@@ -4,9 +4,11 @@
 	private vector2 m_menuButtonNormPos;
 	private GameLayer@ m_gameLayer;
 	private GameMenuLayer@ m_gameMenuLayer;
+	private uint m_levelIndex;
 
-	GameState(const string &in sceneName, const vector2 &in menuButtonNormPos)
+	GameState(const uint levelIndex, const string &in sceneName, const vector2 &in menuButtonNormPos)
 	{
+		m_levelIndex = levelIndex;
 		m_sceneName = sceneName;
 		m_menuButtonNormPos = menuButtonNormPos;
 	}
@@ -85,7 +87,7 @@ class GameMenuLayer : UILayer
 		if (isButtonPressed("back_button"))
 		{
 			setButtonPressed("back_button", false);
-			g_stateManager.setState(createMenuState());
+			g_stateManager.setState(g_gameStateFactory.createMenuState());
 			hide(true);
 		}
 	}

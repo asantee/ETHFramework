@@ -57,7 +57,7 @@ class MainMenuLayer : UILayer
 		UILayer::update();
 		if (isButtonPressed("play_button"))
 		{
-			g_stateManager.setState(createGameState());
+			g_stateManager.setState(g_gameStateFactory.createLevelSelectState());
 		}
 	}
 
