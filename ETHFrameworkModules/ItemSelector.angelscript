@@ -20,11 +20,11 @@
 		BaseState::preLoop();
 
 		m_layerManager.addLayer(PageManager(@m_props));
-		m_layerManager.setCurrentLayer("itemPages");
+		m_layerManager.setCurrentLayer("PageManager");
 	}
 
 	string getName()
 	{
-		return "itemSelector";
+		return "ItemSelector";
 	}
 }

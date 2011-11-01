@@ -1,4 +1,7 @@
 ﻿funcdef bool PERFORM_ACTION(const uint itemIdx);
+funcdef bool VALIDATE_ITEM(const uint itemIdx);
+
+bool defaultItemValidation(const uint itemIdx) { return true; }
 
 class PageProperties
 {
@@ -7,9 +10,10 @@ class PageProperties
 		numItems = 35;
 		columns = 4;
 		rows = 3;
-		font = "Verdana64.fnt";
+		font = "Verdana64_shadow.fnt";
 		numberOffset = vector2(0, 0);
 		@performAction = @levelChooser;
+		@validateItem  = @defaultItemValidation;
 		buttonBg		= "sprites/level_select_icon.png";
 		lockedButton	= "sprites/level_select_lock_icon.png";
 		emptyButton		= "sprites/level_select_icon.png";
@@ -20,6 +24,7 @@ class PageProperties
 	string font;
 	vector2 numberOffset;
 	PERFORM_ACTION@ performAction;
+	VALIDATE_ITEM@ validateItem;
 	string buttonBg;
 	string lockedButton;
 	string emptyButton;
@@ -39,6 +44,7 @@ class Page
 	private string m_font;
 	private vector2 m_numberOffset;
 	private PERFORM_ACTION@ m_performAction;
+	private VALIDATE_ITEM@ m_validateItem;
 
 	Page(const uint firstItem, PageProperties@ props)
 	{
@@ -49,6 +55,7 @@ class Page
 		m_columns = props.columns;
 		m_numberOffset = g_scale.scale(props.numberOffset);
 		@m_performAction = @(props.performAction);
+		@m_validateItem = @(props.validateItem);
 		m_buttonBg     = props.buttonBg;
 		m_lockedButton = props.lockedButton;
 		m_emptyButton  = props.emptyButton;
@@ -79,17 +86,18 @@ class Page
 		const bool isOffseting = (offset != vector2(0,0));
 		for (uint t = 0; t < m_buttons.length(); t++)
 		{
+			const uint currentItem = getItem(t);
 			if (isOffseting && !m_buttons[t].isInScreen(offset))
 			{
 				continue;
 			}
-			if (isValidItem(getItem(t)) || !m_buttons[t].isAnimationFinished())
+			if (isValidItem(currentItem) || !m_buttons[t].isAnimationFinished())
 			{
 				m_buttons[t].update();
-				if (m_buttons[t].isPressed() && isValidItem(getItem(t)))
+				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_validateItem(currentItem))
 				{
 					m_buttons[t].setPressed(false);
-					m_performAction(getItem(t));
+					m_performAction(currentItem);
 				}
 			}
 		}
@@ -203,7 +211,7 @@ class PageManager : UILayer
 
 	string getName() const
 	{
-		return "itemPages";
+		return "PageManager";
 	}
 
 	bool isAlwaysActive() const

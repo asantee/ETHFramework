@@ -1,14 +1,16 @@
-Ethanon engine base framework with game state manager, simple UI system, samples and other utilities
+The project is a base framework for Ethanon engine with game state manager, basic UI control and many other utilities.
+
+In order to use it, simply #include "IncludeModules.angelscript" to your main file.
 
 Ethanon Programming style and patterns:
 
--Use g_ on globals
--Use m_ on members
+-Globals have g_ prefix (e.g. g_gameSaveManager)
+-Members have m_ prefix (e.g. m_speed)
 -Use UPPER_CASE_LETTERS on constants
--Use UPPER_CASE_LETTERS on funcdef's
--Singleton classes with prefix s (e.g. sGlobalScale)
+-Use UPPER_CASE_LETTERS on funcdef types
+-Singleton classes must have the 's' letter as prefix (e.g. sGlobalScale)
 -Include all files in a single IncludeModules.angelscript
--All helper functions shall be in their own "header" file with their own variations and overloads
+-All helper functions shall be in their own "header" file along with their own variations and overloads
 -Misc utility functions must be grouped in util- prefixed files  (e.g. utilSprite.angelscript)
--Functions that are directly related to a class functionality range may be placed along with the main class definition (e.g. class Interpolator and function interpolate(...))
+-Functions that are directly related to a class functionality range may be placed along with the main class definition file (e.g. class Interpolator and function interpolate(...))
 -All singletons must be available anytime, anywhere

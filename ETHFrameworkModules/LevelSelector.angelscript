@@ -5,15 +5,19 @@
 		super(sceneName, @props);
 	}
 
+	void loop()
+	{
+		ItemSelector::loop();
+	}
+
 	string getName()
 	{
-		return "levelSelector";
+		return "LevelSelector";
 	}
 }
 
 bool levelChooser(const uint levelIdx)
 {
-	print("filhadaputa " + levelIdx);
 	g_stateManager.setState(g_gameStateFactory.createGameState(levelIdx));
 	return true;
 }
