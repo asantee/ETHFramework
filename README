@@ -5,7 +5,7 @@ In order to use it, simply #include "IncludeModules.angelscript" to your main fi
 Ethanon Programming style and patterns:
 
 -Globals have g_ prefix (e.g. g_gameSaveManager)
--Members have m_ prefix (e.g. m_speed)
+-Members have m_ prefix (e.g. m_speed)*
 -Use UPPER_CASE_LETTERS on constants
 -Use UPPER_CASE_LETTERS on funcdef types
 -Singleton classes must have the 's' letter as prefix (e.g. sGlobalScale)
@@ -14,3 +14,5 @@ Ethanon Programming style and patterns:
 -Misc utility functions must be grouped in util- prefixed files  (e.g. utilSprite.angelscript)
 -Functions that are directly related to a class functionality range may be placed along with the main class definition file (e.g. class Interpolator and function interpolate(...))
 -All singletons must be available anytime, anywhere
+
+*Unless it's just a data storage class (like vector3)

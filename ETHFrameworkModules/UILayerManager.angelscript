@@ -25,9 +25,11 @@
 		const int size = m_layers.length();
 		for (int t = 0; t < size; t++)
 		{
-			if (!m_layers[t].isHidden())
+			if (!m_layers[t].isHidden() && m_currentLayer != t)
 				m_layers[t].draw();
 		}
+		if (m_currentLayer >= 0)
+			m_layers[m_currentLayer].draw();
 	}
 
 	private void updateAlwaysActiveLayers()
@@ -60,5 +62,13 @@
 	private bool isCurrentLayer(const int idx)
 	{
 		return (m_currentLayer == idx);
+	}
+
+	UILayer@ getCurrentLayer()
+	{
+		if (m_currentLayer >= 0)
+			return @(m_layers[m_currentLayer]);
+		else
+			return null;
 	}
 }

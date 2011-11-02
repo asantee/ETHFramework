@@ -14,25 +14,33 @@ class PageProperties
 		numberOffset = vector2(0, 0);
 		@performAction = @levelChooser;
 		@validateItem  = @defaultItemValidation;
+		backButtonNormPos		= vector2(0.0f, 0.5f);
+		forwardButtonNormPos	= vector2(1.0f, 0.5f);
 		buttonBg		= "sprites/level_select_icon.png";
 		lockedButton	= "sprites/level_select_lock_icon.png";
 		emptyButton		= "sprites/level_select_icon.png";
+		backButton		= "sprites/level_select_back.png";
+		forwardButton	= "sprites/level_select_forward.png";
 	}
 	uint numItems;
 	uint columns;
 	uint rows;
 	string font;
 	vector2 numberOffset;
+	vector2 backButtonNormPos;
+	vector2 forwardButtonNormPos;
 	PERFORM_ACTION@ performAction;
 	VALIDATE_ITEM@ validateItem;
 	string buttonBg;
 	string lockedButton;
 	string emptyButton;
+	string backButton;
+	string forwardButton;
 }
 
 class Page
 {
-	private UIButton@[] m_buttons;
+	private Button@[] m_buttons;
 	private string m_buttonBg;
 	private string m_lockedButton;
 	private string m_soonButton;
@@ -81,6 +89,16 @@ class Page
 		}
 	}
 
+	private void setupItemButton(const uint t, const vector2 &in cursor)
+	{
+		string sprite = m_buttonBg;
+		if (getItem(t) >= m_numItems)
+		{
+			sprite = m_emptyButton;
+		}
+		@m_buttons[t] = Button(sprite, cursor, g_scale.getScale(), vector2(0, 0));
+	}
+
 	void update(const vector2 &in offset)
 	{
 		const bool isOffseting = (offset != vector2(0,0));
@@ -91,7 +109,7 @@ class Page
 			{
 				continue;
 			}
-			if (isValidItem(currentItem) || !m_buttons[t].isAnimationFinished())
+			if (isValidItem(currentItem)/* || !m_buttons[t].isAnimationFinished()*/)
 			{
 				m_buttons[t].update();
 				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_validateItem(currentItem))
@@ -149,16 +167,6 @@ class Page
 		}
 	}*/
 
-	private void setupItemButton(const uint t, const vector2 &in cursor)
-	{
-		string sprite = m_buttonBg;
-		if (getItem(t) >= m_numItems)
-		{
-			sprite = m_emptyButton;
-		}
-		@m_buttons[t] = UIButton(sprite, cursor, g_scale.getScale(), vector2(0, 0));
-	}
-
 	uint getButtonCount()
 	{
 		return m_buttons.length();
@@ -207,6 +215,9 @@ class PageManager : UILayer
 		{
 			m_pages.insertLast(Page(buttonsPerPage * m_pages.length(), @m_props));
 		}
+
+		addButton("back_button", "sprites/level_select_forward.png", m_props.backButtonNormPos,    m_props.backButtonNormPos);
+		addButton("forw_button", "sprites/level_select_back.png",    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
 	}
 
 	string getName() const
@@ -252,11 +263,47 @@ class PageManager : UILayer
 	
 	void update()
 	{
+		UILayer::update();
 		m_swyper.update();
+
+		if (isButtonPressed("back_button"))
+		{
+			if (isFirstPage())
+			{
+				g_stateManager.setState(g_gameStateFactory.createMenuState());
+			}
+			else
+			{
+				priorPage();
+			}
+			setButtonPressed("back_button", false);
+		}
+		if (isButtonPressed("forw_button"))
+		{
+			nextPage();
+			setButtonPressed("forw_button", false);
+		}
+		if (isLastPage())
+		{
+			UIButton@ button = getButton("forw_button");
+			FloatColor newColor(button.getCustomColor());
+			newColor.a *= 0.96f;
+			button.setCustomColor(newColor.getUInt());
+		}
+		else
+		{
+			UIButton@ button = getButton("forw_button");
+			FloatColor newColor(button.getCustomColor());
+			newColor.a += 0.05f;
+			if (newColor.a > 1.0f)
+				newColor.a = 1.0f;
+			button.setCustomColor(newColor.getUInt());
+		}
 	}
 
 	void draw()
 	{
+		UILayer::draw();
 		const vector2 screenSize(GetScreenSize());
 		m_pages[m_swyper.getCurrentPage()].update(vector2(0,0));
 		const int nextPage = m_swyper.getNextPage();

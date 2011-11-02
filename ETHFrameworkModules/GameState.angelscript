@@ -45,6 +45,32 @@
 			m_gameMenuLayer.hide(true);
 			m_layerManager.setCurrentLayer("GameLayer");
 		}
+		handleBackButton();
+	}
+
+	void handleBackButton()
+	{
+		if (GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
+		{
+			UILayer@ currentLayer = m_layerManager.getCurrentLayer();
+			bool willShowGameMenuLayerPopup = true;
+			if (currentLayer !is null)
+			{
+				if (currentLayer.getName() == "GameMenuLayer")
+				{
+					m_gameMenuLayer.hide(true);
+					m_layerManager.setCurrentLayer("GameLayer");
+				}
+				else
+				{
+					m_layerManager.setCurrentLayer("GameMenuLayer");
+				}
+			}
+			else
+			{
+				willShowGameMenuLayerPopup = true;
+			}
+		}
 	}
 
 	string getName()

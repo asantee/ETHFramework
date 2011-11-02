@@ -59,6 +59,18 @@
 		m_sprites.insertLast(UISprite(spriteName, color, pos, size, origin));
 	}
 
+	UIButton@ getButton(const string &in name)
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].getName() == name)
+			{
+				return @(m_buttons[t]);
+			}
+		}
+		return null;
+	}
+
 	bool isButtonPressed(const string &in name) const
 	{
 		for (uint t = 0; t < m_buttons.length(); t++)

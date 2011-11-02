@@ -5,6 +5,7 @@
 	private vector2 m_origin;
 	private vector2 m_size;
 	private uint m_color;
+	private uint m_customColor;
 	private bool m_pressed;
 	private bool m_lastTouchInButton;
 	private vector2 m_lastDownPos;
@@ -22,6 +23,7 @@
 		m_color = 0xFFFFFFFF;
 		m_pressed = false;
 		m_lastTouchInButton = false;
+		m_customColor = COLOR_WHITE;
 	}
 
 	void setName(const string &in _name)
@@ -44,11 +46,26 @@
 		m_pos = _pos;
 	}
 
+	void setCustomColor(const uint customColor)
+	{
+		m_customColor = customColor;
+	}
+
+	uint getCustomColor() const
+	{
+		return m_customColor;
+	}
+
 	uint getColor() const
 	{
 		return m_color;
 	}
 	
+	void setColor(const uint color)
+	{
+		m_color = color;
+	}
+
 	void setButtonBitmap(const string &in _spriteName)
 	{
 		m_spriteName = _spriteName;
@@ -94,7 +111,7 @@
 	{
 		// if is not loaded yet, load again (handle android unexpected texture destruction)
 		LoadSprite(m_spriteName);
-		drawScaledSprite(m_spriteName, m_pos + offset, m_buttonScale, m_origin, m_color);
+		drawScaledSprite(m_spriteName, m_pos + offset, m_buttonScale, m_origin, (FloatColor(m_color) * FloatColor(m_customColor)).getUInt());
 	}
 
 	void update()
