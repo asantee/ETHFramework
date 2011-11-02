@@ -11,7 +11,7 @@
 		super(_name, _initPos, _buttonScale, _origin);
 		m_initPos = _initPos;
 		m_destPos = _pos;
-		m_interp = PositionInterpolator(_initPos, _pos, 700);
+		m_interp = PositionInterpolator(_initPos, _pos, 700, true);
 		setColor(0.0f);
 	}
 

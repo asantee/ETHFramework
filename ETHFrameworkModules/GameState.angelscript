@@ -29,6 +29,7 @@
 		m_layerManager.addLayer(@m_gameMenuLayer);
 
 		m_layerManager.setCurrentLayer("GameLayer");
+		g_timeManager.resume();
 	}
 
 	void loop()
@@ -37,13 +38,12 @@
 		if (m_gameLayer.isButtonPressed("menu_button"))
 		{
 			m_gameLayer.setButtonPressed("menu_button", false);
-			m_layerManager.setCurrentLayer("GameMenuLayer");
+			showMenuPopup();
 		}
 		if (m_gameMenuLayer.isButtonPressed("resume_button"))
 		{
 			m_gameMenuLayer.setButtonPressed("resume_button", false);
-			m_gameMenuLayer.hide(true);
-			m_layerManager.setCurrentLayer("GameLayer");
+			hideMenuPopup();
 		}
 		handleBackButton();
 	}
@@ -58,12 +58,11 @@
 			{
 				if (currentLayer.getName() == "GameMenuLayer")
 				{
-					m_gameMenuLayer.hide(true);
-					m_layerManager.setCurrentLayer("GameLayer");
+					hideMenuPopup();
 				}
 				else
 				{
-					m_layerManager.setCurrentLayer("GameMenuLayer");
+					showMenuPopup();
 				}
 			}
 			else
@@ -71,6 +70,19 @@
 				willShowGameMenuLayerPopup = true;
 			}
 		}
+	}
+
+	void showMenuPopup()
+	{
+		m_layerManager.setCurrentLayer("GameMenuLayer");
+		g_timeManager.pause();
+	}
+
+	void hideMenuPopup()
+	{
+		m_gameMenuLayer.hide(true);
+		m_layerManager.setCurrentLayer("GameLayer");
+		g_timeManager.resume();
 	}
 
 	string getName()

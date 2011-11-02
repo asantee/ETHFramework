@@ -39,7 +39,7 @@
 	private void init()
 	{
 		LoadSprite(m_spriteName);
-		m_interp = PositionInterpolator(m_pos, m_pos, 1000);
+		m_interp = PositionInterpolator(m_pos, m_pos, 1000, true);
 		m_a = (0xFF000000 & m_color) >> 24;
 		m_r = (0x00FF0000 & m_color) >> 16;
 		m_g = (0x0000FF00 & m_color) >> 8;

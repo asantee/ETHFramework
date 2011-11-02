@@ -15,15 +15,19 @@ vector3 interpolate(const vector3 &in a, const vector3 &in b, const float bias)
 
 class InterpolationTimer
 {
-	InterpolationTimer(const uint _millisecs)
+	InterpolationTimer(const uint _millisecs, const bool dontPause)
 	{
 		reset(_millisecs);
 		@m_filter = @smoothEnd;
+		m_dontPause = dontPause;
 	}
 	
 	void update()
 	{
-		m_elapsedTime += g_timeManager.getLastFrameElapsedTime();
+		if (m_dontPause)
+			m_elapsedTime += GetLastFrameElapsedTime();
+		else
+			m_elapsedTime += g_timeManager.getLastFrameElapsedTime();
 	}
 
 	float getBias() const
@@ -45,6 +49,7 @@ class InterpolationTimer
 	uint m_elapsedTime;
 	uint m_time;
 	INTERPOLATION_FILTER@ m_filter;
+	bool m_dontPause;
 }
 
 class PositionInterpolator : InterpolationTimer
@@ -52,9 +57,9 @@ class PositionInterpolator : InterpolationTimer
 	private vector2 m_a;
 	private vector2 m_b;
 
-	PositionInterpolator(const vector2 &in _a, const vector2 &in _b, const uint _millisecs)
+	PositionInterpolator(const vector2 &in _a, const vector2 &in _b, const uint _millisecs, const bool dontPause = false)
 	{
-		super(_millisecs);
+		super(_millisecs, dontPause);
 		reset(_a, _b, _millisecs);
 	}
 

@@ -283,6 +283,11 @@ class PageManager : UILayer
 			nextPage();
 			setButtonPressed("forw_button", false);
 		}
+		fadeForwardArrows();
+	}
+
+	void fadeForwardArrows()
+	{
 		if (isLastPage())
 		{
 			UIButton@ button = getButton("forw_button");
