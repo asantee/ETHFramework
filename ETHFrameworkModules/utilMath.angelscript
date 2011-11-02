@@ -13,16 +13,6 @@ vector2 toVector2(const vector3 &in v)
 	return vector2(v.x, v.y);
 }
 
-string vector3ToString(const vector3 &in v3)
-{
-	return "(" + v3.x + ", " + v3.y + ", " + v3.z + ")";
-}
-
-string vector2ToString(const vector2 &in v2)
-{
-	return "(" + v2.x + ", " + v2.y + ")";
-}
-
 float dp3(const vector3 a, const vector3 b)
 {
 	return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);

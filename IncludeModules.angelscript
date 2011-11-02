@@ -31,7 +31,10 @@
 #include "ETHFrameworkModules/utilSprite.angelscript" 
 #include "ETHFrameworkModules/utilIntersections.angelscript" 
 #include "ETHFrameworkModules/utilText.angelscript" 
-#include "ETHFrameworkModules/utilColors.angelscript" 
+#include "ETHFrameworkModules/utilColors.angelscript"
+#include "ETHFrameworkModules/utilEntitySeeker.angelscript" 
+#include "ETHFrameworkModules/utilString.angelscript" 
+#include "ETHFrameworkModules/utilFileIO.angelscript" 
 
 // States
 #include "ETHFrameworkModules/MainMenu.angelscript" 
