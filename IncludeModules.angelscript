@@ -16,6 +16,7 @@
 #include "Interpolator.angelscript"
 #include "Swyper.angelscript"
 #include "FrameTimer.angelscript"
+#include "EntityGrabber.angelscript"
 
 // Property structs
 #include "PageProperties.angelscript"
@@ -42,6 +43,7 @@
 #include "utilFileIO.angelscript" 
 #include "utilEntityEffect.angelscript"
 #include "utilCollide.angelscript"
+#include "utilPlanes.angelscript"
 
 // States
 #include "MainMenu.angelscript" 
