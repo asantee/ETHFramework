@@ -3,6 +3,8 @@ const string PRELOOP = "preLoop";
 
 const float DEFAULT_SCALE_HEIGHT = 480.0f;
 
+const float HIGH_VALUE = 99999.0f;
+
 const vector2 V2_HALF(0.5f, 0.5f);
 const vector3 V3_HALF(0.5f, 0.5f, 0.5f);
 const vector2 V2_ZERO(0.0f, 0.0f);

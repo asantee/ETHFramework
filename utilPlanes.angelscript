@@ -51,8 +51,6 @@ float planeDotVector(const Plane plane, const vector2 vec)
 	return (plane.x * vec.x) + (plane.y * vec.y) + (plane.w);
 }
 
-const float HIGH_VALUE = 99999.0f;
-
 class Shape
 {
 	Plane[] m_planes;
