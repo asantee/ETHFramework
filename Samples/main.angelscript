@@ -1,4 +1,4 @@
-﻿#include "IncludeModules.angelscript"
+﻿#include "ETHFramework/IncludeModules.angelscript"
 
 void main()
 {
@@ -33,7 +33,7 @@ void loop()
 	g_stateManager.runCurrentLoopFunction();
 
 	#if TESTING
-		DrawText(vector2(0,0), "" + GetFPSRate(), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+		DrawText(V2_ZERO, "" + GetFPSRate(), "Verdana20_shadow.fnt", COLOR_WHITE);
 	#endif
 }
 
