@@ -1,15 +1,13 @@
 ﻿class MainMenu : BaseState
 {
 	private string m_sceneName;
-	private vector2 m_buttonNormPos;
-	private vector2 m_titlePos;
+	private MainMenuProperties@ m_props;
 	private UILayer@ m_mainMenuLayer;
 
-	MainMenu(const string &in sceneName, const vector2 &in buttonNormPos, const vector2 &in titlePos)
+	MainMenu(const string &in sceneName, MainMenuProperties@ props)
 	{
 		m_sceneName = sceneName;
-		m_buttonNormPos = buttonNormPos;
-		m_titlePos = titlePos;
+		@m_props = @props;
 	}
 
 	void start()
@@ -21,7 +19,7 @@
 	void preLoop()
 	{
 		BaseState::preLoop();
-		@m_mainMenuLayer = MainMenuLayer(m_buttonNormPos, m_titlePos);
+		@m_mainMenuLayer = MainMenuLayer(@m_props);
 
 		m_layerManager.addLayer(@m_mainMenuLayer);
 
@@ -41,15 +39,18 @@
 
 class MainMenuLayer : UILayer
 {
-	MainMenuLayer(const vector2 &in buttonNormPos, const vector2 &in titlePos)
+	private MainMenuProperties@ m_props;
+
+	MainMenuLayer(MainMenuProperties@ props)
 	{
+		@m_props = @props;
 		const vector2 screenSize(GetScreenSize());
 
 		// addButton parameters: button name id, sprite file name, normalized pos
-		addButton("play_button", "sprites/main_play_game_button.png", buttonNormPos);
+		addButton("play_button", "sprites/main_play_game_button.png", props.buttonNormPos);
 
 		// addSprite parameters: sprite file name, color, pos, origin
-		addSprite("sprites/game_main_title.png", COLOR_WHITE, titlePos * screenSize, V2_HALF);
+		addSprite("sprites/game_main_title.png", COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
 	}
 	
 	void update()

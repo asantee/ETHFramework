@@ -12,7 +12,8 @@ class sMyStateFactory : sGameStateFactory
 {
 	State@ createMenuState()
 	{
-		return MainMenu("empty", vector2(0.75f, 0.5f), vector2(0.25f, 0.5f));
+		MainMenuProperties props;
+		return MainMenu("empty", @props);
 	}
 
 	State@ createLevelSelectState()

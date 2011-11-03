@@ -15,6 +15,11 @@
 #include "ETHFrameworkModules/Button.angelscript"
 #include "ETHFrameworkModules/Interpolator.angelscript"
 #include "ETHFrameworkModules/Swyper.angelscript"
+#include "ETHFrameworkModules/FrameTimer.angelscript"
+
+// Property structs
+#include "ETHFrameworkModules/PageProperties.angelscript"
+#include "ETHFrameworkModules/MainMenuProperties.angelscript"
 
 // Layers
 #include "ETHFrameworkModules/PageManager.angelscript"
@@ -35,6 +40,8 @@
 #include "ETHFrameworkModules/utilEntitySeeker.angelscript" 
 #include "ETHFrameworkModules/utilString.angelscript" 
 #include "ETHFrameworkModules/utilFileIO.angelscript" 
+#include "ETHFrameworkModules/utilEntityEffect.angelscript"
+#include "ETHFrameworkModules/utilCollide.angelscript"
 
 // States
 #include "ETHFrameworkModules/MainMenu.angelscript" 
