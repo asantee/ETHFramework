@@ -21,6 +21,7 @@
 // Property structs
 #include "PageProperties.angelscript"
 #include "MainMenuProperties.angelscript"
+#include "GameStateProperties.angelscript"
 
 // Layers
 #include "PageManager.angelscript"

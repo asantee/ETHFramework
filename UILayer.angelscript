@@ -71,6 +71,18 @@
 		return null;
 	}
 
+	bool isPointInButton(const vector2 &in p) const
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].isPointInButton(p))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	bool isButtonPressed(const string &in name) const
 	{
 		for (uint t = 0; t < m_buttons.length(); t++)

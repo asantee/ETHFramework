@@ -59,6 +59,22 @@
 		return false;
 	}
 	
+	bool isPointInButton(const vector2 &in p) const
+	{
+		const int size = m_layers.length();
+		for (int t = 0; t < size; t++)
+		{
+			if (!m_layers[t].isHidden())
+			{
+				if (m_layers[t].isPointInButton(p))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	private bool isCurrentLayer(const int idx)
 	{
 		return (m_currentLayer == idx);

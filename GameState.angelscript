@@ -1,16 +1,16 @@
 ﻿class GameState : BaseState
 {
 	private string m_sceneName;
-	private vector2 m_menuButtonNormPos;
 	private GameLayer@ m_gameLayer;
 	private GameMenuLayer@ m_gameMenuLayer;
 	private uint m_levelIndex;
+	private GameStateProperties@ m_props;
 
-	GameState(const uint levelIndex, const string &in sceneName, const vector2 &in menuButtonNormPos)
+	GameState(const uint levelIndex, const string &in sceneName, GameStateProperties@ props)
 	{
 		m_levelIndex = levelIndex;
 		m_sceneName = sceneName;
-		m_menuButtonNormPos = menuButtonNormPos;
+		@m_props = @props;
 	}
 
 	void start()
@@ -22,7 +22,7 @@
 	void preLoop()
 	{
 		BaseState::preLoop();
-		@m_gameLayer = GameLayer(m_menuButtonNormPos);
+		@m_gameLayer = GameLayer(@m_props, m_levelIndex);
 		@m_gameMenuLayer = GameMenuLayer();
 		
 		m_layerManager.addLayer(@m_gameLayer);
@@ -93,15 +93,37 @@
 
 class GameLayer : UILayer
 {
-	GameLayer(const vector2 &in menuButtonNormPos)
+	private GameStateProperties@ m_props;
+	private uint m_currentLevel;
+
+	GameLayer(GameStateProperties@ props, const uint currentLevel)
 	{
+		m_currentLevel = currentLevel;
+		@m_props = @props;
+
 		// addButton parameters: button name id, sprite file name, normalized pos, normalized origin
-		addButton("menu_button", "sprites/main_menu_shortcut.png", menuButtonNormPos, menuButtonNormPos);
+		addButton("menu_button", "sprites/main_menu_shortcut.png", m_props.menuButtonNormPos, m_props.menuButtonNormPos);
+		UIButton@ menuButton = getButton("menu_button");
+		menuButton.setCustomColor(m_props.menuButtonsCustomColor);
+
+		if (m_props.restartLevelButton != "")
+		{
+			const float screenWidth = GetScreenSize().x;
+			const vector2 restartLevelButtonPos((screenWidth - menuButton.getSize().x) / screenWidth, 0.0f);
+			addButton("restart_level", m_props.restartLevelButton, restartLevelButtonPos, vector2(1,0));
+			UIButton@ restartButton = getButton("restart_level");
+			restartButton.setCustomColor(m_props.menuButtonsCustomColor);
+		}
 	}
 
 	void update()
 	{
 		UILayer::update();
+		if (isButtonPressed("restart_level"))
+		{
+			setButtonPressed("restart_level", false);
+			g_stateManager.setState(g_gameStateFactory.createGameState(m_currentLevel));
+		}
 	}
 
 	string getName() const

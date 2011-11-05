@@ -114,6 +114,16 @@
 		drawScaledSprite(m_spriteName, m_pos + offset, m_buttonScale, m_origin, (FloatColor(m_color) * FloatColor(m_customColor)).getUInt());
 	}
 
+	vector2 getSize() const
+	{
+		return m_size;
+	}
+
+	bool isPointInButton(const vector2 &in p) const
+	{
+		return (isPointInRect(p, m_pos, m_size, m_origin));
+	}
+
 	void update()
 	{
 		m_color = 0xFFFFFFFF;
@@ -122,7 +132,7 @@
 		{
 			m_lastTouchInButton = true;
 			m_lastDownPos = input.GetTouchPos(0);
-			if (isPointInRect(input.GetTouchPos(0), m_pos, m_size, m_origin))
+			if (isPointInButton(input.GetTouchPos(0)))
 			{
 				m_lastTouchInButton = true;
 			}
@@ -133,7 +143,7 @@
 		}
 		else if (input.GetTouchState(0) == KS_RELEASE)
 		{		
-			if (isPointInRect(m_lastDownPos, m_pos, m_size, m_origin) && m_lastTouchInButton)
+			if (isPointInButton(m_lastDownPos) && m_lastTouchInButton)
 			{
 				m_pressed = true;
 			}
@@ -143,7 +153,7 @@
 		{
 			m_lastDownPos = input.GetTouchPos(0);
 		}
-		if (m_lastTouchInButton && isPointInRect(input.GetTouchPos(0), m_pos, m_size, m_origin))
+		if (m_lastTouchInButton && isPointInButton(input.GetTouchPos(0)))
 		{
 			m_color = 0xFFCCCCCC;
 		}
