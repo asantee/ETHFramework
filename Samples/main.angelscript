@@ -24,7 +24,8 @@ class sMyStateFactory : sGameStateFactory
 
 	State@ createGameState(const uint idx)
 	{
-		return GameState(idx, "empty", vector2(1.0f, 0.0f));
+		GameStateProperties props;
+		return GameState(idx, "empty", @props);
 	}
 }
 
