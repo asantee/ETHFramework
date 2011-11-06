@@ -47,10 +47,15 @@ class MainMenuLayer : UILayer
 		const vector2 screenSize(GetScreenSize());
 
 		// addButton parameters: button name id, sprite file name, normalized pos
-		addButton("play_button", "sprites/main_play_game_button.png", props.buttonNormPos);
+		addButton("play_button", m_props.playButton, props.buttonNormPos);
+
+		if (m_props.exitButton != "")
+		{
+			addButton("exit_button", m_props.exitButton, m_props.exitButtonNormPos, m_props.exitButtonNormPos);
+		}
 
 		// addSprite parameters: sprite file name, color, pos, origin
-		addSprite("sprites/game_main_title.png", COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
+		addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
 	}
 	
 	void update()
@@ -59,6 +64,10 @@ class MainMenuLayer : UILayer
 		if (isButtonPressed("play_button"))
 		{
 			g_stateManager.setState(g_gameStateFactory.createLevelSelectState());
+		}
+		if (isButtonPressed("exit_button") || GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
+		{
+			Exit();
 		}
 	}
 

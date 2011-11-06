@@ -163,6 +163,7 @@ class PageManager : UILayer
 	private PageProperties@ m_props;
 	private Page@[] m_pages;
 	private Swyper m_swyper;
+	private vector2 m_backButtonOffset;
 
 	PageManager(PageProperties@ props)
 	{
@@ -170,6 +171,7 @@ class PageManager : UILayer
 		const uint buttonsPerPage = props.columns * props.rows;
 		const uint numPages = uint(ceil(float(props.numItems) / float(buttonsPerPage)));
 		m_swyper = Swyper(numPages);
+		m_backButtonOffset = vector2(0,0);
 
 		while (m_pages.length() * buttonsPerPage < m_props.numItems)
 		{
@@ -226,17 +228,26 @@ class PageManager : UILayer
 		UILayer::update();
 		m_swyper.update();
 
-		if (isButtonPressed("back_button"))
+		UIButton@ backButton = getButton("back_button");
+		bool firstPage = isFirstPage();
+		if (backButton !is null)
 		{
-			if (isFirstPage())
+			if (firstPage)
 			{
-				g_stateManager.setState(g_gameStateFactory.createMenuState());
+				backButton.setScale(g_scale.getScale() + ((abs(sin(GetTimeF() / 200.0f)) * 0.06f) * g_scale.getScale()));
 			}
-			else
+			if (backButton.isPressed())
 			{
-				priorPage();
+				if (firstPage)
+				{
+					g_stateManager.setState(g_gameStateFactory.createMenuState());
+				}
+				else
+				{
+					priorPage();
+				}
+				backButton.setPressed(false);
 			}
-			setButtonPressed("back_button", false);
 		}
 		if (isButtonPressed("forw_button"))
 		{

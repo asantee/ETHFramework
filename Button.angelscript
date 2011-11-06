@@ -56,6 +56,12 @@
 		return m_customColor;
 	}
 
+	void setScale(const float scale)
+	{
+		m_buttonScale = scale;
+		m_size = GetSpriteSize(m_spriteName) * m_buttonScale;
+	}
+
 	uint getColor() const
 	{
 		return m_color;
