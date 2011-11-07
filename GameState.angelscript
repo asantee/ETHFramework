@@ -23,8 +23,8 @@
 	{
 		BaseState::preLoop();
 		@m_gameLayer = GameLayer(@m_props, m_levelIndex);
-		@m_gameMenuLayer = GameMenuLayer();
-		
+		@m_gameMenuLayer = GameMenuLayer(@m_props, m_levelIndex);
+
 		m_layerManager.addLayer(@m_gameLayer);
 		m_layerManager.addLayer(@m_gameMenuLayer);
 
@@ -134,8 +134,13 @@ class GameLayer : UILayer
 
 class GameMenuLayer : UILayer
 {
-	GameMenuLayer()
+	private GameStateProperties@ m_props;
+	private uint m_levelIndex;
+
+	GameMenuLayer(GameStateProperties@ props, const uint levelIndex)
 	{
+		m_levelIndex = levelIndex;
+		@m_props = @props;
 		addSprite("sprites/square.png", ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
 		addButton("back_button",   "sprites/back_to_main_menu.png", vector2(0.5f, 0.35f));
 		addButton("resume_button", "sprites/resume_button.png",     vector2(0.5f, 0.65f));
@@ -150,6 +155,15 @@ class GameMenuLayer : UILayer
 			g_stateManager.setState(g_gameStateFactory.createMenuState());
 			hide(true);
 		}
+	}
+
+	void draw()
+	{
+		UILayer::draw();
+		const uint currentLayerColor = getButton("resume_button").getColor();
+		drawCenteredText(GetScreenSize() * m_props.levelNumberStringNormPos,
+						 m_props.levelNumberString + (m_levelIndex + 1),
+						 m_props.levelNumberFont, g_scale.getScale(), currentLayerColor);
 	}
 
 	string getName() const

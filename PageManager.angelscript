@@ -52,9 +52,14 @@
 	private void setupItemButton(const uint t, const vector2 &in cursor)
 	{
 		string sprite = m_buttonBg;
-		if (getItem(t) >= m_numItems)
+		const uint currentItem = getItem(t);
+		if (currentItem >= m_numItems)
 		{
 			sprite = m_emptyButton;
+		}
+		else if (!m_validateItem(currentItem))
+		{
+			sprite = m_lockedButton;
 		}
 		@m_buttons[t] = Button(sprite, cursor, g_scale.getScale(), vector2(0, 0));
 	}
@@ -103,7 +108,8 @@
 	
 	private void drawNumber(const uint t, const vector2 &in offset)
 	{
-		if (getItem(t) < m_numItems)
+		const uint currentItem = getItem(t);
+		if (currentItem < m_numItems && m_validateItem(currentItem))
 		{	
 			vector2 spriteSize = getButtonSize();
 			vector2 pos = m_buttons[t].getPos();
