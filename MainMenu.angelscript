@@ -67,6 +67,7 @@ class MainMenuLayer : UILayer
 		}
 		if (isButtonPressed("exit_button") || GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
 		{
+			setButtonPressed("exit_button", false);
 			Exit();
 		}
 	}
