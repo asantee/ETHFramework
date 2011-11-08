@@ -1,7 +1,7 @@
 ﻿class Page
 {
 	private Button@[] m_buttons;
-	private string m_buttonBg;
+	private string m_buttonName;
 	private string m_lockedButton;
 	private string m_soonButton;
 	private string m_emptyButton;
@@ -14,6 +14,9 @@
 	private PERFORM_ACTION@ m_performAction;
 	private VALIDATE_ITEM@ m_validateItem;
 	private ITEM_DRAW_CALLBACK@ m_itemDrawCallback;
+	private bool m_useUniqueButtons;
+	private string m_sufix;
+	private bool m_showNumbers;
 
 	Page(const uint firstItem, PageProperties@ props)
 	{
@@ -26,13 +29,12 @@
 		@m_performAction = @(props.performAction);
 		@m_validateItem = @(props.validateItem);
 		@m_itemDrawCallback = @(props.itemDrawCallback);
-		m_buttonBg     = props.buttonBg;
+		m_buttonName   = props.buttonName;
 		m_lockedButton = props.lockedButton;
 		m_emptyButton  = props.emptyButton;
-
-		// fat ball
-		LoadSprite(m_buttonBg);
-		LoadSprite(m_lockedButton);
+		m_useUniqueButtons = props.useUniqueButtons;
+		m_sufix = props.buttonSufix;
+		m_showNumbers = props.showNumbers;
 
 		const uint numButtons = m_rows * m_columns;
 		m_buttons.resize(numButtons);
@@ -51,17 +53,34 @@
 		}
 	}
 
+	private string getSpriteName(const uint itemIdx) const 
+	{
+		if (m_useUniqueButtons)
+		{
+			return (m_buttonName + itemIdx + m_sufix);
+		}
+		else
+		{
+			return m_buttonName;
+		}
+	}
+
 	private void setupItemButton(const uint t, const vector2 &in cursor)
 	{
-		string sprite = m_buttonBg;
 		const uint currentItem = getItem(t);
+		string sprite;
+
 		if (currentItem >= m_numItems)
 		{
 			sprite = m_emptyButton;
 		}
-		else if (!m_validateItem(currentItem))
+		else if (!m_validateItem(currentItem) && !m_useUniqueButtons)
 		{
 			sprite = m_lockedButton;
+		}
+		else
+		{
+			 sprite = getSpriteName(currentItem);
 		}
 		@m_buttons[t] = Button(sprite, cursor, g_scale.getScale(), vector2(0, 0));
 	}
@@ -103,9 +122,17 @@
 				continue;
 			}
 			m_buttons[t].draw(offset);
-			// drawStars(t, buttons[t].getPos() + offset);
-			drawNumber(t, offset);
-			m_itemDrawCallback(getItem(t), m_buttons[t].getPos(), offset);
+			if (m_showNumbers)
+			{
+				drawNumber(t, offset);
+			}
+			const vector2 buttonPos = m_buttons[t].getPos();
+			const vector2 halfButtonSize = m_buttons[t].getSize() * 0.5f;
+			if (m_useUniqueButtons && !m_validateItem(getItem(t)))
+			{
+				drawScaledSprite(m_lockedButton, buttonPos + halfButtonSize + offset , g_scale.getScale(), V2_HALF, COLOR_WHITE);
+			}
+			m_itemDrawCallback(getItem(t), buttonPos, offset);
 		}
 	}
 	
@@ -125,17 +152,6 @@
 		return t + m_first;
 	}
 
-	/*private void drawStars(const uint t, const vector2 pos)
-	{
-		const int score = gScoreManager.getScore(getItem(t));
-		if (score > 0)
-		{
-			const string sprite = "sprites/star_" + score + ".png";
-			LoadSprite(sprite);
-			DrawShapedSprite("sprites/star_" + score + ".png", pos, GetSpriteSize(sprite) * gScale.getScale(), 0xFFFFFFFF);
-		}
-	}*/
-
 	uint getButtonCount()
 	{
 		return m_buttons.length();
@@ -143,7 +159,7 @@
 
 	vector2 getButtonSize()
 	{	
-		return GetSpriteSize(m_buttonBg) * g_scale.getScale();
+		return GetSpriteSize(getSpriteName(0)) * g_scale.getScale();
 	}
 	
 	float getLineWidth()

@@ -19,11 +19,14 @@ class PageProperties
 		@itemDrawCallback  = @defaultDrawCallback;
 		backButtonNormPos		= vector2(0.0f, 0.5f);
 		forwardButtonNormPos	= vector2(1.0f, 0.5f);
-		buttonBg		= "sprites/level_select_icon.png";
+		buttonName		= "sprites/level_select_icon.png";
 		lockedButton	= "sprites/level_select_lock_icon.png";
 		emptyButton		= "sprites/level_select_icon.png";
 		backButton		= "sprites/level_select_back.png";
 		forwardButton	= "sprites/level_select_forward.png";
+		useUniqueButtons = false;
+		buttonSufix = "";
+		showNumbers = true;
 	}
 	uint numItems;
 	uint columns;
@@ -35,9 +38,12 @@ class PageProperties
 	PERFORM_ACTION@ performAction;
 	VALIDATE_ITEM@ validateItem;
 	ITEM_DRAW_CALLBACK@ itemDrawCallback;
-	string buttonBg;
+	string buttonName;
 	string lockedButton;
 	string emptyButton;
 	string backButton;
 	string forwardButton;
+	string buttonSufix;
+	bool useUniqueButtons;
+	bool showNumbers;
 }

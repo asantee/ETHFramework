@@ -13,7 +13,10 @@
 	return r;
 }
 
-bool fileExists(const string &in fileName)
+bool fileExists(const string &in fileName, const bool inPackage = true)
 {
-	return (GetStringFromFileInPackage(getResourcePath() + fileName) != "");
+	if (inPackage)
+		return (GetStringFromFileInPackage(getResourcePath() + fileName) != "");
+	else
+		return (GetStringFromFileInPackage(GetExternalStoragePath() + fileName) != "");
 }
