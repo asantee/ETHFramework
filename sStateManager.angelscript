@@ -16,7 +16,12 @@
 		m_currentState.loop();
 	}
 
-	State@ m_currentState;
+	string getCurrentStateName() const
+	{
+		return m_currentState.getName();
+	}
+
+	private State@ m_currentState;
 }
 
 sStateManager g_stateManager;
