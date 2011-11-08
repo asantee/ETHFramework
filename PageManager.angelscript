@@ -13,6 +13,7 @@
 	private vector2 m_numberOffset;
 	private PERFORM_ACTION@ m_performAction;
 	private VALIDATE_ITEM@ m_validateItem;
+	private ITEM_DRAW_CALLBACK@ m_itemDrawCallback;
 
 	Page(const uint firstItem, PageProperties@ props)
 	{
@@ -24,6 +25,7 @@
 		m_numberOffset = g_scale.scale(props.numberOffset);
 		@m_performAction = @(props.performAction);
 		@m_validateItem = @(props.validateItem);
+		@m_itemDrawCallback = @(props.itemDrawCallback);
 		m_buttonBg     = props.buttonBg;
 		m_lockedButton = props.lockedButton;
 		m_emptyButton  = props.emptyButton;
@@ -85,7 +87,7 @@
 			}
 		}
 	}
-	
+
 	bool isValidItem(const uint item) const
 	{
 		return item < m_numItems;
@@ -103,6 +105,7 @@
 			m_buttons[t].draw(offset);
 			// drawStars(t, buttons[t].getPos() + offset);
 			drawNumber(t, offset);
+			m_itemDrawCallback(getItem(t), m_buttons[t].getPos(), offset);
 		}
 	}
 	

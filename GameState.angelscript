@@ -142,8 +142,8 @@ class GameMenuLayer : UILayer
 		m_levelIndex = levelIndex;
 		@m_props = @props;
 		addSprite("sprites/square.png", ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
-		addButton("back_button",   "sprites/back_to_main_menu.png", vector2(0.5f, 0.35f));
-		addButton("resume_button", "sprites/resume_button.png",     vector2(0.5f, 0.65f));
+		addButton("back_button",   "sprites/back_to_main_menu.png", m_props.gameMenuExitButtonPos);
+		addButton("resume_button", "sprites/resume_button.png",     m_props.gameMenuResumeButtonPos);
 	}
 
 	void update()
@@ -152,7 +152,10 @@ class GameMenuLayer : UILayer
 		if (isButtonPressed("back_button"))
 		{
 			setButtonPressed("back_button", false);
-			g_stateManager.setState(g_gameStateFactory.createMenuState());
+			if (m_props.returnToLevelSelect)
+				g_stateManager.setState(g_gameStateFactory.createLevelSelectState());
+			else
+				g_stateManager.setState(g_gameStateFactory.createMenuState());
 			hide(true);
 		}
 	}

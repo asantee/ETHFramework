@@ -60,3 +60,12 @@ vector2 getRightAngleVector(const vector2 &in v)
 	}
 }
 
+float clamp(const float val, const float minVal, const float maxVal)
+{
+	return (val < minVal) ? minVal : ((val > maxVal) ? maxVal : val);
+}
+
+vector2 clamp(const vector2 &in val, const vector2 &in minVal, const vector2 &in maxVal)
+{
+	return vector2(clamp(val.x, minVal.x, maxVal.x), clamp(val.y, minVal.y, maxVal.y));
+}
