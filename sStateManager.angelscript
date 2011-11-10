@@ -18,7 +18,10 @@
 
 	string getCurrentStateName() const
 	{
-		return m_currentState.getName();
+		if (m_currentState !is null)
+			return m_currentState.getName();
+		else
+			return "";
 	}
 
 	private State@ m_currentState;
