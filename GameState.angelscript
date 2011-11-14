@@ -164,9 +164,12 @@ class GameMenuLayer : UILayer
 	{
 		UILayer::draw();
 		const uint currentLayerColor = getButton("resume_button").getColor();
-		drawCenteredText(GetScreenSize() * m_props.levelNumberStringNormPos,
-						 m_props.levelNumberString + (m_levelIndex + 1),
-						 m_props.levelNumberFont, g_scale.getScale(), currentLayerColor);
+		if (m_props.levelNumberFont != "")
+		{
+			drawCenteredText(GetScreenSize() * m_props.levelNumberStringNormPos,
+							 m_props.levelNumberString + (m_levelIndex + 1),
+							 m_props.levelNumberFont, g_scale.getScale(), currentLayerColor);
+		}
 	}
 
 	string getName() const
