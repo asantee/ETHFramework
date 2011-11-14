@@ -12,7 +12,26 @@
 	float bias = float(elapsedTime % stride) / float(stride);
 	bias = invert ? 1.0f - bias : bias;
 	const vector3 color(interpolate(colorA, colorB, bias));
+
 	thisEntity.SetColor(color);
+}
+
+void blinkEmissive(ETHEntity@ thisEntity, const vector3 &in colorA, const vector3 &in colorB, const uint stride = 300)
+{
+	if (thisEntity.CheckCustomData("blinkElapsedTime") == DT_NODATA)
+	{
+		thisEntity.SetUInt("blinkElapsedTime", 0);
+	}
+
+	thisEntity.AddToUInt("blinkElapsedTime", g_timeManager.getLastFrameElapsedTime());
+	const uint elapsedTime = thisEntity.GetUInt("blinkElapsedTime");
+
+	const bool invert = (((elapsedTime / stride) % 2) == 1);
+	float bias = float(elapsedTime % stride) / float(stride);
+	bias = invert ? 1.0f - bias : bias;
+	const vector3 color(interpolate(colorA, colorB, bias));
+
+	thisEntity.SetEmissiveColor(color);
 }
 
 /*

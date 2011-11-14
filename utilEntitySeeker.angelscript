@@ -113,3 +113,24 @@ ETHEntity@ seekEntityFromBucket(const vector2 &in bucket, const int entityID)
 	}
 	return null;
 }
+
+ETHEntity@ chooseClosestContact(const vector2 &in a, const vector2 &in b, EntityChooser@ chooser)
+{
+	ETHEntityArray entities;
+	float squaredDist = squaredDistance(a, b);
+	GetContactEntities(a, b, entities);
+	ETHEntity@ r = null;
+	for (uint t = 0; t < entities.size(); t++)
+	{
+		if (chooser.choose(entities[t]))
+		{
+			const float currentDistance = squaredDistance(a, entities[t].GetPositionXY());
+			if (currentDistance < squaredDist)
+			{
+				@r = @(entities[t]);
+				squaredDist = currentDistance;
+			}
+		}
+	}
+	return r;
+}
