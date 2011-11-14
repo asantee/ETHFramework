@@ -47,7 +47,7 @@ void linearMotion(ETHEntity@ thisEntity, const bool vertical, const float angle 
 		thisEntity.SetFloat("angle", 0);
 	}
 
-	const float speed = thisEntity.GetFloat("speed") / g_scale.getScale();
+	const float speed = thisEntity.GetFloat("speed");
 	thisEntity.AddToFloat("angle", g_timeManager.unitsPerSecond(speed));
 	if (thisEntity.GetFloat("angle") > PI * 2)
 	{

@@ -52,7 +52,7 @@
 
 		entity.Scale(getScale() * individualScale);
 		entity.SetPosition(entity.GetPosition() * getScale());
-		multiplyCustomData(entity, "speed");
+		// multiplyCustomData(entity, "speed");
 	}
 
 	collisionBox getAbsoluteCollisionBox(ETHEntity@ entity)
