@@ -54,8 +54,11 @@ class MainMenuLayer : UILayer
 			addButton("exit_button", m_props.exitButton, m_props.exitButtonNormPos, m_props.exitButtonNormPos);
 		}
 
-		// addSprite parameters: sprite file name, color, pos, origin
-		addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
+		if (m_props.titleSprite != "")
+		{
+			// addSprite parameters: sprite file name, color, pos, origin
+			addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
+		}
 	}
 	
 	void update()
