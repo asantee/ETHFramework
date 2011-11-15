@@ -33,10 +33,10 @@
 			setButtonBitmap(m_off);
 		}
 	}
-	
-	void putButton()
+
+	void update()
 	{
-		UIButton::putButton();
+		UIButton::update();
 		m_switched = false;
 		if (isPressed())
 		{
