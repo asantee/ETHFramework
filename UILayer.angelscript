@@ -30,6 +30,25 @@
 		}
 	}
 
+	void addSwitch(const string &in name, const string &in on, const string &in off, const vector2 &in normPos, const vector2 &in origin, const float superScale)
+	{
+		const vector2 spriteSize(GetSpriteSize(on));
+		const float currentScale = g_scale.getScale() * superScale;
+		const vector2 unPos(unnormalizePos(normPos));
+		m_buttons.insertLast(UISwitch(on, off, unPos, currentScale, origin));
+		m_buttons[m_buttons.length() - 1].setName(name);
+	}
+
+	void addSwitch(const string &in name, const string &in on, const string &in off, const vector2 &in normPos, const vector2 &in origin)
+	{
+		addSwitch(name, on, off, normPos, origin, 1.0f);
+	}
+
+	void addSwitch(const string &in name, const string &in on, const string &in off, const vector2 &in normPos)
+	{
+		addSwitch(name, on, off, normPos, V2_HALF);
+	}
+
 	void addButton(const string &in name, const string &in spriteName, const vector2 &in normPos, const vector2 &in origin, const float superScale)
 	{
 		const vector2 spriteSize(GetSpriteSize(spriteName));
@@ -78,6 +97,27 @@
 			if (m_buttons[t].isPointInButton(p))
 			{
 				return true;
+			}
+		}
+		return false;
+	}
+
+	bool getSwitchState(const string &in name) const
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].getName() == name)
+			{
+				UISwitch@ s = cast<UISwitch>(m_buttons[t]);
+				if (s !is null)
+				{
+					return s.isSwitched();
+				}
+				else
+				{
+					print("\x07" + name + " is not a switch");
+					return false;
+				}
 			}
 		}
 		return false;

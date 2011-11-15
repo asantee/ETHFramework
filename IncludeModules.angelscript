@@ -32,6 +32,7 @@
 #include "UILayerManager.angelscript"
 #include "UISprite.angelscript"
 #include "UIElement.angelscript"
+#include "UISwitch.angelscript"
 
 // util
 #include "utilMath.angelscript" 
