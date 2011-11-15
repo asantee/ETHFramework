@@ -7,8 +7,8 @@
 		titleSprite = "sprites/game_main_title.png";
 		playButton  = "sprites/main_play_game_button.png";
 		exitButton  = "";
-		exitButtonNormPos = vector2(0,0);
-	
+		exitButtonNormPos = V2_ZERO;
+		exitButtonOrigin =  V2_ZERO;
 	}
 	vector2 buttonNormPos;
 	vector2 titlePos;
@@ -16,4 +16,5 @@
 	string playButton;
 	string exitButton;
 	vector2 exitButtonNormPos;
+	vector2 exitButtonOrigin;
 }
