@@ -51,7 +51,7 @@ class MainMenuLayer : UILayer
 
 		if (m_props.exitButton != "")
 		{
-			addButton("exit_button", m_props.exitButton, m_props.exitButtonNormPos, m_props.exitButtonNormPos);
+			addButton("exit_button", m_props.exitButton, m_props.exitButtonNormPos, m_props.exitButtonOrigin);
 		}
 
 		if (m_props.titleSprite != "")
