@@ -9,7 +9,7 @@
 		m_on     = name;
 		m_off    = off;
 		super(m_on, pos, buttonScale, origin);
-		m_switched = false;
+		m_switched = true;
 	}
 
 	bool isEnabled()
@@ -37,7 +37,6 @@
 	void update()
 	{
 		UIButton::update();
-		m_switched = false;
 		if (isPressed())
 		{
 			if (getButtonBitmap() == m_on)
@@ -49,7 +48,7 @@
 				setButtonBitmap(m_on);
 			}
 			setPressed(false);
-			m_switched = true;
+			m_switched = !m_switched;
 		}
 	}
 }
