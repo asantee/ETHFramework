@@ -6,9 +6,9 @@
 
 	UISwitch(const string name, const string off, const vector2 pos, const float buttonScale, const vector2 origin)
 	{
-		super(m_on, pos, buttonScale, origin);
 		m_on     = name;
 		m_off    = off;
+		super(m_on, pos, buttonScale, origin);
 		m_switched = false;
 	}
 
