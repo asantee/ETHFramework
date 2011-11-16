@@ -4,12 +4,17 @@
 
 	Timer()
 	{
-		time = 0;
+		reset();
 	}
 
 	void update()
 	{
 		time += g_timeManager.getLastFrameElapsedTime();
+	}
+
+	void reset()
+	{
+		time = 0;
 	}
 
 	void draw() {}
