@@ -146,6 +146,31 @@
 		}
 	}
 
+	bool buttonExist(const string &in name) const
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].getName() == name)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool removeButton(const string &in name)
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].getName() == name)
+			{
+				m_buttons.removeAt(t);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	void update()
 	{
 		for (uint t = 0; t < m_sprites.length(); t++)

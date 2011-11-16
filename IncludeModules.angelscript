@@ -9,14 +9,17 @@
 // Main classes
 #include "State.angelscript"
 #include "BaseState.angelscript"
-#include "GameController.angelscript"
-#include "GameControllerManager.angelscript"
-#include "FadeInController.angelscript"
 #include "Button.angelscript"
 #include "Interpolator.angelscript"
 #include "Swyper.angelscript"
 #include "FrameTimer.angelscript"
 #include "EntityGrabber.angelscript"
+
+// Controllers
+#include "GameController.angelscript"
+#include "GameControllerManager.angelscript"
+#include "FadeInController.angelscript"
+#include "Timer.angelscript"
 
 // Property structs
 #include "PageProperties.angelscript"

@@ -8,6 +8,16 @@
 		LoadScene(sceneName, PRELOOP, LOOP);
 	}
 
+	void addController(GameController@ controller)
+	{
+		m_controllerManager.addController(@controller);
+	}
+
+	void addLayer(UILayer@ layer)
+	{
+		m_layerManager.addLayer(@layer);
+	}
+
 	void start()
 	{
 	}
