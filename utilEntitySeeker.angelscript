@@ -29,6 +29,22 @@ ETHEntity @findAmongNeighbourEntities(ETHEntity @thisEntity, const string &in en
 	return null;
 }
 
+/// Finds all entities named 'entityName' among all thisEntity's surrounding entities.
+void findAllAmongNeighbourEntities(ETHEntity @thisEntity, const string &in entityName, ETHEntityArray @outEntities)
+{
+	ETHEntityArray entityArray;
+	getSurroundingEntities(thisEntity, entityArray);
+	uint size = entityArray.size();
+	for (uint t=0; t<size; t++)
+	{
+		if (entityArray[t].GetEntityName() == entityName)
+		{
+			ETHEntity@ temp = entityArray[t];
+			outEntities.push_back(temp);
+		}
+	}
+}
+
 /// Scans the screen for an entity named 'name' and returns a handle to it if found.
 ETHEntity @findEntityInScreen(const string &in name)
 {
