@@ -59,6 +59,20 @@
 		return false;
 	}
 	
+	bool removeLayer(const string &in name)
+	{
+		const int size = m_layers.length();
+		for (int t = 0; t < size; t++)
+		{
+			if (m_layers[t].getName() == name)
+			{
+				m_layers.removeAt(t);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	bool isPointInButton(const vector2 &in p) const
 	{
 		const int size = m_layers.length();
@@ -86,5 +100,27 @@
 			return @(m_layers[m_currentLayer]);
 		else
 			return null;
+	}
+
+	bool isButtonPressed(const string &in name) const
+	{
+		if (m_currentLayer != -1)
+			return m_layers[m_currentLayer].isButtonPressed(name);
+		else
+			return false;
+	}
+
+	bool buttonExist(const string &in name) const
+	{
+		if (m_currentLayer != -1)
+			return m_layers[m_currentLayer].buttonExist(name);
+		else
+			return false;
+	}
+
+	void setButtonPressed(const string &in name, const bool pressed) const
+	{
+		if (m_currentLayer != -1)
+			m_layers[m_currentLayer].setButtonPressed(name, pressed);
 	}
 }

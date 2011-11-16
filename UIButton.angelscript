@@ -3,6 +3,7 @@
 	private vector2 m_destPos;
 	private PositionInterpolator m_interp;
 	private vector2 m_initPos;
+	private bool m_dismissed;
 
 	UIButton(const string _name, const vector2 &in _pos, const float _buttonScale,
 			 const vector2 &in _origin = vector2(0.5f, 0.5f), const float effectScale = 1.0f)
@@ -13,6 +14,7 @@
 		m_destPos = _pos;
 		m_interp = PositionInterpolator(_initPos, _pos, 700, true);
 		setColor(0.0f);
+		m_dismissed = false;
 	}
 
 	void reset()
@@ -26,7 +28,23 @@
 			m_interp.update();
 		m_pos = m_interp.getCurrentPos();
 		Button::update();
-		setColor(m_interp.getBias());
+		float alpha;
+		if (!m_dismissed)
+			alpha = m_interp.getBias();
+		else
+			alpha = 1.0f - m_interp.getBias();
+		setColor(alpha);
+	}
+
+	void dismiss()
+	{
+		m_dismissed = true;
+		m_interp.reset(m_destPos, m_initPos, 700);
+	}
+
+	bool isDismissed() const
+	{
+		return m_dismissed;
 	}
 
 	void draw()
