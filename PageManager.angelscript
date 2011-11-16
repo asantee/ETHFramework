@@ -203,8 +203,8 @@ class PageManager : UILayer
 			m_pages.insertLast(Page(buttonsPerPage * m_pages.length(), @m_props));
 		}
 
-		addButton("back_button", "sprites/level_select_forward.png", m_props.backButtonNormPos,    m_props.backButtonNormPos);
-		addButton("forw_button", "sprites/level_select_back.png",    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
+		addButton("back_button", props.forwardButton , m_props.backButtonNormPos,    m_props.backButtonNormPos);
+		addButton("forw_button", props.backButton ,    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
 	}
 
 	string getName() const
