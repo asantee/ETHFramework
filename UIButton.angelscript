@@ -27,12 +27,17 @@
 		if (!isAnimationFinished())
 			m_interp.update();
 		m_pos = m_interp.getCurrentPos();
-		Button::update();
+		
 		float alpha;
 		if (!m_dismissed)
+		{
+			Button::update();
 			alpha = m_interp.getBias();
+		}
 		else
+		{
 			alpha = 1.0f - m_interp.getBias();
+		}
 		setColor(alpha);
 	}
 
