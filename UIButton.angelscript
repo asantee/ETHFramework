@@ -38,8 +38,11 @@
 
 	void dismiss()
 	{
-		m_dismissed = true;
-		m_interp.reset(m_destPos, m_initPos, 700);
+		if (!m_dismissed)
+		{
+			m_dismissed = true;
+			m_interp.reset(m_destPos, m_initPos, 700);
+		}
 	}
 
 	bool isDismissed() const

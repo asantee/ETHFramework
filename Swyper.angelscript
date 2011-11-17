@@ -55,7 +55,7 @@
 			}
 		}
 		setNextPage();
-		if (abs(m_offset) < 0.01f)
+		if (abs(m_offset) < 0.0005f)
 		{
 			m_offset = 0.0f;
 		}

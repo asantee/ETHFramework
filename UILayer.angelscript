@@ -181,6 +181,7 @@
 		{
 			m_buttons[t].update();
 		}
+		removeDismissedButtons();
 	}
 
 	void draw()
@@ -203,5 +204,16 @@
 	bool isAlwaysActive() const
 	{
 		return false;
+	}
+
+	private void removeDismissedButtons()
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].isDismissed() && m_buttons[t].isAnimationFinished())
+			{
+				m_buttons.removeAt(t--);
+			}
+		}
 	}
 }
