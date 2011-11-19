@@ -45,7 +45,7 @@
 		{
 			setupItemButton(t, cursor);
 			cursor.x += getButtonSize().x;
-			if (cursor.x + getButtonSize().x > GetScreenSize().x - screenOffset.x)
+			if (cursor.x + getButtonSize().x > GetScreenSize().x - screenOffset.x + 1.0f)
 			{
 				cursor.x = screenOffset.x;
 				cursor.y += getButtonSize().y;

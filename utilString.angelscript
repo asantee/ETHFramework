@@ -16,7 +16,7 @@ string[] splitString(string str, const string c)
 	{
 		uint len = pos - 1;
 		#if APPLE_IOS
-		len = pos;
+			len = pos; // odd behaviour yet to be verified
 		#endif
 		v.insertLast(str.substr(0, pos));
 		str = str.substr(pos + c.length(), NPOS);
