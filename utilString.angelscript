@@ -18,7 +18,7 @@ string[] splitString(string str, const string c)
 		#if APPLE_IOS
 			len = pos; // odd behaviour yet to be verified
 		#endif
-		v.insertLast(str.substr(0, pos));
+		v.insertLast(str.substr(0, len));
 		str = str.substr(pos + c.length(), NPOS);
 	}
 	v.insertLast(str);
