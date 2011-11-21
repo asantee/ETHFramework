@@ -4,8 +4,8 @@
 	{
 		buttonNormPos = vector2(0.75f, 0.5f);
 		titlePos = vector2(0.25f, 0.5f);
-		titleSprite = "sprites/game_main_title.png";
-		playButton  = "sprites/main_play_game_button.png";
+		titleSprite = "ETHFramework/sprites/game_main_title.png";
+		playButton  = "ETHFramework/sprites/main_play_game_button.png";
 		exitButton  = "";
 		exitButtonNormPos = V2_ZERO;
 		exitButtonOrigin =  V2_ZERO;

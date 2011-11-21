@@ -10,6 +10,10 @@
 	bool returnToLevelSelect;
 	vector2 gameMenuExitButtonPos;
 	vector2 gameMenuResumeButtonPos;
+	string menuButton;
+	string whiteSquareSprite;
+	string backToMainMenuButton;
+	string resumeGameButton;
 
 	GameStateProperties()
 	{
@@ -23,5 +27,9 @@
 		returnToLevelSelect = false;
 		gameMenuExitButtonPos   = vector2(0.5f, 0.35f);
 		gameMenuResumeButtonPos = vector2(0.5f, 0.65f);
+		menuButton = "ETHFramework/sprites/main_menu_shortcut.png";
+		whiteSquareSprite = "ETHFramework/sprites/square.png";
+		backToMainMenuButton = "ETHFramework/sprites/back_to_main_menu.png";
+		resumeGameButton = "ETHFramework/sprites/resume_button.png";
 	}
 }

@@ -102,7 +102,7 @@ class GameLayer : UILayer
 		@m_props = @props;
 
 		// addButton parameters: button name id, sprite file name, normalized pos, normalized origin
-		addButton("menu_button", "sprites/main_menu_shortcut.png", m_props.menuButtonNormPos, m_props.menuButtonNormPos);
+		addButton("menu_button", m_props.menuButton, m_props.menuButtonNormPos, m_props.menuButtonNormPos);
 		UIButton@ menuButton = getButton("menu_button");
 		menuButton.setCustomColor(m_props.menuButtonsCustomColor);
 
@@ -141,9 +141,9 @@ class GameMenuLayer : UILayer
 	{
 		m_levelIndex = levelIndex;
 		@m_props = @props;
-		addSprite("sprites/square.png", ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
-		addButton("back_button",   "sprites/back_to_main_menu.png", m_props.gameMenuExitButtonPos);
-		addButton("resume_button", "sprites/resume_button.png",     m_props.gameMenuResumeButtonPos);
+		addSprite(m_props.whiteSquareSprite, ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
+		addButton("back_button", m_props.backToMainMenuButton, m_props.gameMenuExitButtonPos);
+		addButton("resume_button", m_props.resumeGameButton, m_props.gameMenuResumeButtonPos);
 	}
 
 	void update()

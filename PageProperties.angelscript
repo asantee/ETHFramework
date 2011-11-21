@@ -19,11 +19,11 @@ class PageProperties
 		@itemDrawCallback  = @defaultDrawCallback;
 		backButtonNormPos		= vector2(0.0f, 0.5f);
 		forwardButtonNormPos	= vector2(1.0f, 0.5f);
-		buttonName		= "sprites/level_select_icon.png";
-		lockedButton	= "sprites/level_select_lock_icon.png";
-		emptyButton		= "sprites/level_select_icon.png";
-		backButton		= "sprites/level_select_back.png";
-		forwardButton	= "sprites/level_select_forward.png";
+		buttonName		= "ETHFramework/sprites/level_select_icon.png";
+		lockedButton	= "ETHFramework/sprites/level_select_lock_icon.png";
+		emptyButton		= "ETHFramework/sprites/level_select_icon.png";
+		backButton		= "ETHFramework/sprites/level_select_back.png";
+		forwardButton	= "ETHFramework/sprites/level_select_forward.png";
 		useUniqueButtons = false;
 		buttonSufix = "";
 		showNumbers = true;
