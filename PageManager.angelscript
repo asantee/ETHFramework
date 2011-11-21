@@ -17,6 +17,7 @@
 	private bool m_useUniqueButtons;
 	private string m_sufix;
 	private bool m_showNumbers;
+	private TouchGapDetector m_touchGapDetector;
 
 	Page(const uint firstItem, PageProperties@ props)
 	{
@@ -87,6 +88,7 @@
 
 	void update(const vector2 &in offset)
 	{
+		m_touchGapDetector.update();
 		const bool isOffseting = (offset != vector2(0,0));
 		for (uint t = 0; t < m_buttons.length(); t++)
 		{
@@ -98,6 +100,11 @@
 			if (isValidItem(currentItem)/* || !m_buttons[t].isAnimationFinished()*/)
 			{
 				m_buttons[t].update();
+
+				// if the user had used the swyper, disable the button for this time
+				if (m_touchGapDetector.getLastMaxTouchGap(0) > g_scale.scale(48.0f))
+					m_buttons[t].setPressed(false);
+
 				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_validateItem(currentItem))
 				{
 					m_buttons[t].setPressed(false);

@@ -49,6 +49,7 @@
 #include "utilEntityEffect.angelscript"
 #include "utilCollide.angelscript"
 #include "utilPlanes.angelscript"
+#include "utilInput.angelscript"
 
 // States
 #include "MainMenu.angelscript" 
