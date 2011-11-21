@@ -59,8 +59,19 @@ class MainMenuLayer : UILayer
 			// addSprite parameters: sprite file name, color, pos, origin
 			addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
 		}
+
+		if (m_props.showSoundSwitch)
+		{
+			addSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
+					  m_props.soundSwitchPos, m_props.soundSwitchOrigin);
+			UISwitch@ soundSwitch = cast<UISwitch>(getButton("sound_switch"));
+			if (GetGlobalVolume() == 0.0f)
+				soundSwitch.setState(false);
+			else
+				soundSwitch.setState(true);
+		}
 	}
-	
+
 	void update()
 	{
 		UILayer::update();
@@ -72,6 +83,22 @@ class MainMenuLayer : UILayer
 		{
 			setButtonPressed("exit_button", false);
 			Exit();
+		}
+		manageSoundSwitch();
+	}
+	
+	private void manageSoundSwitch()
+	{
+		UISwitch@ soundSwitch = cast<UISwitch>(getButton("sound_switch"));
+		if (soundSwitch.isSwitched())
+		{
+			if (soundSwitch.isEnabled())
+				SetGlobalVolume(1.0f);
+			else
+				SetGlobalVolume(0.0f);
+			#if TESTING
+			print("Global volume: " + GetGlobalVolume());
+			#endif
 		}
 	}
 

@@ -16,12 +16,12 @@
 	{
 		return (getButtonBitmap() == m_on);
 	}
-	
+
 	bool isSwitched()
 	{
 		return m_switched;
 	}
-	
+
 	void setState(bool state)
 	{
 		if (state)
@@ -37,6 +37,7 @@
 	void update()
 	{
 		UIButton::update();
+		m_switched = false;
 		if (isPressed())
 		{
 			if (getButtonBitmap() == m_on)
@@ -48,7 +49,7 @@
 				setButtonBitmap(m_on);
 			}
 			setPressed(false);
-			m_switched = !m_switched;
+			m_switched = true;
 		}
 	}
 }

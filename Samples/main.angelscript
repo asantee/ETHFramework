@@ -13,6 +13,7 @@ class sMyStateFactory : sGameStateFactory
 	State@ createMenuState()
 	{
 		MainMenuProperties props;
+		props.showSoundSwitch = true;
 		return MainMenu("empty", @props);
 	}
 
