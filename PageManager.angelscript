@@ -11,9 +11,7 @@
 	private uint m_columns;
 	private string m_font;
 	private vector2 m_numberOffset;
-	private PERFORM_ACTION@ m_performAction;
-	private VALIDATE_ITEM@ m_validateItem;
-	private ITEM_DRAW_CALLBACK@ m_itemDrawCallback;
+	private ItemChooser@ m_chooser;
 	private bool m_useUniqueButtons;
 	private string m_sufix;
 	private bool m_showNumbers;
@@ -27,9 +25,7 @@
 		m_rows = props.rows;
 		m_columns = props.columns;
 		m_numberOffset = g_scale.scale(props.numberOffset);
-		@m_performAction = @(props.performAction);
-		@m_validateItem = @(props.validateItem);
-		@m_itemDrawCallback = @(props.itemDrawCallback);
+		@m_chooser = @(props.itemChooser);
 		m_buttonName   = props.buttonName;
 		m_lockedButton = props.lockedButton;
 		m_emptyButton  = props.emptyButton;
@@ -75,7 +71,7 @@
 		{
 			sprite = m_emptyButton;
 		}
-		else if (!m_validateItem(currentItem) && !m_useUniqueButtons)
+		else if (!m_chooser.validateItem(currentItem) && !m_useUniqueButtons)
 		{
 			sprite = m_lockedButton;
 		}
@@ -105,10 +101,10 @@
 				if (m_touchGapDetector.getLastMaxTouchGap(0) > g_scale.scale(48.0f))
 					m_buttons[t].setPressed(false);
 
-				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_validateItem(currentItem))
+				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_chooser.validateItem(currentItem))
 				{
 					m_buttons[t].setPressed(false);
-					m_performAction(currentItem);
+					m_chooser.performAction(currentItem);
 				}
 			}
 		}
@@ -135,18 +131,18 @@
 			}
 			const vector2 buttonPos = m_buttons[t].getPos();
 			const vector2 halfButtonSize = m_buttons[t].getSize() * 0.5f;
-			if (m_useUniqueButtons && !m_validateItem(getItem(t)))
+			if (m_useUniqueButtons && !m_chooser.validateItem(getItem(t)))
 			{
 				drawScaledSprite(m_lockedButton, buttonPos + halfButtonSize + offset , g_scale.getScale(), V2_HALF, COLOR_WHITE);
 			}
-			m_itemDrawCallback(getItem(t), buttonPos, offset);
+			m_chooser.itemDrawCallback(getItem(t), buttonPos, offset);
 		}
 	}
 	
 	private void drawNumber(const uint t, const vector2 &in offset)
 	{
 		const uint currentItem = getItem(t);
-		if (currentItem < m_numItems && m_validateItem(currentItem))
+		if (currentItem < m_numItems && m_chooser.validateItem(currentItem))
 		{	
 			vector2 spriteSize = getButtonSize();
 			vector2 pos = m_buttons[t].getPos();

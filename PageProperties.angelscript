@@ -1,11 +1,4 @@
-﻿funcdef bool PERFORM_ACTION(const uint itemIdx);
-funcdef bool VALIDATE_ITEM(const uint itemIdx);
-funcdef void ITEM_DRAW_CALLBACK(const uint index, const vector2 &in pos, const vector2 &in offset);
-
-bool defaultItemValidation(const uint itemIdx) { return true; }
-void defaultDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset) { }
-
-class PageProperties
+﻿class PageProperties
 {
 	PageProperties()
 	{
@@ -14,9 +7,7 @@ class PageProperties
 		rows = 3;
 		font = "Verdana64_shadow.fnt";
 		numberOffset = vector2(0, 0);
-		@performAction = @levelChooser;
-		@validateItem  = @defaultItemValidation;
-		@itemDrawCallback  = @defaultDrawCallback;
+		@itemChooser = (DefaultItemChooser());
 		backButtonNormPos		= vector2(0.0f, 0.5f);
 		forwardButtonNormPos	= vector2(1.0f, 0.5f);
 		buttonName		= "ETHFramework/sprites/level_select_icon.png";
@@ -35,9 +26,7 @@ class PageProperties
 	vector2 numberOffset;
 	vector2 backButtonNormPos;
 	vector2 forwardButtonNormPos;
-	PERFORM_ACTION@ performAction;
-	VALIDATE_ITEM@ validateItem;
-	ITEM_DRAW_CALLBACK@ itemDrawCallback;
+	ItemChooser@ itemChooser;
 	string buttonName;
 	string lockedButton;
 	string emptyButton;
@@ -46,4 +35,29 @@ class PageProperties
 	string buttonSufix;
 	bool useUniqueButtons;
 	bool showNumbers;
+}
+
+interface ItemChooser
+{
+	bool performAction(const uint itemIdx);
+	bool validateItem(const uint itemIdx);
+	void itemDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset);
+}
+
+class DefaultItemChooser : ItemChooser
+{
+	bool performAction(const uint itemIdx)
+	{
+		g_stateManager.setState(g_gameStateFactory.createGameState(itemIdx));
+		return true;
+	}
+
+	bool validateItem(const uint itemIdx)
+	{
+		return true;
+	}
+
+	void itemDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset)
+	{
+	}
 }

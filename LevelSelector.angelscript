@@ -19,9 +19,3 @@
 		return "LevelSelector";
 	}
 }
-
-bool levelChooser(const uint levelIdx)
-{
-	g_stateManager.setState(g_gameStateFactory.createGameState(levelIdx));
-	return true;
-}

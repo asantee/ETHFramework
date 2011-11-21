@@ -20,7 +20,7 @@
 		DrawShapedSprite(spriteName, vector2(0,0), GetScreenSize(), 0xFF000000);
 		startTime = GetTime();
 	}
-	
+
 	void update()
 	{
 	}

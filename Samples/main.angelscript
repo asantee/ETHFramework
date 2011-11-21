@@ -8,6 +8,24 @@ void main()
 	SetPersistentResources(true);
 }
 
+class MyChooser : ItemChooser
+{
+	bool performAction(const uint itemIdx)
+	{
+		g_stateManager.setState(g_gameStateFactory.createGameState(itemIdx));
+		return true;
+	}
+
+	bool validateItem(const uint itemIdx)
+	{
+		return ((itemIdx > 15) ? false : true);
+	}
+
+	void itemDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset)
+	{
+	}
+}
+
 class sMyStateFactory : sGameStateFactory
 {
 	State@ createMenuState()
@@ -20,6 +38,7 @@ class sMyStateFactory : sGameStateFactory
 	State@ createLevelSelectState()
 	{
 		PageProperties props;
+		@(props.itemChooser) = MyChooser();
 		return LevelSelector("empty", @props);
 	}
 
