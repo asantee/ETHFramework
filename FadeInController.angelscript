@@ -9,7 +9,7 @@
 	{
 		time = 700;
 		startTime = GetTime();
-		spriteName = "ETHFramework/sprites/square.png";
+		spriteName = "ETHFramework/sprites/eth_framework_square.png";
 		done = false;
 		start();
 	}
