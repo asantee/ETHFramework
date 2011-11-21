@@ -84,7 +84,8 @@ class MainMenuLayer : UILayer
 			setButtonPressed("exit_button", false);
 			Exit();
 		}
-		manageSoundSwitch();
+		if (m_props.showSoundSwitch)
+			manageSoundSwitch();
 	}
 	
 	private void manageSoundSwitch()
