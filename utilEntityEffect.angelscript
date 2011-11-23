@@ -62,3 +62,24 @@ void linearMotion(ETHEntity@ thisEntity, const bool vertical, const float angle 
 
 	thisEntity.SetPosition(thisEntity.GetVector3("originalPos") + (offsetV3 * g_scale.getScale()));
 }
+
+void followUp(ETHEntity@ thisEntity, const vector2 destPos, const uint interpStride = 600, const uint updateRate = 100, const bool dontPause = true)
+{
+	if (thisEntity.CheckCustomData("switchTime") == DT_NODATA)
+	{
+		PositionInterpolator@ interp = PositionInterpolator(thisEntity.GetPositionXY(), destPos, interpStride, true);
+		@(interp.m_filter) = @smoothBegining;
+		thisEntity.SetObject("interp", @interp);
+		thisEntity.SetUInt("switchTime", 0);
+	}
+	PositionInterpolator@ interp;
+	thisEntity.GetObject("interp", @interp);
+	if (thisEntity.GetPositionXY() != destPos && thisEntity.GetUInt("switchTime") > updateRate)
+	{
+		interp.reset(interp.getCurrentPos(), destPos, interpStride);
+		thisEntity.SetUInt("switchTime", 0);
+	}
+	thisEntity.AddToUInt("switchTime", GetLastFrameElapsedTime());
+	interp.update();
+	thisEntity.SetPositionXY(interp.getCurrentPos());
+}
