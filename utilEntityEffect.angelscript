@@ -83,3 +83,9 @@ void followUp(ETHEntity@ thisEntity, const vector2 destPos, const uint interpStr
 	interp.update();
 	thisEntity.SetPositionXY(interp.getCurrentPos());
 }
+
+void scaleToSize(ETHEntity@ entity, const vector2 &in size)
+{
+	const vector2 currentSize(entity.GetSize());
+	entity.Scale(vector2(size.x / currentSize.x, size.y / currentSize.y));
+}
