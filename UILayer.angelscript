@@ -89,6 +89,18 @@
 		}
 		return null;
 	}
+	
+	UISprite@ getSprite(const string &in name)
+	{
+		for (uint t = 0; t < m_sprites.length(); t++)
+		{
+			if (m_sprites[t].getName() == name)
+			{
+				return @(m_sprites[t]);
+			}
+		}
+		return null;
+	}
 
 	bool isPointInButton(const vector2 &in p) const
 	{
