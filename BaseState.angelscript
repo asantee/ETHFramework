@@ -8,6 +8,11 @@
 		LoadScene(sceneName, PRELOOP, LOOP);
 	}
 
+	void loadScene(const string &in sceneName, const vector2 &in bucketSize)
+	{
+		LoadScene(sceneName, PRELOOP, LOOP, bucketSize);
+	}
+
 	void addController(GameController@ controller)
 	{
 		m_controllerManager.addController(@controller);

@@ -58,7 +58,7 @@
 		}
 		return false;
 	}
-	
+
 	bool removeLayer(const string &in name)
 	{
 		const int size = m_layers.length();
@@ -73,6 +73,20 @@
 		return false;
 	}
 	
+	bool setLayerVisible(const string &in name, const bool visible)
+	{
+		const int size = m_layers.length();
+		for (int t = 0; t < size; t++)
+		{
+			if (m_layers[t].getName() == name)
+			{
+				m_layers[t].hide(!visible);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	bool isPointInButton(const vector2 &in p) const
 	{
 		const int size = m_layers.length();
