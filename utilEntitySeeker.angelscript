@@ -81,7 +81,7 @@ class DynamicChooser : EntityChooser { bool choose(ETHEntity@ entity) { return !
 DefaultChooser g_defaultChooser;
 DynamicChooser g_dynamicChooser;
 
-ETHEntity@ seekNeighbourEntity(const vector2 &in centerBucket, const string &in entityName, EntityChooser@ chooser = @g_defaultChooser)
+ETHEntity@ seekNeighbourEntity(const vector2 &in centerBucket, EntityChooser@ chooser = @g_defaultChooser)
 {
 	ETHEntityArray ents;
 	for (int i = -1; i <= 1; i++)
@@ -91,7 +91,7 @@ ETHEntity@ seekNeighbourEntity(const vector2 &in centerBucket, const string &in 
 			GetEntitiesFromBucket(vector2(centerBucket.x - i, centerBucket.y - k), ents);
 			for (uint t = 0; t < ents.size(); t++)
 			{
-				if (ents[t].GetEntityName() == entityName && chooser.choose(@ents[t]))
+				if (chooser.choose(@ents[t]))
 				{
 					return ents[t];
 				}
