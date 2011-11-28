@@ -30,6 +30,10 @@
 	{
 		return vector3(r, g, b);
 	}
+	float getAlpha() const
+	{
+		return a;
+	}
 	uint getUInt() const
 	{
 		return ARGB(uint(a * 255.0f), uint(r * 255.0f), uint(g * 255.0f), uint(b * 255.0f));

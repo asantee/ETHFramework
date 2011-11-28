@@ -6,7 +6,7 @@
 		m_lastTime = 0;
 	}
 
-	uint get()
+	uint get() const
 	{
 		return m_currentFrame;
 	}
@@ -15,6 +15,12 @@
 	{
 		m_currentFrame = currentFrame;
 		m_lastTime = GetTime();
+	}
+	
+	void reset()
+	{
+		m_currentStride = 0;
+		m_currentFrame = m_currentFirst;
 	}
 
 	uint set(const uint first, const uint last, const uint stride, const bool repeat = true)
@@ -48,8 +54,13 @@
 		m_currentStride = stride;
 		return m_currentFrame;
 	}
-	
-	float getBias()
+
+	bool isLastFrame() const
+	{
+		return m_currentFrame == m_currentLast;
+	}
+
+	float getBias() const
 	{
 		return (float(min(GetTime()-m_lastTime, m_currentStride)) / max(1.0f, float(m_currentStride)));
 	}

@@ -20,6 +20,7 @@
 #include "GameControllerManager.angelscript"
 #include "FadeInController.angelscript"
 #include "Timer.angelscript"
+#include "WaypointManager.angelscript"
 
 // Property structs
 #include "PageProperties.angelscript"

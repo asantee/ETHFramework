@@ -1,8 +1,13 @@
 ﻿funcdef float INTERPOLATION_FILTER(const float v);
 
 float defaultFilter(const float v) { return v; }
-float smoothEnd(const float v)      { return sin(v * (PI/2)); }
-float smoothBegining(const float v) { return cos((1.0f - v) * (PI/2)); }
+float smoothEnd(const float v)      { return sin(v * (PIb)); }
+float smoothBegining(const float v) { return cos((1.0f - v) * (PIb)); }
+
+float interpolate(const float a, const float b, const float bias)
+{
+	return a + ((b - a) * bias);
+}
 
 vector2 interpolate(const vector2 &in a, const vector2 &in b, const float bias)
 {
@@ -12,6 +17,12 @@ vector2 interpolate(const vector2 &in a, const vector2 &in b, const float bias)
 vector3 interpolate(const vector3 &in a, const vector3 &in b, const float bias)
 {
 	return a + ((b - a) * bias);
+}
+
+FloatColor interpolate(const FloatColor@ a, const FloatColor@ b, const float bias)
+{
+	return FloatColor(interpolate(a.getAlpha(),   b.getAlpha(),   bias),
+					  interpolate(a.getVector3(), b.getVector3(), bias));
 }
 
 class InterpolationTimer
