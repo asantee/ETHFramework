@@ -30,6 +30,26 @@
 		init();
 		m_size = _size;
 	}
+	
+	vector2 getOrigin() const
+	{
+		return m_origin;
+	}
+	
+	vector2 getPos() const
+	{
+		return m_pos;
+	}
+
+	vector2 getSize() const
+	{
+		return m_size;
+	}
+	
+	string getName() const
+	{
+		return m_spriteName;
+	}
 
 	void reset()
 	{
