@@ -78,26 +78,49 @@ interface EntityChooser
 }
 class DefaultChooser : EntityChooser { bool choose(ETHEntity@ entity) { return true; } }
 class DynamicChooser : EntityChooser { bool choose(ETHEntity@ entity) { return !entity.IsStatic(); } }
+class ByNameChooser : EntityChooser
+{
+	private string m_name;
+	ByNameChooser(const string &in name)
+	{
+		m_name = name;
+	}
+	bool choose(ETHEntity@ entity)
+	{
+		return entity.GetEntityName() == m_name;
+	}
+}
 DefaultChooser g_defaultChooser;
 DynamicChooser g_dynamicChooser;
 
+vector2[] __neighbourBucketSearchPriority;
+
 ETHEntity@ seekNeighbourEntity(const vector2 &in centerBucket, EntityChooser@ chooser = @g_defaultChooser)
 {
-	ETHEntityArray ents;
-	for (int i = -1; i <= 1; i++)
+	if (__neighbourBucketSearchPriority.length() == 0)
 	{
-		for (int k = -1; k <= 1; k++)
+		__neighbourBucketSearchPriority.insertLast(vector2(0,0));
+		__neighbourBucketSearchPriority.insertLast(vector2(1,0));
+		__neighbourBucketSearchPriority.insertLast(vector2(-1,0));
+		__neighbourBucketSearchPriority.insertLast(vector2(0,1));
+		__neighbourBucketSearchPriority.insertLast(vector2(0,-1));
+		__neighbourBucketSearchPriority.insertLast(vector2(1,1));
+		__neighbourBucketSearchPriority.insertLast(vector2(-1,1));
+		__neighbourBucketSearchPriority.insertLast(vector2(1,-1));
+		__neighbourBucketSearchPriority.insertLast(vector2(-1,-1));
+	}
+	ETHEntityArray ents;
+	for (uint i = 0; i < __neighbourBucketSearchPriority.length(); i++)
+	{
+		GetEntitiesFromBucket(centerBucket + __neighbourBucketSearchPriority[i], ents);
+		for (uint t = 0; t < ents.size(); t++)
 		{
-			GetEntitiesFromBucket(vector2(centerBucket.x - i, centerBucket.y - k), ents);
-			for (uint t = 0; t < ents.size(); t++)
+			if (chooser.choose(@ents[t]))
 			{
-				if (chooser.choose(@ents[t]))
-				{
-					return ents[t];
-				}
+				return ents[t];
 			}
-			ents.clear();
 		}
+		ents.clear();
 	}
 	return null;
 }

@@ -34,6 +34,24 @@ void blinkEmissive(ETHEntity@ thisEntity, const vector3 &in colorA, const vector
 	thisEntity.SetEmissiveColor(color);
 }
 
+void bounce(ETHEntity@ thisEntity, const vector2 &in scaleA, const vector2 &in scaleB, const uint stride = 300)
+{
+	if (thisEntity.CheckCustomData("blinkElapsedTime") == DT_NODATA)
+	{
+		thisEntity.SetUInt("blinkElapsedTime", 0);
+	}
+
+	thisEntity.AddToUInt("blinkElapsedTime", g_timeManager.getLastFrameElapsedTime());
+	const uint elapsedTime = thisEntity.GetUInt("blinkElapsedTime");
+
+	const bool invert = (((elapsedTime / stride) % 2) == 1);
+	float bias = float(elapsedTime % stride) / float(stride);
+	bias = invert ? 1.0f - bias : bias;
+	const vector2 scale(interpolate(scaleA, scaleB, smoothBegining(bias)));
+
+	thisEntity.SetScale(g_scale.scale(scale));
+}
+
 /*
 Requires two properties:
 float stide
