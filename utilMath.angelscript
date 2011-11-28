@@ -69,3 +69,27 @@ vector2 clamp(const vector2 &in val, const vector2 &in minVal, const vector2 &in
 {
 	return vector2(clamp(val.x, minVal.x, maxVal.x), clamp(val.y, minVal.y, maxVal.y));
 }
+
+vector2 capVector(const vector2 &in v, const float length)
+{
+	if (dp2(v, v) > length * length)
+	{
+		return normalize(v) * length;
+	}
+	else
+	{
+		return v;
+	}
+}
+
+vector3 capVector(const vector3 &in v, const float length)
+{
+	if (dp3(v, v) > length * length)
+	{
+		return normalize(v) * length;
+	}
+	else
+	{
+		return v;
+	}
+}
