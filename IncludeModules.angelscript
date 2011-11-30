@@ -14,6 +14,7 @@
 #include "Swyper.angelscript"
 #include "FrameTimer.angelscript"
 #include "EntityGrabber.angelscript"
+#include "Follower.angelscript"
 
 // Controllers
 #include "GameController.angelscript"
