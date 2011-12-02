@@ -101,6 +101,17 @@
 		return false;
 	}
 
+	
+	bool setButtonsSound(const string &in filePath)
+	{
+		const int size = m_layers.length();
+		for (int t = 0; t < size; t++)
+		{
+			m_layers[t].setButtonsSound(filePath);
+		}
+		return false;
+	}
+
 	bool isPointInButton(const vector2 &in p) const
 	{
 		const int size = m_layers.length();

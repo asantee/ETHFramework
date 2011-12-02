@@ -11,7 +11,8 @@
 	private vector2 m_lastDownPos;
 	private float m_buttonScale;
 	private string m_name;
-	
+	private string m_buttonSound;
+
 	Button(const string _spriteName, const vector2 &in _pos, const float _buttonScale, const vector2 &in _origin = vector2(0, 0))
 	{
 		m_origin = _origin;
@@ -24,6 +25,12 @@
 		m_pressed = false;
 		m_lastTouchInButton = false;
 		m_customColor = COLOR_WHITE;
+	}
+
+	void setSound(const string &in buttonSound)
+	{
+		m_buttonSound = buttonSound;
+		LoadSoundEffect(m_buttonSound);
 	}
 
 	void setName(const string &in _name)
@@ -151,6 +158,10 @@
 		{		
 			if (isPointInButton(m_lastDownPos) && m_lastTouchInButton)
 			{
+				if (!m_pressed && m_buttonSound != "")
+				{
+					PlaySample(m_buttonSound);
+				}
 				m_pressed = true;
 			}
 			m_lastTouchInButton = false;

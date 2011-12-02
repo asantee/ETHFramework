@@ -23,6 +23,11 @@
 
 		m_layerManager.addLayer(@m_pageManager);
 		m_layerManager.setCurrentLayer("PageManager");
+
+		if (m_props.buttonSound != "")
+		{
+			m_layerManager.setButtonsSound(m_props.buttonSound);
+		}
 	}
 
 	string getName()

@@ -17,6 +17,7 @@
 		forwardButton	= "ETHFramework/sprites/level_select_forward.png";
 		useUniqueButtons = false;
 		buttonSufix = "";
+		buttonSound = "";
 		showNumbers = true;
 	}
 	uint numItems;
@@ -33,6 +34,7 @@
 	string backButton;
 	string forwardButton;
 	string buttonSufix;
+	string buttonSound;
 	bool useUniqueButtons;
 	bool showNumbers;
 }

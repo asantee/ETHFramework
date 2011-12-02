@@ -90,6 +90,14 @@
 		return null;
 	}
 	
+	void setButtonsSound(const string &in filePath)
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			m_buttons[t].setSound(filePath);
+		}
+	}
+
 	UISprite@ getSprite(const string &in name)
 	{
 		for (uint t = 0; t < m_sprites.length(); t++)
