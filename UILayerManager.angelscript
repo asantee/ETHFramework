@@ -10,7 +10,21 @@
 
 	void addLayer(UILayer@ layer)
 	{
-		m_layers.insertLast(layer);
+		UILayer@ layerSeek = getLayer(layer.getName());
+		if (layerSeek !is null)
+		{
+			for (uint t = 0; t < m_layers.length(); t++)
+			{
+				if (m_layers[t].getName() == layer.getName())
+				{
+					@(m_layers[t]) = @layer;
+				}
+			}
+		}
+		else
+		{
+			m_layers.insertLast(layer);
+		}
 	}
 
 	void update()
@@ -101,6 +115,19 @@
 			}
 		}
 		return false;
+	}
+
+	UILayer@ getLayer(const string &in name)
+	{
+		const int size = m_layers.length();
+		for (int t = 0; t < size; t++)
+		{
+			if (m_layers[t].getName() == name)
+			{
+				return m_layers[t];
+			}
+		}
+		return null;
 	}
 	
 	private bool isCurrentLayer(const int idx)

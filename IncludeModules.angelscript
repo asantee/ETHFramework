@@ -21,6 +21,7 @@
 #include "GameControllerManager.angelscript"
 #include "FadeInController.angelscript"
 #include "Timer.angelscript"
+#include "ScoreCounter.angelscript"
 #include "WaypointManager.angelscript"
 
 // Property structs
