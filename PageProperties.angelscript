@@ -18,6 +18,7 @@
 		useUniqueButtons = false;
 		buttonSufix = "";
 		buttonSound = "";
+		itemSelectSound = "";
 		showNumbers = true;
 	}
 	uint numItems;
@@ -35,6 +36,7 @@
 	string forwardButton;
 	string buttonSufix;
 	string buttonSound;
+	string itemSelectSound;
 	bool useUniqueButtons;
 	bool showNumbers;
 }

@@ -1,39 +1,19 @@
 ﻿class Page
 {
 	private Button@[] m_buttons;
-	private string m_buttonName;
-	private string m_lockedButton;
 	private string m_soonButton;
-	private string m_emptyButton;
 	private uint m_first;
-	private uint m_numItems;
-	private uint m_rows;
-	private uint m_columns;
-	private string m_font;
 	private vector2 m_numberOffset;
-	private ItemChooser@ m_chooser;
-	private bool m_useUniqueButtons;
-	private string m_sufix;
-	private bool m_showNumbers;
 	private TouchGapDetector m_touchGapDetector;
+	private PageProperties@ m_props;
 
 	Page(const uint firstItem, PageProperties@ props)
 	{
+		@m_props = @props;
 		m_first = firstItem;
-		m_numItems = props.numItems;
-		m_font = props.font;
-		m_rows = props.rows;
-		m_columns = props.columns;
 		m_numberOffset = g_scale.scale(props.numberOffset);
-		@m_chooser = @(props.itemChooser);
-		m_buttonName   = props.buttonName;
-		m_lockedButton = props.lockedButton;
-		m_emptyButton  = props.emptyButton;
-		m_useUniqueButtons = props.useUniqueButtons;
-		m_sufix = props.buttonSufix;
-		m_showNumbers = props.showNumbers;
 
-		const uint numButtons = m_rows * m_columns;
+		const uint numButtons = m_props.rows * m_props.columns;
 		m_buttons.resize(numButtons);
 		vector2 cursor = getScreenOffset();
 
@@ -52,13 +32,13 @@
 
 	private string getSpriteName(const uint itemIdx) const 
 	{
-		if (m_useUniqueButtons)
+		if (m_props.useUniqueButtons)
 		{
-			return (m_buttonName + itemIdx + m_sufix);
+			return (m_props.buttonName + itemIdx + m_props.buttonSufix);
 		}
 		else
 		{
-			return m_buttonName;
+			return m_props.buttonName;
 		}
 	}
 
@@ -67,19 +47,20 @@
 		const uint currentItem = getItem(t);
 		string sprite;
 
-		if (currentItem >= m_numItems)
+		if (currentItem >= m_props.numItems)
 		{
-			sprite = m_emptyButton;
+			sprite = m_props.emptyButton;
 		}
-		else if (!m_chooser.validateItem(currentItem) && !m_useUniqueButtons)
+		else if (!m_props.itemChooser.validateItem(currentItem) && !m_props.useUniqueButtons)
 		{
-			sprite = m_lockedButton;
+			sprite = m_props.lockedButton;
 		}
 		else
 		{
 			 sprite = getSpriteName(currentItem);
 		}
 		@m_buttons[t] = Button(sprite, cursor, g_scale.getScale(), vector2(0, 0));
+		m_buttons[t].setSound(m_props.itemSelectSound);
 	}
 
 	void update(const vector2 &in offset)
@@ -101,10 +82,10 @@
 				if (m_touchGapDetector.getLastMaxTouchGap(0) > g_scale.scale(48.0f))
 					m_buttons[t].setPressed(false);
 
-				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_chooser.validateItem(currentItem))
+				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_props.itemChooser.validateItem(currentItem))
 				{
 					m_buttons[t].setPressed(false);
-					m_chooser.performAction(currentItem);
+					m_props.itemChooser.performAction(currentItem);
 				}
 			}
 		}
@@ -112,7 +93,7 @@
 
 	bool isValidItem(const uint item) const
 	{
-		return item < m_numItems;
+		return item < m_props.numItems;
 	}
 
 	void draw(const vector2 &in offset)
@@ -125,28 +106,28 @@
 				continue;
 			}
 			m_buttons[t].draw(offset);
-			if (m_showNumbers)
+			if (m_props.showNumbers)
 			{
 				drawNumber(t, offset);
 			}
 			const vector2 buttonPos = m_buttons[t].getPos();
 			const vector2 halfButtonSize = m_buttons[t].getSize() * 0.5f;
-			if (m_useUniqueButtons && !m_chooser.validateItem(getItem(t)))
+			if (m_props.useUniqueButtons && !m_props.itemChooser.validateItem(getItem(t)))
 			{
-				drawScaledSprite(m_lockedButton, buttonPos + halfButtonSize + offset , g_scale.getScale(), V2_HALF, COLOR_WHITE);
+				drawScaledSprite(m_props.lockedButton, buttonPos + halfButtonSize + offset , g_scale.getScale(), V2_HALF, COLOR_WHITE);
 			}
-			m_chooser.itemDrawCallback(getItem(t), buttonPos, offset);
+			m_props.itemChooser.itemDrawCallback(getItem(t), buttonPos, offset);
 		}
 	}
 	
 	private void drawNumber(const uint t, const vector2 &in offset)
 	{
 		const uint currentItem = getItem(t);
-		if (currentItem < m_numItems && m_chooser.validateItem(currentItem))
+		if (currentItem < m_props.numItems && m_props.itemChooser.validateItem(currentItem))
 		{	
 			vector2 spriteSize = getButtonSize();
 			vector2 pos = m_buttons[t].getPos();
-			drawCenteredText(pos + m_numberOffset + offset + (spriteSize * 0.5f), "" + (getItem(t) + 1), m_font, g_scale.getScale(), m_buttons[t].getColor());
+			drawCenteredText(pos + m_numberOffset + offset + (spriteSize * 0.5f), "" + (getItem(t) + 1), m_props.font, g_scale.getScale(), m_buttons[t].getColor());
 		}
 	}
 	
@@ -167,12 +148,12 @@
 	
 	float getLineWidth()
 	{
-		return float(m_columns) * getButtonSize().x;
+		return float(m_props.columns) * getButtonSize().x;
 	}
 
 	float getHeight()
 	{
-		return float(m_rows) * getButtonSize().y;
+		return float(m_props.rows) * getButtonSize().y;
 	}
 
 	vector2 getScreenOffset()
