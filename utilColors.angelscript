@@ -26,6 +26,12 @@
 		g = float(_g) / 255.0f;
 		b = float(_b) / 255.0f;
 	}
+	void setColor(const vector3 &in color)
+	{
+		r = color.x;
+		g = color.y;
+		b = color.z;
+	}
 	vector3 getVector3() const
 	{
 		return vector3(r, g, b);
