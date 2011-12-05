@@ -94,9 +94,14 @@ class MainMenuLayer : UILayer
 		if (soundSwitch.isSwitched())
 		{
 			if (soundSwitch.isEnabled())
+			{
 				SetGlobalVolume(1.0f);
+			}
 			else
+			{
 				SetGlobalVolume(0.0f);
+			}
+			g_globalVolumeManager.saveVolume(GetGlobalVolume());
 			#if TESTING
 			print("Global volume: " + GetGlobalVolume());
 			#endif

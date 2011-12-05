@@ -15,6 +15,7 @@
 #include "FrameTimer.angelscript"
 #include "EntityGrabber.angelscript"
 #include "Follower.angelscript"
+#include "GlobalVolumeManager.angelscript"
 
 // Controllers
 #include "GameController.angelscript"
