@@ -54,6 +54,7 @@
 #include "utilCollide.angelscript"
 #include "utilPlanes.angelscript"
 #include "utilInput.angelscript"
+#include "utilEventLog.angelscript"
 
 // States
 #include "MainMenu.angelscript" 

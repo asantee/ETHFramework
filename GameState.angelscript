@@ -38,11 +38,13 @@
 		if (m_gameLayer.isButtonPressed("menu_button"))
 		{
 			m_gameLayer.setButtonPressed("menu_button", false);
+			logEvent("GAME_PAUSE_BUTTON_PRESSED", EventDataPair("level", "" + m_levelIndex));
 			showMenuPopup();
 		}
 		if (m_gameMenuLayer.isButtonPressed("resume_button"))
 		{
 			m_gameMenuLayer.setButtonPressed("resume_button", false);
+			logEvent("GAME_RESUME_BUTTON_PRESSED", EventDataPair("level", "" + m_levelIndex));
 			hideMenuPopup();
 		}
 		handleBackButton();
@@ -53,21 +55,18 @@
 		if (GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
 		{
 			UILayer@ currentLayer = m_layerManager.getCurrentLayer();
-			bool willShowGameMenuLayerPopup = true;
 			if (currentLayer !is null)
 			{
 				if (currentLayer.getName() == "GameMenuLayer")
 				{
 					hideMenuPopup();
+					logEvent("GAME_RESUMED_WITH_BACK_BUTTON", EventDataPair("level", "" + m_levelIndex));
 				}
 				else
 				{
 					showMenuPopup();
+					logEvent("GAME_PAUSED_WITH_BACK_BUTTON", EventDataPair("level", "" + m_levelIndex));
 				}
-			}
-			else
-			{
-				willShowGameMenuLayerPopup = true;
 			}
 		}
 	}
@@ -123,6 +122,7 @@ class GameLayer : UILayer
 		{
 			setButtonPressed("restart_level", false);
 			g_stateManager.setState(g_gameStateFactory.createGameState(m_currentLevel));
+			logEvent("GAME_RESTART_LEVEL_BUTTON", EventDataPair("level", "" + m_currentLevel));
 		}
 	}
 
@@ -157,6 +157,7 @@ class GameMenuLayer : UILayer
 			else
 				g_stateManager.setState(g_gameStateFactory.createMenuState());
 			hide(true);
+			logEvent("GAME_PAUSE_SCREEN_EXIT_BUTTON", EventDataPair("level", "" + m_levelIndex));
 		}
 	}
 

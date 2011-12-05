@@ -24,6 +24,7 @@
 		m_layerManager.addLayer(@m_mainMenuLayer);
 
 		m_layerManager.setCurrentLayer("MainMenuLayer");
+		logEvent("MAIN_MENU_STARTED");
 	}
 
 	void loop()
@@ -78,10 +79,12 @@ class MainMenuLayer : UILayer
 		if (isButtonPressed("play_button"))
 		{
 			g_stateManager.setState(g_gameStateFactory.createLevelSelectState());
+			logEvent("MENU_PLAY_BUTTON");
 		}
 		if (isButtonPressed("exit_button") || GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
 		{
 			setButtonPressed("exit_button", false);
+			logEvent("MENU_EXIT_BUTTON");
 			Exit();
 		}
 		if (m_props.showSoundSwitch)
@@ -96,10 +99,12 @@ class MainMenuLayer : UILayer
 			if (soundSwitch.isEnabled())
 			{
 				SetGlobalVolume(1.0f);
+				logEvent("MENU_SOUND_SWITCH_ON");
 			}
 			else
 			{
 				SetGlobalVolume(0.0f);
+				logEvent("MENU_SOUND_SWITCH_OFF");
 			}
 			g_globalVolumeManager.saveVolume(GetGlobalVolume());
 			#if TESTING
