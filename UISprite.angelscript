@@ -10,6 +10,7 @@
 	private uint m_r;
 	private uint m_g;
 	private uint m_b;
+	private bool m_dismissed;
 
 	UISprite(const string &in _spriteName, const uint _color, const vector2 &in _pos, const vector2 &in _origin)
 	{
@@ -30,7 +31,7 @@
 		init();
 		m_size = _size;
 	}
-	
+
 	vector2 getOrigin() const
 	{
 		return m_origin;
@@ -56,8 +57,20 @@
 		m_interp.reset(m_pos, m_pos, 1000);
 	}
 
+	void dismiss()
+	{
+		reset();
+		m_dismissed = true;
+	}
+
+	bool isAnimationFinished() const
+	{
+		return m_interp.isOver();
+	}
+
 	private void init()
 	{
+		m_dismissed = false;
 		LoadSprite(m_spriteName);
 		m_interp = PositionInterpolator(m_pos, m_pos, 1000, true);
 		m_a = (0xFF000000 & m_color) >> 24;
@@ -67,11 +80,17 @@
 		m_color = ARGB(0, m_r, m_g, m_b);
 	}
 
+	bool isDismissed() const
+	{
+		return m_dismissed;
+	}
+
 	void update()
 	{
 		if (!m_interp.isOver())
 			m_interp.update();
-		const float alpha = m_interp.getBias() * float(m_a);
+		const float bias = (m_dismissed) ? 1.0f - m_interp.getBias() : m_interp.getBias();
+		const float alpha = bias * float(m_a);
 		m_color = ARGB(uint(alpha), m_r, m_g, m_b);
 	}
 

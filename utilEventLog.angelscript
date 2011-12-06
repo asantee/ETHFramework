@@ -7,6 +7,14 @@
 	#endif
 }
 
+void logEvent(const string &in event, EventDataPair@ dataPair0, EventDataPair@ dataPair1, EventDataPair@ dataPair2, EventDataPair@ dataPair3)
+{
+	logEvent(event + " " + dataPair0.m_tag + ":" + dataPair0.m_value
+			 + " " + dataPair1.m_tag + ":" + dataPair1.m_value
+			 + " " + dataPair2.m_tag + ":" + dataPair2.m_value
+			 + " " + dataPair3.m_tag + ":" + dataPair3.m_value);
+}
+
 void logEvent(const string &in event, EventDataPair@ dataPair0, EventDataPair@ dataPair1, EventDataPair@ dataPair2)
 {
 	logEvent(event + " " + dataPair0.m_tag + ":" + dataPair0.m_value

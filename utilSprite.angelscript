@@ -11,6 +11,6 @@ void drawScaledSprite(const string sprite, const vector2 pos, const float scale,
 
 void drawSprite(const string sprite, const vector2 pos, const vector2 origin, const vector2 size, const uint color = 0xFFFFFFFF, const float angle = 0.0f)
 {
-	SetSpriteOrigin(sprite, origin);
-	DrawShapedSprite(sprite, pos, size, color, angle);
+	SetSpriteOrigin(sprite, V2_ZERO);
+	DrawShapedSprite(sprite, pos - (size * origin), size, color, angle);
 }

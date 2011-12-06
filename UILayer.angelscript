@@ -202,6 +202,7 @@
 			m_buttons[t].update();
 		}
 		removeDismissedButtons();
+		removeDismissedSprites();
 	}
 
 	void draw()
@@ -226,6 +227,18 @@
 		return false;
 	}
 
+	void dismissSprite(const string &in spriteName)
+	{
+		for (uint t = 0; t < m_sprites.length(); t++)
+		{
+			if (m_sprites[t].getName() == spriteName)
+			{
+				m_sprites[t].dismiss();
+				break;
+			}
+		}
+	}
+
 	private void removeDismissedButtons()
 	{
 		for (uint t = 0; t < m_buttons.length(); t++)
@@ -233,6 +246,17 @@
 			if (m_buttons[t].isDismissed() && m_buttons[t].isAnimationFinished())
 			{
 				m_buttons.removeAt(t--);
+			}
+		}
+	}
+
+	private void removeDismissedSprites()
+	{
+		for (uint t = 0; t < m_sprites.length(); t++)
+		{
+			if (m_sprites[t].isDismissed() && m_sprites[t].isAnimationFinished())
+			{
+				m_sprites.removeAt(t--);
 			}
 		}
 	}
