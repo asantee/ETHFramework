@@ -239,6 +239,69 @@
 		}
 	}
 
+	bool isEverythingDismissed() const
+	{
+		return (areAllSpritesDismissed() && areAllButtonsDismissed());
+	}
+
+	void dismissButton(const string &in buttonName)
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].getName() == buttonName)
+			{
+				m_buttons[t].dismiss();
+				break;
+			}
+		}
+	}
+	
+	bool areAllButtonsDismissed() const
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (!m_buttons[t].isDismissed() || !m_buttons[t].isAnimationFinished())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool areAllSpritesDismissed() const
+	{
+		for (uint t = 0; t < m_sprites.length(); t++)
+		{
+			if (!m_sprites[t].isDismissed() || !m_sprites[t].isAnimationFinished())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	void dismissSprites()
+	{
+		for (uint t = 0; t < m_sprites.length(); t++)
+		{
+			if (!m_sprites[t].isDismissed())
+			{
+				m_sprites[t].dismiss();
+			}
+		}
+	}
+
+	void dismissButtons()
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (!m_buttons[t].isDismissed())
+			{
+				m_buttons[t].dismiss();
+			}
+		}
+	}
+
 	private void removeDismissedButtons()
 	{
 		for (uint t = 0; t < m_buttons.length(); t++)

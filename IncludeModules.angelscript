@@ -32,6 +32,7 @@
 
 // Layers
 #include "PageManager.angelscript"
+#include "Popup.angelscript"
 
 // UI
 #include "UIButton.angelscript"

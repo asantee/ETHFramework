@@ -32,6 +32,7 @@
 		updateAlwaysActiveLayers();
 		if (m_currentLayer >= 0)
 			m_layers[m_currentLayer].update();
+		removeDismissedLayers();
 	}
 
 	void draw()
@@ -174,5 +175,16 @@
 	{
 		if (m_currentLayer != -1)
 			m_layers[m_currentLayer].setButtonPressed(name, pressed);
+	}
+
+	private void removeDismissedLayers()
+	{
+		for (int t = 0; t < int(m_layers.length()); t++)
+		{
+			if (m_layers[t].isEverythingDismissed() && t != m_currentLayer)
+			{
+				m_layers.removeAt(t--);
+			}
+		}
 	}
 }

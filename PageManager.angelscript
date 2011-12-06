@@ -264,6 +264,7 @@ class PageManager : UILayer
 			setButtonPressed("forw_button", false);
 		}
 		fadeForwardArrows();
+		m_pages[m_swyper.getCurrentPage()].update(V2_ZERO);
 	}
 
 	void fadeForwardArrows()
@@ -290,7 +291,6 @@ class PageManager : UILayer
 	{
 		UILayer::draw();
 		const vector2 screenSize(GetScreenSize());
-		m_pages[m_swyper.getCurrentPage()].update(V2_ZERO);
 		const int nextPage = m_swyper.getNextPage();
 		
 		float offsetX = m_swyper.getOffset().x;
