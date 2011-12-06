@@ -27,6 +27,12 @@
 		}
 	}
 
+	void openPopup(Popup@ popup)
+	{
+		addLayer(@popup);
+		setCurrentLayer(popup.getName());
+	}
+
 	void update()
 	{
 		updateAlwaysActiveLayers();
