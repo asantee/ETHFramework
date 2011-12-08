@@ -62,7 +62,7 @@
 					hideMenuPopup();
 					logEvent("GAME_RESUMED_WITH_BACK_BUTTON", EventDataPair("level", "" + m_levelIndex));
 				}
-				else
+				else if (currentLayer.getName() == "GameLayer")
 				{
 					showMenuPopup();
 					logEvent("GAME_PAUSED_WITH_BACK_BUTTON", EventDataPair("level", "" + m_levelIndex));

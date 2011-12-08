@@ -24,6 +24,7 @@
 #include "Timer.angelscript"
 #include "ScoreCounter.angelscript"
 #include "WaypointManager.angelscript"
+#include "WaypointSprite.angelscript"
 
 // Property structs
 #include "PageProperties.angelscript"

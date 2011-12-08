@@ -17,12 +17,13 @@ class Popup : UILayer
 		m_lastLayer = lastLayer;
 
 		addButton("close", closeButton, exitButtonPos, exitButtonPos);
+		g_timeManager.pause();
 	}
 
 	void update()
 	{
 		UILayer::update();
-		if (isButtonPressed("close"))
+		if (isButtonPressed("close") || GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
 		{
 			dismissSprites();
 			dismissButtons();
@@ -32,6 +33,7 @@ class Popup : UILayer
 		{
 			m_layerManager.setCurrentLayer(m_lastLayer);
 			@m_layerManager = null;
+			g_timeManager.resume();
 		}
 	}
 
