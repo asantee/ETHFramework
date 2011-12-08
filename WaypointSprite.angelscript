@@ -16,6 +16,6 @@
 	void draw()
 	{
 		Waypoint wp = getCurrentPoint();
-		drawSprite(m_spriteName, wp.pos, m_origin, GetSpriteFrameSize(m_spriteName) * m_scale, wp.color.getUInt(), 0.0f);
+		drawSprite(m_spriteName, wp.pos, m_origin, GetSpriteFrameSize(m_spriteName) * m_scale, wp.color.getUInt(), wp.angle);
 	}
 }

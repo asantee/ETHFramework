@@ -1,15 +1,18 @@
 ﻿class Waypoint
 {
-	Waypoint(const vector2 &in _pos, const uint _time, FloatColor _color, INTERPOLATION_FILTER@ _filter = @smoothEnd)
+	Waypoint(const vector2 &in _pos, const uint _time, FloatColor _color, INTERPOLATION_FILTER@ _filter = @smoothEnd,
+			 const float _angle = 0.0f)
 	{
 		pos = _pos;
 		time = _time;
 		@filter = @_filter;
 		color = _color;
+		angle = _angle;
 	}
 	vector2 pos;
 	FloatColor color;
 	uint time;
+	float angle;
 	INTERPOLATION_FILTER@ filter;
 }
 
@@ -60,7 +63,8 @@ class WaypointManager : GameController
 			interpolate(current.pos, next.pos, filter(bias)),
 			0,
 			interpolate(current.color, next.color, filter(bias)),
-			null
+			null,
+			interpolate(current.angle, next.angle, filter(bias))
 		);
 	}
 
