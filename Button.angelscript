@@ -30,7 +30,8 @@
 	void setSound(const string &in buttonSound)
 	{
 		m_buttonSound = buttonSound;
-		LoadSoundEffect(m_buttonSound);
+		if (m_buttonSound != "")
+			LoadSoundEffect(m_buttonSound);
 	}
 
 	void setName(const string &in _name)
