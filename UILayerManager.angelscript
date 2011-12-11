@@ -93,7 +93,21 @@
 		}
 		return false;
 	}
-	
+
+	void dismissLayer(const string &in name)
+	{
+		const int size = m_layers.length();
+		for (int t = 0; t < size; t++)
+		{
+			if (m_layers[t].getName() == name)
+			{
+				if (!m_layers[t].isEverythingDismissed())
+					m_layers[t].dismiss();
+				return;
+			}
+		}
+	}
+
 	bool setLayerVisible(const string &in name, const bool visible)
 	{
 		const int size = m_layers.length();

@@ -280,6 +280,12 @@
 		return true;
 	}
 
+	void dismiss()
+	{
+		dismissSprites();
+		dismissButtons();
+	}
+
 	void dismissSprites()
 	{
 		for (uint t = 0; t < m_sprites.length(); t++)
