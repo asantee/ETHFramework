@@ -112,6 +112,7 @@ class GameLayer : UILayer
 			addButton("restart_level", m_props.restartLevelButton, restartLevelButtonPos, vector2(1,0));
 			UIButton@ restartButton = getButton("restart_level");
 			restartButton.setCustomColor(m_props.menuButtonsCustomColor);
+			restartButton.setSound(m_props.restartLevelButtonSound);
 		}
 	}
 
