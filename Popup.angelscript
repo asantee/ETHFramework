@@ -32,8 +32,11 @@ class Popup : UILayer
 		}
 		if (isEverythingDismissed())
 		{
-			m_layerManager.setCurrentLayer(m_lastLayer);
-			@m_layerManager = null;
+			if (m_layerManager !is null)
+			{
+				m_layerManager.setCurrentLayer(m_lastLayer);
+				@m_layerManager = null;
+			}
 			g_timeManager.resume();
 		}
 	}

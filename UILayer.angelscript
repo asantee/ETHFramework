@@ -207,6 +207,9 @@
 
 	void draw()
 	{
+		if (isHidden())
+			return;
+
 		for (uint t = 0; t < m_sprites.length(); t++)
 		{
 			m_sprites[t].draw();

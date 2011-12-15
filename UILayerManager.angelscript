@@ -65,19 +65,31 @@
 		}
 	}
 
-	bool setCurrentLayer(const string &in name)
+	int getLayerIndex(const string &in name)
 	{
 		const int size = m_layers.length();
 		for (int t = 0; t < size; t++)
 		{
 			if (m_layers[t].getName() == name)
 			{
-				m_currentLayer = t;
-				m_layers[t].hide(false);
-				return true;
+				return t;
 			}
 		}
-		return false;
+		return -1;
+	}
+
+	bool setCurrentLayer(const string &in name)
+	{
+		m_currentLayer = getLayerIndex(name);
+		if (m_currentLayer >= 0)
+		{
+			m_layers[m_currentLayer].hide(false);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	bool removeLayer(const string &in name)
@@ -203,7 +215,16 @@
 		{
 			if (m_layers[t].isEverythingDismissed() && t != m_currentLayer)
 			{
+				string name;
+				if (m_currentLayer >= 0)
+				{
+					name = m_layers[m_currentLayer].getName();
+					if (m_currentLayer == t)
+						m_currentLayer = -1;
+				}
 				m_layers.removeAt(t--);
+				if (m_currentLayer >= 0)
+					m_currentLayer = getLayerIndex(name);
 			}
 		}
 	}
