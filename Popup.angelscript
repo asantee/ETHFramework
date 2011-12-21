@@ -1,4 +1,4 @@
-﻿const vector2 DEFAULT_EXIT_BUTTON_POS(0.92f,0.12f);
+﻿const vector2 DEFAULT_EXIT_BUTTON_POS(0.92f,0.88f);
 
 class Popup : UILayer
 {

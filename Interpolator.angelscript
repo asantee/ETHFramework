@@ -2,7 +2,7 @@
 
 float defaultFilter(const float v) { return v; }
 float smoothEnd(const float v)      { return sin(v * (PIb)); }
-float smoothBegining(const float v) { return cos((1.0f - v) * (PIb)); }
+float smoothBeginning(const float v) { return (1.0f - smoothEnd(1.0f - v)); }
 
 float interpolate(const float a, const float b, const float bias)
 {
