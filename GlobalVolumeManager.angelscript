@@ -1,26 +1,16 @@
-﻿const string ETH_FRAMEWORK_USER_DATA_FILE_NAME = "ethf.user.data";
-
-class GlobalVolumeManager
+﻿class GlobalVolumeManager : UserDataManager
 {
+	//void saveFloat(const string &in entity, const string &in valueName, const float value)
+	//float loadFloat(const string &in entity, const string &in valueName, const float defaultValue)
+
 	void saveVolume(const float volume)
 	{
-		const string filePath = GetExternalStoragePath() + ETH_FRAMEWORK_USER_DATA_FILE_NAME;
-		const string content = GetStringFromFile(filePath);
-		enmlFile userData;
-		userData.parseString(content);
-		userData.addValue("audio", "globalVolume", "" + volume);
-		userData.writeToFile(filePath);
+		saveFloat("audio", "globalVolume", volume);
 	}
 
 	float loadVolume()
 	{
-		const string filePath = GetExternalStoragePath() + ETH_FRAMEWORK_USER_DATA_FILE_NAME;
-		const string content = GetStringFromFile(filePath);
-		enmlFile userData;
-		userData.parseString(content);
-		float r = 1.0f;
-		userData.getFloat("audio", "globalVolume", r);
-		return r;
+		return loadFloat("audio", "globalVolume", 1.0f);
 	}
 }
 

@@ -63,13 +63,8 @@ class MainMenuLayer : UILayer
 
 		if (m_props.showSoundSwitch)
 		{
-			addSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
-					  m_props.soundSwitchPos, m_props.soundSwitchOrigin);
-			UISwitch@ soundSwitch = cast<UISwitch>(getButton("sound_switch"));
-			if (GetGlobalVolume() == 0.0f)
-				soundSwitch.setState(false);
-			else
-				soundSwitch.setState(true);
+			addGlobalSoundSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
+								 m_props.soundSwitchPos, m_props.soundSwitchOrigin);
 		}
 	}
 
@@ -87,32 +82,8 @@ class MainMenuLayer : UILayer
 			logEvent("MENU_EXIT_BUTTON");
 			Exit();
 		}
-		if (m_props.showSoundSwitch)
-			manageSoundSwitch();
 	}
 	
-	private void manageSoundSwitch()
-	{
-		UISwitch@ soundSwitch = cast<UISwitch>(getButton("sound_switch"));
-		if (soundSwitch.isSwitched())
-		{
-			if (soundSwitch.isEnabled())
-			{
-				SetGlobalVolume(1.0f);
-				logEvent("MENU_SOUND_SWITCH_ON");
-			}
-			else
-			{
-				SetGlobalVolume(0.0f);
-				logEvent("MENU_SOUND_SWITCH_OFF");
-			}
-			g_globalVolumeManager.saveVolume(GetGlobalVolume());
-			#if TESTING
-			print("Global volume: " + GetGlobalVolume());
-			#endif
-		}
-	}
-
 	string getName() const
 	{
 		return "MainMenuLayer";
