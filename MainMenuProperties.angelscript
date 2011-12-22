@@ -17,7 +17,7 @@
 		showMusicSwitch = false;
 		musicSwitchOn  = "ETHFramework/sprites/music_on.png";
 		musicSwitchOff = "ETHFramework/sprites/music_off.png";
-		musicSwitchPos = vector2(0.1f, 1.0f);
+		musicSwitchPos = vector2(0.15f, 1.0f);
 		musicSwitchOrigin = vector2(0.0f, 1.0f);
 	}
 	vector2 buttonNormPos;

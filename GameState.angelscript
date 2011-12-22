@@ -145,6 +145,17 @@ class GameMenuLayer : UILayer
 		addSprite(m_props.whiteSquareSprite, ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
 		addButton("back_button", m_props.backToMainMenuButton, m_props.gameMenuExitButtonPos);
 		addButton("resume_button", m_props.resumeGameButton, m_props.gameMenuResumeButtonPos);
+
+		if (m_props.showSoundSwitch)
+		{
+			addGlobalSoundSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
+								 m_props.soundSwitchPos, m_props.soundSwitchOrigin);
+		}
+		if (m_props.showMusicSwitch)
+		{
+			addGlobalMusicSwitch("music_switch", m_props.musicSwitchOn, m_props.musicSwitchOff,
+								 m_props.musicSwitchPos, m_props.musicSwitchOrigin);
+		}
 	}
 
 	void update()

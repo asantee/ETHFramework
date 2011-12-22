@@ -7,6 +7,7 @@
 			setState(true);
 		else
 			setState(false);
+		m_switched = false;
 	}
 
 	void update()
