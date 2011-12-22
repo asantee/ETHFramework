@@ -16,8 +16,10 @@
 #include "EntityGrabber.angelscript"
 #include "Follower.angelscript"
 #include "GlobalVolumeManager.angelscript"
+#include "MusicSwitchManager.angelscript"
 #include "UserDataManager.angelscript"
 #include "GlobalSoundSwitch.angelscript"
+#include "GlobalMusicSwitch.angelscript"
 
 // Controllers
 #include "GameController.angelscript"

@@ -66,6 +66,11 @@ class MainMenuLayer : UILayer
 			addGlobalSoundSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
 								 m_props.soundSwitchPos, m_props.soundSwitchOrigin);
 		}
+		if (m_props.showMusicSwitch)
+		{
+			addGlobalMusicSwitch("music_switch", m_props.musicSwitchOn, m_props.musicSwitchOff,
+								 m_props.musicSwitchPos, m_props.musicSwitchOrigin);
+		}
 	}
 
 	void update()

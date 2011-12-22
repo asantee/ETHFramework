@@ -40,6 +40,16 @@
 		m_buttons[m_buttons.length() - 1].setName(name);
 	}
 
+	void addGlobalMusicSwitch(const string &in name, const string &in on, const string &in off,
+							  const vector2 &in normPos, const vector2 &in origin, const float superScale = 1.0f)
+	{
+		const vector2 spriteSize(GetSpriteSize(on));
+		const float currentScale = g_scale.getScale() * superScale;
+		const vector2 unPos(unnormalizePos(normPos));
+		m_buttons.insertLast(GlobalMusicSwitch(on, off, unPos, currentScale, origin));
+		m_buttons[m_buttons.length() - 1].setName(name);
+	}
+
 	void addSwitch(const string &in name, const string &in on, const string &in off, const vector2 &in normPos, const vector2 &in origin, const float superScale)
 	{
 		const vector2 spriteSize(GetSpriteSize(on));
