@@ -35,13 +35,18 @@ class UserDataManager
 
 	void saveBoolean(const string &in entity, const string &in valueName, const bool value)
 	{
-		saveValue(entity, valueName, value ? "true" : "false");
+		saveValue(entity, valueName, boolToString(value));
 	}
 
 	bool loadBoolean(const string &in entity, const string &in valueName, const bool defaultValue)
 	{
-		const string value = loadValue(entity, valueName, "" + defaultValue);
+		const string value = loadValue(entity, valueName,  boolToString(defaultValue));
 		return isTrue(value);
+	}
+
+	string boolToString(const bool value)
+	{
+		return value ? "true" : "false";
 	}
 
 	bool isTrue(const string &in value)
