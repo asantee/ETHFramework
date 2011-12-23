@@ -45,4 +45,4 @@ AS_DEBUG/
 data/
 shaders/
 ethf.user.data
-
+obj/

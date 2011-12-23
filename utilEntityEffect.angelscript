@@ -47,7 +47,7 @@ void bounce(ETHEntity@ thisEntity, const vector2 &in scaleA, const vector2 &in s
 	const bool invert = (((elapsedTime / stride) % 2) == 1);
 	float bias = float(elapsedTime % stride) / float(stride);
 	bias = invert ? 1.0f - bias : bias;
-	const vector2 scale(interpolate(scaleA, scaleB, smoothBegining(bias)));
+	const vector2 scale(interpolate(scaleA, scaleB, smoothEnd(bias)));
 
 	thisEntity.SetScale(g_scale.scale(scale));
 }
@@ -86,7 +86,7 @@ void followUp(ETHEntity@ thisEntity, const vector2 destPos, const uint interpStr
 	if (thisEntity.CheckCustomData("switchTime") == DT_NODATA)
 	{
 		PositionInterpolator@ interp = PositionInterpolator(thisEntity.GetPositionXY(), destPos, interpStride, true);
-		@(interp.m_filter) = @smoothBegining;
+		@(interp.m_filter) = @smoothEnd;
 		thisEntity.SetObject("interp", @interp);
 		thisEntity.SetUInt("switchTime", 0);
 	}

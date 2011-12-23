@@ -12,6 +12,17 @@
 	private float m_buttonScale;
 	private string m_name;
 	private string m_buttonSound;
+	private uint m_elapsedTime;
+
+	private vector2 m_currentBounceScale;
+	private vector2 m_bounceScaleA;
+	private vector2 m_bounceScaleB;
+	private uint m_bounceStride;
+
+	private vector3 m_currentBlinkColor;
+	private vector3 m_blinkColorA;
+	private vector3 m_blinkColorB;
+	private uint m_blinkStride;
 
 	Button(const string _spriteName, const vector2 &in _pos, const float _buttonScale, const vector2 &in _origin = vector2(0, 0))
 	{
@@ -25,6 +36,9 @@
 		m_pressed = false;
 		m_lastTouchInButton = false;
 		m_customColor = COLOR_WHITE;
+		m_elapsedTime = 0;
+		setBounce(V2_ONE, V2_ONE, 300);
+		setBlink(V3_ONE, V3_ONE, 300);
 	}
 
 	void setSound(const string &in buttonSound)
@@ -125,7 +139,8 @@
 	{
 		// if is not loaded yet, load again (handle android unexpected texture destruction)
 		LoadSprite(m_spriteName);
-		drawScaledSprite(m_spriteName, m_pos + offset, m_buttonScale, m_origin, (FloatColor(m_color) * FloatColor(m_customColor)).getUInt());
+		FloatColor color = FloatColor(m_color) * FloatColor(m_customColor) * FloatColor(m_currentBlinkColor);
+		drawScaledSprite(m_spriteName, m_pos + offset, m_currentBounceScale * m_buttonScale, m_origin, color.getUInt());
 	}
 
 	vector2 getSize() const
@@ -140,6 +155,7 @@
 
 	void update()
 	{
+		m_elapsedTime += GetLastFrameElapsedTime();
 		m_color = 0xFFFFFFFF;
 		ETHInput@ input = GetInputHandle();
 		if (input.GetTouchState(0) == KS_HIT)
@@ -175,6 +191,8 @@
 		{
 			m_color = 0xFFCCCCCC;
 		}
+		bounce();
+		blinkColor();
 	}
 
 	bool isPressed()
@@ -185,5 +203,49 @@
 	void setPressed(const bool _pressed)
 	{
 		m_pressed = _pressed;
+	}
+
+	void setBounce(const vector2 &in scaleA, const vector2 &in scaleB, const uint stride = 300)
+	{
+		m_bounceScaleA = scaleA;
+		m_bounceScaleB = scaleB;
+		m_bounceStride = stride;
+		m_currentBounceScale = m_bounceScaleA;
+	}
+
+	private void bounce()
+	{
+		if (m_bounceScaleA == V2_ONE && m_bounceScaleB == V2_ONE)
+		{
+			m_currentBounceScale = V2_ONE;
+			return;
+		}
+
+		const bool invert = (((m_elapsedTime / m_bounceStride) % 2) == 1);
+		float bias = float(m_elapsedTime % m_bounceStride) / float(m_bounceStride);
+		bias = invert ? 1.0f - bias : bias;
+		m_currentBounceScale = interpolate(m_bounceScaleA, m_bounceScaleB, smoothEnd(bias));
+	}
+
+	void setBlink(const vector3 &in colorA, const vector3 &in colorB, const uint stride = 300)
+	{
+		m_currentBlinkColor = colorA;
+		m_blinkColorA = colorA;
+		m_blinkColorB = colorB;
+		m_blinkStride = stride;
+	}
+
+	void blinkColor()
+	{
+		if (m_blinkColorA == V3_ONE && m_blinkColorB == V3_ONE)
+		{
+			m_currentBlinkColor = V3_ONE;
+			return;
+		}
+
+		const bool invert = (((m_elapsedTime / m_blinkStride) % 2) == 1);
+		float bias = float(m_elapsedTime % m_blinkStride) / float(m_blinkStride);
+		bias = invert ? 1.0f - bias : bias;
+		m_currentBlinkColor = interpolate(m_blinkColorA, m_blinkColorB, bias);
 	}
 }

@@ -38,12 +38,13 @@
 	}
 }
 
-class MainMenuLayer : UILayer
+class MainMenuLayer : SoundPanelLayer
 {
 	private MainMenuProperties@ m_props;
 
 	MainMenuLayer(MainMenuProperties@ props)
 	{
+		super(@props);
 		@m_props = @props;
 		const vector2 screenSize(GetScreenSize());
 
@@ -60,22 +61,11 @@ class MainMenuLayer : UILayer
 			// addSprite parameters: sprite file name, color, pos, origin
 			addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
 		}
-
-		if (m_props.showSoundSwitch)
-		{
-			addSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
-					  m_props.soundSwitchPos, m_props.soundSwitchOrigin);
-			UISwitch@ soundSwitch = cast<UISwitch>(getButton("sound_switch"));
-			if (GetGlobalVolume() == 0.0f)
-				soundSwitch.setState(false);
-			else
-				soundSwitch.setState(true);
-		}
 	}
 
 	void update()
 	{
-		UILayer::update();
+		SoundPanelLayer::update();
 		if (isButtonPressed("play_button"))
 		{
 			g_stateManager.setState(g_gameStateFactory.createLevelSelectState());
@@ -87,32 +77,8 @@ class MainMenuLayer : UILayer
 			logEvent("MENU_EXIT_BUTTON");
 			Exit();
 		}
-		if (m_props.showSoundSwitch)
-			manageSoundSwitch();
 	}
 	
-	private void manageSoundSwitch()
-	{
-		UISwitch@ soundSwitch = cast<UISwitch>(getButton("sound_switch"));
-		if (soundSwitch.isSwitched())
-		{
-			if (soundSwitch.isEnabled())
-			{
-				SetGlobalVolume(1.0f);
-				logEvent("MENU_SOUND_SWITCH_ON");
-			}
-			else
-			{
-				SetGlobalVolume(0.0f);
-				logEvent("MENU_SOUND_SWITCH_OFF");
-			}
-			g_globalVolumeManager.saveVolume(GetGlobalVolume());
-			#if TESTING
-			print("Global volume: " + GetGlobalVolume());
-			#endif
-		}
-	}
-
 	string getName() const
 	{
 		return "MainMenuLayer";

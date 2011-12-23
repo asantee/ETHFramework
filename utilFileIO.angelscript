@@ -19,5 +19,5 @@ bool fileExists(const string &in fileName, const bool inPackage = true)
 	if (inPackage)
 		return (GetStringFromFileInPackage(getResourcePath() + fileName) != "");
 	else
-		return (GetStringFromFileInPackage(GetExternalStoragePath() + fileName) != "");
+		return (GetStringFromFile(fileName) != "");
 }

@@ -30,6 +30,26 @@
 		}
 	}
 
+	void addGlobalSoundSwitch(const string &in name, const string &in on, const string &in off,
+							  const vector2 &in normPos, const vector2 &in origin, const float superScale = 1.0f)
+	{
+		const vector2 spriteSize(GetSpriteSize(on));
+		const float currentScale = g_scale.getScale() * superScale;
+		const vector2 unPos(unnormalizePos(normPos));
+		m_buttons.insertLast(GlobalSoundSwitch(on, off, unPos, currentScale, origin));
+		m_buttons[m_buttons.length() - 1].setName(name);
+	}
+
+	void addGlobalMusicSwitch(const string &in name, const string &in on, const string &in off,
+							  const vector2 &in normPos, const vector2 &in origin, const float superScale = 1.0f)
+	{
+		const vector2 spriteSize(GetSpriteSize(on));
+		const float currentScale = g_scale.getScale() * superScale;
+		const vector2 unPos(unnormalizePos(normPos));
+		m_buttons.insertLast(GlobalMusicSwitch(on, off, unPos, currentScale, origin));
+		m_buttons[m_buttons.length() - 1].setName(name);
+	}
+
 	void addSwitch(const string &in name, const string &in on, const string &in off, const vector2 &in normPos, const vector2 &in origin, const float superScale)
 	{
 		const vector2 spriteSize(GetSpriteSize(on));
@@ -207,6 +227,9 @@
 
 	void draw()
 	{
+		if (isHidden())
+			return;
+
 		for (uint t = 0; t < m_sprites.length(); t++)
 		{
 			m_sprites[t].draw();
@@ -278,6 +301,12 @@
 			}
 		}
 		return true;
+	}
+
+	void dismiss()
+	{
+		dismissSprites();
+		dismissButtons();
 	}
 
 	void dismissSprites()

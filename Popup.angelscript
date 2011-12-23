@@ -1,4 +1,4 @@
-﻿const vector2 DEFAULT_EXIT_BUTTON_POS(0.975f,0.025f);
+﻿const vector2 DEFAULT_EXIT_BUTTON_POS(0.92f,0.88f);
 
 class Popup : UILayer
 {
@@ -6,7 +6,8 @@ class Popup : UILayer
 	private string m_popupSprite;
 	private UILayerManager@ m_layerManager;
 
-	Popup(const string &in spritePath, const string &in closeButton, const string &in lastLayer, UILayerManager@ layerManager, const vector2 &in exitButtonPos)
+	Popup(const string &in spritePath, const string &in closeButton, const string &in lastLayer,
+		  UILayerManager@ layerManager, const vector2 &in exitButtonPos)
 	{
 		super();
 		@m_layerManager = @layerManager;
@@ -16,7 +17,7 @@ class Popup : UILayer
 		addSprite(m_popupSprite, COLOR_WHITE, screenSize * 0.5f, V2_HALF);
 		m_lastLayer = lastLayer;
 
-		addButton("close", closeButton, exitButtonPos, exitButtonPos);
+		addButton("close", closeButton, exitButtonPos, V2_HALF);
 		g_timeManager.pause();
 	}
 
@@ -31,8 +32,11 @@ class Popup : UILayer
 		}
 		if (isEverythingDismissed())
 		{
-			m_layerManager.setCurrentLayer(m_lastLayer);
-			@m_layerManager = null;
+			if (m_layerManager !is null)
+			{
+				m_layerManager.setCurrentLayer(m_lastLayer);
+				@m_layerManager = null;
+			}
 			g_timeManager.resume();
 		}
 	}

@@ -112,6 +112,7 @@ class GameLayer : UILayer
 			addButton("restart_level", m_props.restartLevelButton, restartLevelButtonPos, vector2(1,0));
 			UIButton@ restartButton = getButton("restart_level");
 			restartButton.setCustomColor(m_props.menuButtonsCustomColor);
+			restartButton.setSound(m_props.restartLevelButtonSound);
 		}
 	}
 
@@ -132,13 +133,14 @@ class GameLayer : UILayer
 	}
 }
 
-class GameMenuLayer : UILayer
+class GameMenuLayer : SoundPanelLayer
 {
 	private GameStateProperties@ m_props;
 	private uint m_levelIndex;
 
 	GameMenuLayer(GameStateProperties@ props, const uint levelIndex)
 	{
+		super(@props);
 		m_levelIndex = levelIndex;
 		@m_props = @props;
 		addSprite(m_props.whiteSquareSprite, ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
@@ -148,7 +150,7 @@ class GameMenuLayer : UILayer
 
 	void update()
 	{
-		UILayer::update();
+		SoundPanelLayer::update();
 		if (isButtonPressed("back_button"))
 		{
 			setButtonPressed("back_button", false);
@@ -163,7 +165,7 @@ class GameMenuLayer : UILayer
 
 	void draw()
 	{
-		UILayer::draw();
+		SoundPanelLayer::draw();
 		FloatColor currentLayerColor(getButton("resume_button").getColor()); currentLayerColor.setColor(V3_ONE);
 		if (m_props.levelNumberFont != "")
 		{

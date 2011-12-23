@@ -16,6 +16,10 @@
 #include "EntityGrabber.angelscript"
 #include "Follower.angelscript"
 #include "GlobalVolumeManager.angelscript"
+#include "MusicSwitchManager.angelscript"
+#include "UserDataManager.angelscript"
+#include "GlobalSoundSwitch.angelscript"
+#include "GlobalMusicSwitch.angelscript"
 
 // Controllers
 #include "GameController.angelscript"
@@ -30,10 +34,12 @@
 #include "PageProperties.angelscript"
 #include "MainMenuProperties.angelscript"
 #include "GameStateProperties.angelscript"
+#include "SoundPanelProperties.angelscript"
 
 // Layers
 #include "PageManager.angelscript"
 #include "Popup.angelscript"
+#include "SoundPanelLayer.angelscript"
 
 // UI
 #include "UIButton.angelscript"

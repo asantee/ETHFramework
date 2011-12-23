@@ -1,26 +1,40 @@
-﻿const string ETH_FRAMEWORK_USER_DATA_FILE_NAME = "ethf.user.data";
-
-class GlobalVolumeManager
+﻿interface GlobalVolumeSwitchListener
 {
+	void turnGlobalVolumeOff();
+	void turnGlobalVolumeOn();
+}
+
+class GlobalVolumeManager : UserDataManager
+{
+	//void saveFloat(const string &in entity, const string &in valueName, const float value)
+	//float loadFloat(const string &in entity, const string &in valueName, const float defaultValue)
+
+	private GlobalVolumeSwitchListener@ m_switchListener;
+
+	void setSwitchListener(GlobalVolumeSwitchListener@ switchListener)
+	{
+		@m_switchListener = @switchListener;
+	}
+
 	void saveVolume(const float volume)
 	{
-		const string filePath = GetExternalStoragePath() + ETH_FRAMEWORK_USER_DATA_FILE_NAME;
-		const string content = GetStringFromFile(filePath);
-		enmlFile userData;
-		userData.parseString(content);
-		userData.addValue("audio", "globalVolume", "" + volume);
-		userData.writeToFile(filePath);
+		saveFloat("audio", "globalVolume", volume);
+		if (m_switchListener !is null)
+		{
+			if (volume <= 0.0f)
+			{
+				m_switchListener.turnGlobalVolumeOff();
+			}
+			else
+			{
+				m_switchListener.turnGlobalVolumeOn();
+			}
+		}
 	}
 
 	float loadVolume()
 	{
-		const string filePath = GetExternalStoragePath() + ETH_FRAMEWORK_USER_DATA_FILE_NAME;
-		const string content = GetStringFromFile(filePath);
-		enmlFile userData;
-		userData.parseString(content);
-		float r = 1.0f;
-		userData.getFloat("audio", "globalVolume", r);
-		return r;
+		return loadFloat("audio", "globalVolume", 1.0f);
 	}
 }
 

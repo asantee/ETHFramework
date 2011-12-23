@@ -12,7 +12,7 @@
 		m_updateRate = updateRate;
 
 		@m_interp = PositionInterpolator(pos, pos, m_interpStride, true);
-		@(m_interp.m_filter) = @smoothBegining;
+		@(m_interp.m_filter) = @smoothEnd;
 		m_switchTime = 0;
 	}
 

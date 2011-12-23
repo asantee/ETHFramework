@@ -1,4 +1,4 @@
-﻿class GameStateProperties
+﻿class GameStateProperties : SoundPanelProperties
 {
 	vector2 menuButtonNormPos;
 	uint menuButtonsCustomColor;
@@ -14,6 +14,7 @@
 	string whiteSquareSprite;
 	string backToMainMenuButton;
 	string resumeGameButton;
+	string restartLevelButtonSound;
 
 	GameStateProperties()
 	{
@@ -31,5 +32,6 @@
 		whiteSquareSprite = "ETHFramework/sprites/eth_framework_square.png";
 		backToMainMenuButton = "ETHFramework/sprites/back_to_main_menu.png";
 		resumeGameButton = "ETHFramework/sprites/resume_button.png";
+		restartLevelButtonSound = "";
 	}
 }
