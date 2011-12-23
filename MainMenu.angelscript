@@ -38,12 +38,13 @@
 	}
 }
 
-class MainMenuLayer : UILayer
+class MainMenuLayer : SoundPanelLayer
 {
 	private MainMenuProperties@ m_props;
 
 	MainMenuLayer(MainMenuProperties@ props)
 	{
+		super(@props);
 		@m_props = @props;
 		const vector2 screenSize(GetScreenSize());
 
@@ -60,22 +61,11 @@ class MainMenuLayer : UILayer
 			// addSprite parameters: sprite file name, color, pos, origin
 			addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
 		}
-
-		if (m_props.showSoundSwitch)
-		{
-			addGlobalSoundSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
-								 m_props.soundSwitchPos, m_props.soundSwitchOrigin);
-		}
-		if (m_props.showMusicSwitch)
-		{
-			addGlobalMusicSwitch("music_switch", m_props.musicSwitchOn, m_props.musicSwitchOff,
-								 m_props.musicSwitchPos, m_props.musicSwitchOrigin);
-		}
 	}
 
 	void update()
 	{
-		UILayer::update();
+		SoundPanelLayer::update();
 		if (isButtonPressed("play_button"))
 		{
 			g_stateManager.setState(g_gameStateFactory.createLevelSelectState());

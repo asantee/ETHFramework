@@ -133,34 +133,24 @@ class GameLayer : UILayer
 	}
 }
 
-class GameMenuLayer : UILayer
+class GameMenuLayer : SoundPanelLayer
 {
 	private GameStateProperties@ m_props;
 	private uint m_levelIndex;
 
 	GameMenuLayer(GameStateProperties@ props, const uint levelIndex)
 	{
+		super(@props);
 		m_levelIndex = levelIndex;
 		@m_props = @props;
 		addSprite(m_props.whiteSquareSprite, ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
 		addButton("back_button", m_props.backToMainMenuButton, m_props.gameMenuExitButtonPos);
 		addButton("resume_button", m_props.resumeGameButton, m_props.gameMenuResumeButtonPos);
-
-		if (m_props.showSoundSwitch)
-		{
-			addGlobalSoundSwitch("sound_switch", m_props.soundSwitchOn, m_props.soundSwitchOff,
-								 m_props.soundSwitchPos, m_props.soundSwitchOrigin);
-		}
-		if (m_props.showMusicSwitch)
-		{
-			addGlobalMusicSwitch("music_switch", m_props.musicSwitchOn, m_props.musicSwitchOff,
-								 m_props.musicSwitchPos, m_props.musicSwitchOrigin);
-		}
 	}
 
 	void update()
 	{
-		UILayer::update();
+		SoundPanelLayer::update();
 		if (isButtonPressed("back_button"))
 		{
 			setButtonPressed("back_button", false);
@@ -175,7 +165,7 @@ class GameMenuLayer : UILayer
 
 	void draw()
 	{
-		UILayer::draw();
+		SoundPanelLayer::draw();
 		FloatColor currentLayerColor(getButton("resume_button").getColor()); currentLayerColor.setColor(V3_ONE);
 		if (m_props.levelNumberFont != "")
 		{

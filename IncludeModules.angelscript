@@ -34,10 +34,12 @@
 #include "PageProperties.angelscript"
 #include "MainMenuProperties.angelscript"
 #include "GameStateProperties.angelscript"
+#include "SoundPanelProperties.angelscript"
 
 // Layers
 #include "PageManager.angelscript"
 #include "Popup.angelscript"
+#include "SoundPanelLayer.angelscript"
 
 // UI
 #include "UIButton.angelscript"
