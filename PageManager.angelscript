@@ -173,6 +173,7 @@ class PageManager : UILayer
 	private Page@[] m_pages;
 	private Swyper m_swyper;
 	private vector2 m_backButtonOffset;
+	private vector2 m_offset;
 
 	PageManager(PageProperties@ props)
 	{
@@ -187,8 +188,8 @@ class PageManager : UILayer
 			m_pages.insertLast(Page(buttonsPerPage * m_pages.length(), @m_props));
 		}
 
-		addButton("back_button", props.forwardButton , m_props.backButtonNormPos,    m_props.backButtonNormPos);
-		addButton("forw_button", props.backButton ,    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
+		addButton("back_button", props.forwardButton, m_props.backButtonNormPos,    m_props.backButtonNormPos);
+		addButton("forw_button", props.backButton,    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
 	}
 
 	string getName() const
@@ -287,6 +288,14 @@ class PageManager : UILayer
 		}
 	}
 
+	float getGlobalOffset() const
+	{
+		const float fNumPages = float(m_pages.length());
+		float globalOffset = float(m_swyper.getCurrentPage()) / fNumPages;
+		const float piece = 1.0f / fNumPages;
+		return (globalOffset + (piece *-m_offset.x)) * 2.0f;
+	}
+
 	void draw()
 	{
 		UILayer::draw();
@@ -298,11 +307,14 @@ class PageManager : UILayer
 		{
 			offsetX *= 0.3333f;
 		}
-		m_pages[m_swyper.getCurrentPage()].draw(vector2(offsetX * screenSize.x, 0));
+		const uint currentPage = m_swyper.getCurrentPage();
+		m_pages[currentPage].draw(vector2(offsetX * screenSize.x, 0));
+		
 		if (nextPage != -1)
 		{
-			const float nextPageOffset = (nextPage > int(m_swyper.getCurrentPage())) ? screenSize.x : -screenSize.x;
-			const vector2 offset(vector2((m_swyper.getOffset().x * screenSize.x) + nextPageOffset, 0));
+			m_offset = m_swyper.getOffset();
+			const float nextPageOffset = (nextPage > int(currentPage)) ? screenSize.x : -screenSize.x;
+			const vector2 offset(vector2((m_offset.x * screenSize.x) + nextPageOffset, 0));
 			m_pages[nextPage].draw(offset);
 		}
 	}

@@ -93,3 +93,37 @@ vector3 capVector(const vector3 &in v, const float length)
 		return v;
 	}
 }
+
+vector3 min(const vector3 &in a, const vector3 &in b)
+{
+	return vector3(
+		min(a.x, b.x),
+		min(a.y, b.y),
+		min(a.z, b.z)
+	);
+}
+
+vector2 min(const vector2 &in a, const vector2 &in b)
+{
+	return vector2(
+		min(a.x, b.x),
+		min(a.y, b.y)
+	);
+}
+
+vector3 max(const vector3 &in a, const vector3 &in b)
+{
+	return vector3(
+		max(a.x, b.x),
+		max(a.y, b.y),
+		max(a.z, b.z)
+	);
+}
+
+vector2 max(const vector2 &in a, const vector2 &in b)
+{
+	return vector2(
+		max(a.x, b.x),
+		max(a.y, b.y)
+	);
+}

@@ -14,12 +14,12 @@
 		m_offset = 0;
 	}
 
-	int getCurrentPage()
+	int getCurrentPage() const
 	{
 		return m_currentPage;
 	}
 
-	int getNextPage()
+	int getNextPage() const
 	{
 		if (m_offset != 0.0f)
 		{
@@ -93,12 +93,12 @@
 		}
 	}
 
-	bool isLastPage()
+	bool isLastPage() const
 	{
 		return m_currentPage == m_numPages -1;
 	}
 
-	bool isFirstPage()
+	bool isFirstPage() const
 	{
 		return m_currentPage == 0;
 	}
@@ -119,7 +119,7 @@
 		}
 	}
 
-	float getMinOffsetToPageSwap()
+	float getMinOffsetToPageSwap() const
 	{
 		return 0.2f;
 	}
