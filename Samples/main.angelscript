@@ -3,7 +3,7 @@
 void main()
 {
 	g_scale.updateScaleFactor(DEFAULT_SCALE_HEIGHT);
-	@g_gameStateFactory = sMyStateFactory();
+	@g_gameStateFactory = SMyStateFactory();
 	g_stateManager.setState(g_gameStateFactory.createMenuState());
 	SetPersistentResources(true);
 }
@@ -26,7 +26,7 @@ class MyChooser : ItemChooser
 	}
 }
 
-class sMyStateFactory : sGameStateFactory
+class SMyStateFactory : SGameStateFactory
 {
 	State@ createMenuState()
 	{
