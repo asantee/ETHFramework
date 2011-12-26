@@ -1,8 +1,8 @@
-﻿class sTimeManager
+﻿class STimeManager
 {
 	private float m_factor;
 
-	sTimeManager()
+	STimeManager()
 	{
 		m_factor = 1.0f;
 	}
@@ -59,4 +59,4 @@
 	}
 }
 
-sTimeManager g_timeManager;
+STimeManager g_timeManager;

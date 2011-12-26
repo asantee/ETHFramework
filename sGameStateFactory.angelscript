@@ -1,11 +1,11 @@
-﻿interface sGameStateFactory
+﻿interface SGameStateFactory
 {
 	State@ createMenuState();
 	State@ createLevelSelectState();
 	State@ createGameState(const uint idx);
 }
 
-class sDefaultStateFactory : sGameStateFactory
+class SDefaultStateFactory : SGameStateFactory
 {
 	State@ createMenuState()
 	{
@@ -26,4 +26,4 @@ class sDefaultStateFactory : sGameStateFactory
 	}
 }
 
-sGameStateFactory@ g_gameStateFactory;
+SGameStateFactory@ g_gameStateFactory;

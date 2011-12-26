@@ -1,9 +1,9 @@
-﻿class sGlobalScale
+﻿class SGlobalScale
 {
 	private float m_scaleFactor;
 	private float m_absoluteSize;
 
-	sGlobalScale(const float _absoluteSize)
+	SGlobalScale(const float _absoluteSize)
 	{
 		m_absoluteSize = _absoluteSize;
 		updateScaleFactor(DEFAULT_SCALE_HEIGHT);
@@ -93,4 +93,4 @@
 	}	
 }
 
-sGlobalScale g_scale(480);
+SGlobalScale g_scale(480);

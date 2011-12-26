@@ -8,7 +8,7 @@ Ethanon Programming style and patterns:
 -Members have m_ prefix (e.g. m_speed)*
 -Use UPPER_CASE_LETTERS on constants
 -Use UPPER_CASE_LETTERS on funcdef types
--Singleton classes must have the 's' letter as prefix (e.g. sGlobalScale)
+-Singleton classes must have the 'S' letter as prefix (e.g. SGlobalScale)
 -Include all files in a single IncludeModules.angelscript
 -All helper functions shall be in their own "header" file along with their own variations and overloads
 -Misc utility functions must be grouped in util- prefixed files  (e.g. utilSprite.angelscript)

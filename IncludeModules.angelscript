@@ -1,10 +1,10 @@
 ﻿#include "Constants.angelscript"
 
 // Singletons
-#include "sGlobalScale.angelscript"
-#include "sTimeManager.angelscript"
-#include "sStateManager.angelscript"
-#include "sGameStateFactory.angelscript"
+#include "SGlobalScale.angelscript"
+#include "STimeManager.angelscript"
+#include "SStateManager.angelscript"
+#include "SGameStateFactory.angelscript"
 
 // Main classes
 #include "State.angelscript"

@@ -1,4 +1,4 @@
-﻿class sStateManager
+﻿class SStateManager
 {
 	void setState(State@ state)
 	{
@@ -27,4 +27,4 @@
 	private State@ m_currentState;
 }
 
-sStateManager g_stateManager;
+SStateManager g_stateManager;
