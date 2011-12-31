@@ -3,7 +3,7 @@
 	FrameTimer()
 	{
 		m_currentFrame = m_currentFirst = m_currentLast = 0;
-		m_lastTime = 0;
+		m_time = 0;
 	}
 
 	uint get() const
@@ -14,7 +14,7 @@
 	void setCurrentFrame(const uint currentFrame)
 	{
 		m_currentFrame = currentFrame;
-		m_lastTime = GetTime();
+		m_time = 0;
 	}
 	
 	void reset()
@@ -25,16 +25,17 @@
 
 	uint set(const uint first, const uint last, const uint stride, const bool repeat = true)
 	{
+		m_time += GetLastFrameElapsedTime();
 		if (first != m_currentFirst || last != m_currentLast)
 		{
 			m_currentFrame = first;
 			m_currentFirst = first;
 			m_currentLast  = last;
-			m_lastTime = GetTime();
+			m_time = 0;
 			return m_currentFrame;
 		}
 
-		if (GetTime()-m_lastTime > stride)
+		if (m_time > stride)
 		{
 			m_currentFrame++;
 			if (m_currentFrame > last)
@@ -48,7 +49,7 @@
 					m_currentFrame = last;
 				}
 			}
-			m_lastTime = GetTime();
+			m_time = 0;
 		}
 
 		m_currentStride = stride;
@@ -62,11 +63,11 @@
 
 	float getBias() const
 	{
-		return (float(min(GetTime()-m_lastTime, m_currentStride)) / max(1.0f, float(m_currentStride)));
+		return (float(min(m_time, m_currentStride)) / max(1.0f, float(m_currentStride)));
 	}
 
 	private uint m_currentStride;
-	private uint m_lastTime;
+	private uint m_time;
 	private uint m_currentFirst;
 	private uint m_currentLast;
 	private uint m_currentFrame;
