@@ -90,6 +90,7 @@
 				entities[t].Hide(true);
 			}
 		}
+		ResolveJoints();
 	}	
 }
 
