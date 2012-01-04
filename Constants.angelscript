@@ -1,5 +1,6 @@
 ﻿const string LOOP = "loop";
 const string PRELOOP = "preLoop";
+const string ONRESUME = "onResume";
 
 const float DEFAULT_SCALE_HEIGHT = 480.0f;
 

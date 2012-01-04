@@ -5,12 +5,12 @@
 
 	void loadScene(const string &in sceneName)
 	{
-		LoadScene(sceneName, PRELOOP, LOOP);
+		LoadScene(sceneName, PRELOOP, LOOP, ONRESUME);
 	}
 
 	void loadScene(const string &in sceneName, const vector2 &in bucketSize)
 	{
-		LoadScene(sceneName, PRELOOP, LOOP, bucketSize);
+		LoadScene(sceneName, PRELOOP, LOOP, ONRESUME, bucketSize);
 	}
 
 	void addController(GameController@ controller)
@@ -39,8 +39,13 @@
 		m_controllerManager.draw();
 	}
 
+	void onResume()
+	{
+		// implements dummy resume function
+	}
+
 	string getName()
 	{
-		return "baseState";
+		return "BaseState";
 	}
 }

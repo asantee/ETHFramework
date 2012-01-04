@@ -16,6 +16,11 @@
 		m_currentState.loop();
 	}
 
+	void runCurrentOnResumeFunction()
+	{
+		m_currentState.onResume();
+	}
+
 	string getCurrentStateName() const
 	{
 		if (m_currentState !is null)

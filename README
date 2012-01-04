@@ -2,6 +2,8 @@ The project is a base framework for Ethanon engine with game state manager, basi
 
 In order to use it, simply #include "IncludeModules.angelscript" to your main file.
 
+NOTE: it will always/only be compatible with the latest versions of Ethanon Engine (in its respository)
+
 Ethanon Programming style and patterns:
 
 -Globals have g_ prefix (e.g. g_gameSaveManager)

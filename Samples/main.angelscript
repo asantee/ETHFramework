@@ -69,3 +69,9 @@ void preLoop()
 	SetFastGarbageCollector(false);
 	SetNumIterations(8, 3);
 }
+
+// called when the program is paused and then resumed (all resources were cleared, need reload)
+void onResume()
+{
+	g_stateManager.runOnResumeFunction();
+}
