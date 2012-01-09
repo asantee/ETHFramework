@@ -24,6 +24,11 @@ class Popup : UILayer
 		tapScreenToClose = false;
 	}
 
+	void close()
+	{
+		setButtonPressed("close", true);
+	}
+
 	private bool hasReceivedCloseCommand()
 	{
 		if (tapScreenToClose)
