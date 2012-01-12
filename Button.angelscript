@@ -22,6 +22,9 @@
 	private vector3 m_currentBlinkColor;
 	private vector3 m_blinkColorA;
 	private vector3 m_blinkColorB;
+	private float m_currentBlinkAlpha;
+	private float m_blinkAlphaA;
+	private float m_blinkAlphaB;
 	private uint m_blinkStride;
 
 	Button(const string _spriteName, const vector2 &in _pos, const float _buttonScale, const vector2 &in _origin = vector2(0, 0))
@@ -39,6 +42,9 @@
 		m_elapsedTime = 0;
 		setBounce(V2_ONE, V2_ONE, 300);
 		setBlink(V3_ONE, V3_ONE, 300);
+		m_currentBlinkAlpha = 1.0f;
+		m_blinkAlphaA = 1.0f;
+		m_blinkAlphaB = 1.0f;
 	}
 
 	void setSound(const string &in buttonSound)
@@ -140,6 +146,7 @@
 		// if is not loaded yet, load again (handle android unexpected texture destruction)
 		LoadSprite(m_spriteName);
 		FloatColor color = FloatColor(m_color) * FloatColor(m_customColor) * FloatColor(m_currentBlinkColor);
+		color.a *= m_currentBlinkAlpha;
 		drawScaledSprite(m_spriteName, m_pos + offset, m_currentBounceScale * m_buttonScale, m_origin, color.getUInt());
 	}
 
@@ -235,11 +242,20 @@
 		m_blinkStride = stride;
 	}
 
+	void setBlinkAlpha(const float &in alphaA, const float &in alphaB)
+	{
+		m_currentBlinkAlpha = alphaA;
+		m_blinkAlphaA = alphaA;
+		m_blinkAlphaB = alphaB;
+	}
+
 	void blinkColor()
 	{
-		if (m_blinkColorA == V3_ONE && m_blinkColorB == V3_ONE)
+		if (m_blinkColorA == V3_ONE && m_blinkColorB == V3_ONE
+			&& m_blinkAlphaA == 1.0f && m_blinkAlphaB == 1.0f)
 		{
 			m_currentBlinkColor = V3_ONE;
+			m_currentBlinkAlpha = 1.0f;
 			return;
 		}
 
@@ -247,5 +263,6 @@
 		float bias = float(m_elapsedTime % m_blinkStride) / float(m_blinkStride);
 		bias = invert ? 1.0f - bias : bias;
 		m_currentBlinkColor = interpolate(m_blinkColorA, m_blinkColorB, bias);
+		m_currentBlinkAlpha = interpolate(m_blinkAlphaA, m_blinkAlphaB, bias);
 	}
 }
