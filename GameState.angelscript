@@ -143,7 +143,7 @@ class GameMenuLayer : SoundPanelLayer
 		super(@props);
 		m_levelIndex = levelIndex;
 		@m_props = @props;
-		addSprite(m_props.whiteSquareSprite, ARGB(155,0,0,0), V2_ZERO, GetScreenSize(), V2_ZERO);
+		addSprite(m_props.whiteSquareSprite, props.backgroundColor, V2_ZERO, GetScreenSize(), V2_ZERO);
 		addButton("back_button", m_props.backToMainMenuButton, m_props.gameMenuExitButtonPos);
 		addButton("resume_button", m_props.resumeGameButton, m_props.gameMenuResumeButtonPos);
 	}

@@ -15,6 +15,7 @@
 	string backToMainMenuButton;
 	string resumeGameButton;
 	string restartLevelButtonSound;
+	uint backgroundColor;
 
 	GameStateProperties()
 	{
@@ -33,5 +34,6 @@
 		backToMainMenuButton = "ETHFramework/sprites/back_to_main_menu.png";
 		resumeGameButton = "ETHFramework/sprites/resume_button.png";
 		restartLevelButtonSound = "";
+		backgroundColor = ARGB(155,0,0,0);
 	}
 }
