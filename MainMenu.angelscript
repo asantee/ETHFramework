@@ -59,7 +59,7 @@ class MainMenuLayer : SoundPanelLayer
 		if (m_props.titleSprite != "")
 		{
 			// addSprite parameters: sprite file name, color, pos, origin
-			addSprite(m_props.titleSprite, COLOR_WHITE, props.titlePos * screenSize, V2_HALF);
+			addButton("title", m_props.titleSprite, props.titlePos, V2_HALF);
 		}
 	}
 
