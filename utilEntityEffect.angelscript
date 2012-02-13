@@ -85,7 +85,7 @@ void followUp(ETHEntity@ thisEntity, const vector2 destPos, const uint interpStr
 {
 	if (thisEntity.CheckCustomData("switchTime") == DT_NODATA)
 	{
-		PositionInterpolator@ interp = PositionInterpolator(thisEntity.GetPositionXY(), destPos, interpStride, true);
+		PositionInterpolator@ interp = PositionInterpolator(thisEntity.GetPositionXY(), destPos, interpStride, dontPause);
 		@(interp.m_filter) = @smoothEnd;
 		thisEntity.SetObject("interp", @interp);
 		thisEntity.SetUInt("switchTime", 0);
@@ -97,7 +97,7 @@ void followUp(ETHEntity@ thisEntity, const vector2 destPos, const uint interpStr
 		interp.reset(interp.getCurrentPos(), destPos, interpStride);
 		thisEntity.SetUInt("switchTime", 0);
 	}
-	thisEntity.AddToUInt("switchTime", GetLastFrameElapsedTime());
+	thisEntity.AddToUInt("switchTime", (dontPause) ? GetLastFrameElapsedTime() : g_timeManager.getLastFrameElapsedTime());
 	interp.update();
 	thisEntity.SetPositionXY(interp.getCurrentPos());
 }
