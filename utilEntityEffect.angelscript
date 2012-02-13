@@ -107,3 +107,19 @@ void scaleToSize(ETHEntity@ entity, const vector2 &in size)
 	const vector2 currentSize(entity.GetSize());
 	entity.Scale(vector2(size.x / currentSize.x, size.y / currentSize.y));
 }
+
+void addProjectileEntity(const string &in name, const vector3 &in pos, const vector2 &in dir, const float speed, const float scaleValue)
+{
+	ETHEntity@ entity;
+	AddEntity(name, pos, @entity);
+	entity.Scale(scaleValue);
+	entity.SetVector2("direction", normalize(dir));
+	entity.SetFloat("speed", speed * scaleValue);
+}
+
+void projectileBehaviour(ETHEntity@ thisEntity)
+{
+	const vector2 dir(thisEntity.GetVector2("direction"));
+	thisEntity.SetAngle(radianToDegree(getAngle(dir)));
+	thisEntity.AddToPositionXY(g_timeManager.unitsPerSecond(dir * thisEntity.GetFloat("speed")));
+}
