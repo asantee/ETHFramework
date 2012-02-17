@@ -68,6 +68,23 @@ class WaypointManager : GameController
 		);
 	}
 
+	bool isFinished() const
+	{
+		if (m_repeat)
+		{
+			return false;
+		}
+		else
+		{
+			return (m_timer.isLastFrame() && m_timer.getBias() >= 1.0f);
+		}
+	}
+
+	bool isLastFrame() const
+	{
+		return m_timer.isLastFrame();
+	}
+
 	void update()
 	{
 		m_timer.set(0, m_waypoints.length() - 1, m_waypoints[m_timer.get()].time, m_repeat);
