@@ -66,6 +66,16 @@
 		return (float(min(m_time, m_currentStride)) / max(1.0f, float(m_currentStride)));
 	}
 
+	uint getCurrentFirstFrame() const
+	{
+		return m_currentFirst;
+	}
+
+	uint getCurrentLastFrame() const
+	{
+		return m_currentLast;
+	}
+
 	private uint m_currentStride;
 	private uint m_time;
 	private uint m_currentFirst;
