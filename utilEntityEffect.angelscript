@@ -57,12 +57,12 @@ Requires two properties:
 float stide
 float speed
 */
-void linearMotion(ETHEntity@ thisEntity, const bool vertical, const float angle = 0.0f)
+void linearMotion(ETHEntity@ thisEntity, const bool vertical, const float angle = 0.0f, const float startAngle = 0.0f)
 {
 	if (thisEntity.CheckCustomData("originalPos") == DT_NODATA)
 	{
 		thisEntity.SetVector3("originalPos", thisEntity.GetPosition());
-		thisEntity.SetFloat("angle", 0);
+		thisEntity.SetFloat("angle", startAngle);
 	}
 
 	const float speed = thisEntity.GetFloat("speed");
