@@ -90,6 +90,18 @@ class ByNameChooser : EntityChooser
 		return entity.GetEntityName() == m_name;
 	}
 }
+class ByIDChooser : EntityChooser
+{
+	private int m_id;
+	ByIDChooser(const int id)
+	{
+		m_id = id;
+	}
+	bool choose(ETHEntity@ entity)
+	{
+		return entity.GetID() == m_id;
+	}
+}
 DefaultChooser g_defaultChooser;
 DynamicChooser g_dynamicChooser;
 
