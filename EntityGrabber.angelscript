@@ -19,8 +19,8 @@ class EntityGrabber
 
 			if (sim.GetShape() == BS_CIRCLE)
 			{
-				const float radius = ents[t].GetCollisionBox().size.x * g_scale.getScale() * 0.5f;
-				if (squaredDistance(ents[t].GetPositionXY(), point) < radius * radius)
+				const float radiusSum = (ents[t].GetCollisionBox().size.x * g_scale.scale(0.5f)) + radius;
+				if (squaredDistance(ents[t].GetPositionXY(), point) < radiusSum * radiusSum)
 				{
 					ETHEntity@ temp = ents[t];
 					m_entities.push_back(temp);
