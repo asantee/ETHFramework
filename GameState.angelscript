@@ -171,7 +171,7 @@ class GameMenuLayer : SoundPanelLayer
 		{
 			drawCenteredText(GetScreenSize() * m_props.levelNumberStringNormPos,
 							 m_props.levelNumberString + (m_levelIndex + 1),
-							 m_props.levelNumberFont, g_scale.getScale(), currentLayerColor.getUInt());
+							 m_props.levelNumberFont, g_scale.scale(m_props.levelNumberFontScale), currentLayerColor.getUInt());
 		}
 	}
 

@@ -127,7 +127,7 @@
 		{	
 			vector2 spriteSize = getButtonSize();
 			vector2 pos = m_buttons[t].getPos();
-			drawCenteredText(pos + m_numberOffset + offset + (spriteSize * 0.5f), "" + (getItem(t) + 1), m_props.font, g_scale.getScale(), m_buttons[t].getColor());
+			drawCenteredText(pos + m_numberOffset + offset + (spriteSize * 0.5f), "" + (getItem(t) + 1), m_props.font, g_scale.scale(m_props.fontScale), m_buttons[t].getColor());
 		}
 	}
 	

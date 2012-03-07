@@ -20,6 +20,7 @@
 		buttonSound = "";
 		itemSelectSound = "";
 		showNumbers = true;
+		fontScale = 1.0f;
 	}
 	uint numItems;
 	uint columns;
@@ -39,6 +40,7 @@
 	string itemSelectSound;
 	bool useUniqueButtons;
 	bool showNumbers;
+	float fontScale;
 }
 
 interface ItemChooser

@@ -5,6 +5,7 @@
 	string restartLevelButton;
 	string levelNumberFont;
 	string levelNumberString;
+	float levelNumberFontScale;
 	bool showFullLevelNumberString;
 	vector2 levelNumberStringNormPos;
 	bool returnToLevelSelect;
@@ -35,5 +36,6 @@
 		resumeGameButton = "ETHFramework/sprites/resume_button.png";
 		restartLevelButtonSound = "";
 		backgroundColor = ARGB(155,0,0,0);
+		levelNumberFontScale = 1.0f;
 	}
 }
