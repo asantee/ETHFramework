@@ -20,3 +20,14 @@ string[] splitString(string str, const string c)
 	v.insertLast(str);
 	return v;
 }
+
+bool equalsAny(const string &in a, string[]@ values)
+{
+	const uint n = values.length();
+	for (uint t = 0; t < n; t++)
+	{
+		if (a == values[t])
+			return true;
+	}
+	return false;
+}
