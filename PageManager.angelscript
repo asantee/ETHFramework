@@ -174,6 +174,7 @@ class PageManager : UILayer
 	private Swyper m_swyper;
 	private vector2 m_backButtonOffset;
 	private vector2 m_offset;
+	private vector2 pageCounterSpriteFrameSize;
 
 	PageManager(PageProperties@ props)
 	{
@@ -190,6 +191,12 @@ class PageManager : UILayer
 
 		addButton("back_button", props.forwardButton, m_props.backButtonNormPos,    m_props.backButtonNormPos);
 		addButton("forw_button", props.backButton,    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
+
+		if (m_props.pageCounterSprite != "")
+		{
+			SetupSpriteRects(m_props.pageCounterSprite, m_props.pageCounterSpriteColumns, m_props.pageCounterSpriteRows);
+			pageCounterSpriteFrameSize = GetSpriteFrameSize(m_props.pageCounterSprite);
+		}
 	}
 
 	string getName() const
@@ -316,6 +323,26 @@ class PageManager : UILayer
 			const float nextPageOffset = (nextPage > int(currentPage)) ? screenSize.x : -screenSize.x;
 			const vector2 offset(vector2((m_offset.x * screenSize.x) + nextPageOffset, 0));
 			m_pages[nextPage].draw(offset);
+		}
+		if (m_pages.length() > 1)
+		{
+			drawPageCounter(currentPage);
+		}
+	}
+
+	void drawPageCounter(const uint currentPage)
+	{
+		const uint numPages = m_pages.length();
+		const vector2 spriteOffset(g_scale.scale(pageCounterSpriteFrameSize * vector2(1,0)));
+		const float fNumPages = float(m_pages.length());
+		vector2 rail((m_props.pageCounterNormalizedPos * GetScreenSize()) - (fNumPages * spriteOffset * 0.5f));
+		const uint lastFrame = (m_props.pageCounterSpriteColumns * m_props.pageCounterSpriteRows) - 1;
+		SetupSpriteRects(m_props.pageCounterSprite, m_props.pageCounterSpriteColumns, m_props.pageCounterSpriteRows);
+		for (uint t = 0; t < numPages; t++)
+		{
+			SetSpriteRect(m_props.pageCounterSprite, (currentPage == t) ? t : lastFrame);
+			drawScaledSprite(m_props.pageCounterSprite, rail, g_scale.getScale(), V2_ZERO, m_props.pageCounterColor);
+			rail += spriteOffset;
 		}
 	}
 }

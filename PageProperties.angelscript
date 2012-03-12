@@ -21,6 +21,12 @@
 		itemSelectSound = "";
 		showNumbers = true;
 		fontScale = 1.0f;
+
+		pageCounterSprite = "";
+		pageCounterSpriteColumns = 4;
+		pageCounterSpriteRows = 4;
+		pageCounterNormalizedPos = vector2(0.5f, 0.9f);
+		pageCounterColor = COLOR_WHITE;
 	}
 	uint numItems;
 	uint columns;
@@ -41,6 +47,12 @@
 	bool useUniqueButtons;
 	bool showNumbers;
 	float fontScale;
+
+	string pageCounterSprite;
+	uint pageCounterSpriteColumns;
+	uint pageCounterSpriteRows;
+	vector2 pageCounterNormalizedPos;
+	uint pageCounterColor;
 }
 
 interface ItemChooser
