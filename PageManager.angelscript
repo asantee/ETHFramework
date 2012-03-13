@@ -324,7 +324,7 @@ class PageManager : UILayer
 			const vector2 offset(vector2((m_offset.x * screenSize.x) + nextPageOffset, 0));
 			m_pages[nextPage].draw(offset);
 		}
-		if (m_pages.length() > 1)
+		if (m_pages.length() > 1 && m_props.pageCounterSprite != "")
 		{
 			drawPageCounter(currentPage);
 		}
