@@ -21,6 +21,12 @@
 		m_destPos = destPos;
 	}
 
+	void forcePosition(const vector2 &in pos)
+	{
+		m_interp.forcePointA(pos);
+		m_interp.forcePointB(pos);
+	}
+
 	vector2 getPos() const
 	{
 		return m_interp.getCurrentPos();

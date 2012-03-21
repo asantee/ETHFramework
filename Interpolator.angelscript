@@ -82,6 +82,16 @@ class PositionInterpolator : InterpolationTimer
 		m_b = _b;
 	}
 
+	void forcePointA(const vector2 &in a)
+	{
+		m_a = a;
+	}
+
+	void forcePointB(const vector2 &in b)
+	{
+		m_b = b;
+	}
+
 	vector2 getCurrentPos() const
 	{
 		if (m_elapsedTime > m_time)

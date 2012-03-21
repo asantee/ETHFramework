@@ -102,6 +102,15 @@ void followUp(ETHEntity@ thisEntity, const vector2 destPos, const uint interpStr
 	thisEntity.SetPositionXY(interp.getCurrentPos());
 }
 
+void forceFollowUpPosition(ETHEntity@ thisEntity, const vector2 &in pos)
+{
+	PositionInterpolator@ interp;
+	thisEntity.GetObject("interp", @interp);
+	interp.forcePointA(pos);
+	interp.forcePointB(pos);
+	thisEntity.SetPositionXY(pos);
+}
+
 void scaleToSize(ETHEntity@ entity, const vector2 &in size)
 {
 	const vector2 currentSize(entity.GetSize());
