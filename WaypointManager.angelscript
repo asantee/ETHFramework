@@ -38,6 +38,11 @@ class WaypointManager : GameController
 		m_timer.reset();
 	}
 
+	uint getFrame() const
+	{
+		return m_timer.get();
+	}
+
 	Waypoint getCurrentPoint() const
 	{
 		const uint currentFrame = m_timer.get();
