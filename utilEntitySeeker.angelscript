@@ -151,6 +151,20 @@ ETHEntity@ seekEntity(const string &in entityName, EntityChooser@ chooser = @g_d
 	return null;
 }
 
+ETHEntity@ seekEntity(EntityChooser@ chooser = @g_defaultChooser)
+{
+	ETHEntityArray ents;
+	GetAllEntitiesInScene(ents);
+	for (uint t = 0; t < ents.size(); t++)
+	{
+		if (chooser.choose(@ents[t]))
+		{
+			return ents[t];
+		}
+	}
+	return null;
+}
+
 ETHEntity@ seekEntityFromBucket(const vector2 &in bucket, const int entityID)
 {
 	ETHEntityArray ents;
