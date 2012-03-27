@@ -175,6 +175,18 @@
 		return false;
 	}
 
+	void setButtonOffset(const string &in name, const vector2 &in pos) const
+	{
+		for (uint t = 0; t < m_buttons.length(); t++)
+		{
+			if (m_buttons[t].getName() == name)
+			{
+				m_buttons[t].setOffset(pos);
+				return;
+			}
+		}
+	}
+
 	void setButtonPressed(const string &in name, const bool pressed) const
 	{
 		for (uint t = 0; t < m_buttons.length(); t++)

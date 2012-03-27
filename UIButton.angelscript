@@ -4,6 +4,7 @@
 	private PositionInterpolator m_interp;
 	private vector2 m_initPos;
 	private bool m_dismissed;
+	private vector2 m_offset;
 
 	UIButton(const string _name, const vector2 &in _pos, const float _buttonScale,
 			 const vector2 &in _origin = vector2(0.5f, 0.5f), const float effectScale = 1.0f)
@@ -15,6 +16,7 @@
 		m_interp = PositionInterpolator(_initPos, _pos, 700, true);
 		setColor(0.0f);
 		m_dismissed = false;
+		m_offset = V2_ZERO;
 	}
 
 	void reset()
@@ -40,6 +42,11 @@
 		}
 		setColor(alpha);
 	}
+	
+	void setOffset(const vector2 &in offset)
+	{
+		m_offset = offset;
+	}
 
 	void dismiss()
 	{
@@ -57,7 +64,7 @@
 
 	void draw()
 	{
-		Button::draw();
+		Button::draw(m_offset);
 	}
 
 	private void setColor(const float alpha)
