@@ -192,11 +192,21 @@ class PageManager : UILayer
 		addButton("back_button", props.forwardButton, m_props.backButtonNormPos,    m_props.backButtonNormPos);
 		addButton("forw_button", props.backButton,    m_props.forwardButtonNormPos, m_props.forwardButtonNormPos);
 
+		enableBounceEffects("back_button");
+		enableBounceEffects("forw_button");
+
 		if (m_props.pageCounterSprite != "")
 		{
 			SetupSpriteRects(m_props.pageCounterSprite, m_props.pageCounterSpriteColumns, m_props.pageCounterSpriteRows);
 			pageCounterSpriteFrameSize = GetSpriteFrameSize(m_props.pageCounterSprite);
 		}
+	}
+
+	void enableBounceEffects(const string &in buttonName)
+	{
+		UIButton@ button = getButton(buttonName);
+		const float diff = 0.03f;
+		button.setBounce(vector2(1.0f - diff, 1.0f - diff), vector2(1.0f + diff, 1.0f + diff), 400);
 	}
 
 	string getName() const
@@ -249,10 +259,10 @@ class PageManager : UILayer
 		bool firstPage = isFirstPage();
 		if (backButton !is null)
 		{
-			if (firstPage)
+			/*if (firstPage)
 			{
 				backButton.setScale(g_scale.getScale() + ((abs(sin(GetTimeF() / 200.0f)) * 0.06f) * g_scale.getScale()));
-			}
+			}*/
 			if (backButton.isPressed())
 			{
 				if (firstPage)
