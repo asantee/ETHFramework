@@ -199,3 +199,17 @@ ETHEntity@ chooseClosestContact(const vector2 &in a, const vector2 &in b, Entity
 	}
 	return r;
 }
+
+bool deleteEntity(const int id)
+{
+	ETHEntity@ thisEntity = SeekEntity(id);
+	if (thisEntity !is null)
+	{
+		DeleteEntity(thisEntity);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
