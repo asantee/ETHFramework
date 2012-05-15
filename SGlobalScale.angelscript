@@ -1,12 +1,10 @@
 ﻿class SGlobalScale
 {
-	private float m_scaleFactor;
 	private float m_absoluteSize;
 
 	SGlobalScale(const float _absoluteSize)
 	{
-		m_absoluteSize = _absoluteSize;
-		updateScaleFactor(DEFAULT_SCALE_HEIGHT);
+		updateScaleFactor(_absoluteSize);
 	}
 
 	/// Checks the current screen dimension to keep scale up-to-date.
@@ -14,7 +12,7 @@
 	void updateScaleFactor(const float _absoluteSize)
 	{
 		m_absoluteSize = _absoluteSize;
-		m_scaleFactor = GetScreenSize().y / m_absoluteSize;
+		SetFixedHeight(m_absoluteSize);
 	}
 
 	float getAbsoluteSize()
@@ -24,22 +22,22 @@
 
 	float getScale()
 	{
-		return m_scaleFactor;
+		return GetScale();
 	}
 
 	float scale(const float v)
 	{
-		return m_scaleFactor * v;
+		return Scale(v);
 	}
 
 	vector2 scale(const vector2 v)
 	{
-		return m_scaleFactor * v;
+		return Scale(v);
 	}	
 
 	vector3 scale(const vector3 v)
 	{
-		return m_scaleFactor * v;
+		return Scale(v);
 	}	
 
 	void scaleEntity(ETHEntity@ entity)
@@ -77,21 +75,8 @@
 	
 	void scaleEntities()
 	{
-		ETHEntityArray entities;
-		GetAllEntitiesInScene(entities);
-		for (uint t=0; t<entities.size(); t++)
-		{
-			if (entities[t].CheckCustomData("scalable") == DT_NODATA || entities[t].GetUInt("scalable") != 0)
-			{
-				scaleEntity(entities[t]);
-			}
-			if (entities[t].CheckCustomData("hidden") != DT_NODATA)
-			{
-				entities[t].Hide(true);
-			}
-		}
-		ResolveJoints();
+		ScaleEntities();
 	}	
 }
 
-SGlobalScale g_scale(480);
+SGlobalScale g_scale(DEFAULT_SCALE_HEIGHT);
