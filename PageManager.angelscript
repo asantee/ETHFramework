@@ -82,10 +82,13 @@
 				if (m_touchGapDetector.getLastMaxTouchGap(0) > g_scale.scale(48.0f))
 					m_buttons[t].setPressed(false);
 
-				if (m_buttons[t].isPressed() && isValidItem(currentItem) && m_props.itemChooser.validateItem(currentItem))
+				if (m_buttons[t].isPressed() && isValidItem(currentItem))
 				{
 					m_buttons[t].setPressed(false);
-					m_props.itemChooser.performAction(currentItem);
+					if (m_props.itemChooser.validateItem(currentItem))
+						m_props.itemChooser.performAction(currentItem);
+					else
+						m_props.itemChooser.performDenialAction(currentItem);
 				}
 			}
 		}

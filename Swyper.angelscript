@@ -76,6 +76,7 @@
 	{
 		m_offset = float(_page - m_currentPage);
 		m_currentPage = _page;
+		setNextPage();
 	}
 
 	private void setCurrentPage()

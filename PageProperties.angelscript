@@ -60,6 +60,7 @@ interface ItemChooser
 	bool performAction(const uint itemIdx);
 	bool validateItem(const uint itemIdx);
 	void itemDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset);
+	void performDenialAction(const uint index);
 }
 
 class DefaultItemChooser : ItemChooser
@@ -76,6 +77,10 @@ class DefaultItemChooser : ItemChooser
 	}
 
 	void itemDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset)
+	{
+	}
+
+	void performDenialAction(const uint index)
 	{
 	}
 }

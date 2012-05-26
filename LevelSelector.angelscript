@@ -17,7 +17,7 @@
 
 	int findLastUnlockedLevel(PageProperties@ props)
 	{
-		int r = props.numItems - 1;
+		int r = int(props.numItems) - 1;
 		for (uint t = 0; t < props.numItems; t++)
 		{
 			if (!props.itemChooser.validateItem(t))
@@ -26,7 +26,8 @@
 				break;
 			}
 		}
-		return max(r, 0);
+		r = max(r, 0);
+		return r;
 	}
 
 	void preLoop()
