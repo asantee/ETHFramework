@@ -52,7 +52,7 @@
 
 	void handleBackButton()
 	{
-		if (GetInputHandle().GetKeyState(K_BACK) == KS_HIT)
+		if (GetInputHandle().GetKeyState(K_BACK) == KS_HIT || GetInputHandle().GetKeyState(K_PAUSE) == KS_HIT)
 		{
 			UILayer@ currentLayer = m_layerManager.getCurrentLayer();
 			if (currentLayer !is null)
