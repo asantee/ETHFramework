@@ -176,12 +176,12 @@ class PageManager : UILayer
 	private vector2 m_offset;
 	private vector2 pageCounterSpriteFrameSize;
 
-	PageManager(PageProperties@ props)
+	PageManager(PageProperties@ props, const int startPage = 0)
 	{
 		@m_props = @props;
 		const uint buttonsPerPage = props.columns * props.rows;
 		const uint numPages = uint(ceil(float(props.numItems) / float(buttonsPerPage)));
-		m_swyper = Swyper(numPages);
+		m_swyper = Swyper(numPages, startPage);
 		m_backButtonOffset = vector2(0,0);
 
 		while (m_pages.length() * buttonsPerPage < m_props.numItems)
@@ -200,6 +200,17 @@ class PageManager : UILayer
 			SetupSpriteRects(m_props.pageCounterSprite, m_props.pageCounterSpriteColumns, m_props.pageCounterSpriteRows);
 			pageCounterSpriteFrameSize = GetSpriteFrameSize(m_props.pageCounterSprite);
 		}
+	}
+
+	void setCurrentPage(const uint page)
+	{
+		m_swyper.setCurrentPage(page);
+	}
+
+	int pageOf(const uint itemIdx)
+	{
+		const uint buttonsPerPage = m_props.columns * m_props.rows;
+		return itemIdx / buttonsPerPage;
 	}
 
 	void enableBounceEffects(const string &in buttonName)
