@@ -1,7 +1,10 @@
 ﻿class LevelSelector : ItemSelector
 {
-	LevelSelector(const string &in sceneName, PageProperties@ props)
+	private bool m_startOnFirstPage;
+
+	LevelSelector(const string &in sceneName, PageProperties@ props, const bool startOnFirstPage = true)
 	{
+		m_startOnFirstPage = startOnFirstPage;
 		super(sceneName, @props);
 	}
 
@@ -33,7 +36,9 @@
 	void preLoop()
 	{
 		ItemSelector::preLoop();
-		m_pageManager.setCurrentPage(m_pageManager.pageOf(findLastUnlockedLevel(@m_props)));
+
+		if (!m_startOnFirstPage)
+			m_pageManager.setCurrentPage(m_pageManager.pageOf(findLastUnlockedLevel(@m_props)));
 	}
 
 	void loop()
