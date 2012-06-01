@@ -128,8 +128,8 @@
 
 	bool isInScreen(const vector2 &in offset)
 	{
-		const vector2 minP = m_pos + offset;
-		const vector2 maxP = m_pos + m_size + offset;
+		const vector2 minP = m_pos + offset - (m_origin * m_size);
+		const vector2 maxP = m_pos + m_size + offset - (m_origin * m_size);
 		const vector2 screenSize(GetScreenSize());
 		if (maxP.x < 0.0f || maxP.y < 0.0f || minP.x > screenSize.x || minP.y > screenSize.y)
 		{
