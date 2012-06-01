@@ -30,6 +30,14 @@
 		}
 	}
 
+	Button@ getButton(const uint buttonIdx)
+	{
+		if (buttonIdx < m_buttons.length())
+			return @(m_buttons[buttonIdx]);
+		else
+			return null;
+	}
+
 	private string getSpriteName(const uint itemIdx) const 
 	{
 		if (m_props.useUniqueButtons)
@@ -59,8 +67,17 @@
 		{
 			 sprite = getSpriteName(currentItem);
 		}
-		@m_buttons[t] = Button(sprite, cursor, g_scale.getScale(), vector2(0, 0));
+		const vector2 origin(V2_HALF);
+		const float buttonScale = g_scale.getScale();
+		@m_buttons[t] = Button(sprite, cursor + computeButtonOriginOffsetFix(currentItem), buttonScale, origin);
 		m_buttons[t].setSound(m_props.itemSelectSound);
+	}
+
+	vector2 computeButtonOriginOffsetFix(const uint currentItem) const
+	{
+		const vector2 origin(V2_HALF);
+		const float buttonScale = g_scale.getScale();
+		return (GetSpriteFrameSize(getSpriteName(currentItem)) * origin * buttonScale);
 	}
 
 	void update(const vector2 &in offset)
@@ -117,9 +134,10 @@
 			const vector2 halfButtonSize = m_buttons[t].getSize() * 0.5f;
 			if (m_props.useUniqueButtons && !m_props.itemChooser.validateItem(getItem(t)))
 			{
-				drawScaledSprite(m_props.lockedButton, buttonPos + halfButtonSize + offset , g_scale.getScale(), V2_HALF, COLOR_WHITE);
+				drawScaledSprite(m_props.lockedButton, buttonPos + halfButtonSize + offset - computeButtonOriginOffsetFix(getItem(t)),
+								 g_scale.getScale(), V2_HALF, COLOR_WHITE);
 			}
-			m_props.itemChooser.itemDrawCallback(getItem(t), buttonPos, offset);
+			m_props.itemChooser.itemDrawCallback(getItem(t), buttonPos - computeButtonOriginOffsetFix(t), offset);
 		}
 	}
 	
@@ -130,7 +148,7 @@
 		{	
 			vector2 spriteSize = getButtonSize();
 			vector2 pos = m_buttons[t].getPos();
-			drawCenteredText(pos + m_numberOffset + offset + (spriteSize * 0.5f), "" + (getItem(t) + 1), m_props.font, g_scale.scale(m_props.fontScale), m_buttons[t].getColor());
+			drawCenteredText(pos + m_numberOffset + offset + (spriteSize * 0.5f) - computeButtonOriginOffsetFix(currentItem), "" + (getItem(t) + 1), m_props.font, g_scale.scale(m_props.fontScale), m_buttons[t].getColor());
 		}
 	}
 	
@@ -205,6 +223,14 @@ class PageManager : UILayer
 		}
 	}
 
+	Button@ getButton(const uint pageIdx, const uint buttonIdx)
+	{
+		if (pageIdx < m_pages.length())
+			return @(m_pages[pageIdx].getButton(buttonIdx));
+		else
+			return null;
+	}
+
 	void setCurrentPage(const uint page)
 	{
 		m_swyper.setCurrentPage(page);
@@ -214,6 +240,11 @@ class PageManager : UILayer
 	{
 		const uint buttonsPerPage = m_props.columns * m_props.rows;
 		return itemIdx / buttonsPerPage;
+	}
+
+	uint getNumButtonsPerPage() const
+	{
+		return (m_props.columns * m_props.rows);
 	}
 
 	void enableBounceEffects(const string &in buttonName)
@@ -236,6 +267,11 @@ class PageManager : UILayer
 	uint getCurrentPage()
 	{
 		return m_swyper.getCurrentPage();
+	}
+
+	uint getPageCount() const
+	{
+		return m_pages.length();
 	}
 
 	void nextPage()
@@ -332,7 +368,7 @@ class PageManager : UILayer
 		UILayer::draw();
 		const vector2 screenSize(GetScreenSize());
 		const int nextPage = m_swyper.getNextPage();
-		
+
 		float offsetX = m_swyper.getOffset().x;
 		if (nextPage ==-1)
 		{
@@ -340,7 +376,7 @@ class PageManager : UILayer
 		}
 		const uint currentPage = m_swyper.getCurrentPage();
 		m_pages[currentPage].draw(vector2(offsetX * screenSize.x, 0));
-		
+
 		if (nextPage != -1)
 		{
 			m_offset = m_swyper.getOffset();

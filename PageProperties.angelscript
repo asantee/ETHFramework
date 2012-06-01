@@ -21,6 +21,9 @@
 		itemSelectSound = "";
 		showNumbers = true;
 		fontScale = 1.0f;
+		highlightButtonBounceMin = vector2(0.99f, 1.01f);
+		highlightButtonBounceMax = vector2(1.01f, 0.99f);
+		highlightButtonBounceTimeStride = 300;
 
 		pageCounterSprite = "";
 		pageCounterSpriteColumns = 4;
@@ -47,6 +50,9 @@
 	bool useUniqueButtons;
 	bool showNumbers;
 	float fontScale;
+	vector2 highlightButtonBounceMin;
+	vector2 highlightButtonBounceMax;
+	uint highlightButtonBounceTimeStride;
 
 	string pageCounterSprite;
 	uint pageCounterSpriteColumns;

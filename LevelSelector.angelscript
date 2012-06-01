@@ -39,6 +39,30 @@
 
 		if (!m_startOnFirstPage)
 			m_pageManager.setCurrentPage(m_pageManager.pageOf(findLastUnlockedLevel(@m_props)));
+
+		enableActivatedButtonBounceEffect();
+	}
+
+	void enableActivatedButtonBounceEffect()
+	{
+		const int lastUnlockedLevel = findLastUnlockedLevel(@m_props);
+		const int pageCount = int(m_pageManager.getPageCount());
+		const int buttonsPerPage = int(m_pageManager.getNumButtonsPerPage());
+		if (lastUnlockedLevel >= 0 && lastUnlockedLevel < pageCount * buttonsPerPage)
+		{
+			const uint currentPage = lastUnlockedLevel / uint(buttonsPerPage);
+			const uint relativeButtonIdx = uint(int((lastUnlockedLevel % buttonsPerPage)));
+			Button@ lastUnlockedLevelButton = m_pageManager.getButton(currentPage, relativeButtonIdx);
+			//print(currentPage + ", " + relativeButtonIdx + ", " + m_pageManager.getNumButtonsPerPage());
+
+			if (lastUnlockedLevelButton !is null)
+			{
+				lastUnlockedLevelButton.setBounce(
+					m_props.highlightButtonBounceMin,
+					m_props.highlightButtonBounceMax,
+					m_props.highlightButtonBounceTimeStride);
+			}
+		}
 	}
 
 	void loop()
