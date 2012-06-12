@@ -2,19 +2,17 @@
 {
 	BackButtonLayer()
 	{
-		addBackButton(vector2(0.05f, 0.5f), true);
+		addBackButton(vector2(0.05f, 0.5f));
 	}
 	
-	BackButtonLayer(const vector2 &in backButtonPos, const bool bounceEffect = true)
+	BackButtonLayer(const vector2 &in backButtonPos)
 	{
-		addBackButton(backButtonPos, bounceEffect);
+		addBackButton(backButtonPos);
 	}
 	
-	private void addBackButton(const vector2 &in pos, const bool bounceEffect)
+	private void addBackButton(const vector2 &in pos)
 	{
 		addButton("back", "sprites/back_button_credits_screen.png", pos, pos);
-		if (bounceEffect)
-			setCreditButtonBounceEffect(getButton("back"));
 	}
 
 	bool isBackButtonPressed() const
