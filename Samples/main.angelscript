@@ -24,6 +24,10 @@ class MyChooser : ItemChooser
 	void itemDrawCallback(const uint index, const vector2 &in pos, const vector2 &in offset)
 	{
 	}
+
+	void performDenialAction(const uint index)
+	{
+	}
 }
 
 class SMyStateFactory : SGameStateFactory

@@ -7,6 +7,16 @@
 		return true;
 }
 
+bool isRectInScreen(vector2 pos, const vector2 &in size, const vector2 &in origin = V2_ZERO)
+{
+	pos -= size * origin;
+	pos -= GetCameraPos();
+	if (pos.x + size.x < 0 || pos.y + size.y < 0 || pos.x > GetScreenSize().x || pos.y > GetScreenSize().y)
+		return false;
+	else
+		return true;
+}
+
 bool isPointInRect(const vector2 &in p, const vector2 &in pos, const vector2 &in size, const vector2 &in origin)
 {	
 	vector2 posRelative = vector2(pos.x - size.x * origin.x, pos.y - size.y * origin.y);

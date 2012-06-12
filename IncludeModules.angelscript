@@ -40,6 +40,7 @@
 #include "PageManager.angelscript"
 #include "Popup.angelscript"
 #include "SoundPanelLayer.angelscript"
+#include "BackButtonLayer.angelscript"
 
 // UI
 #include "UIButton.angelscript"

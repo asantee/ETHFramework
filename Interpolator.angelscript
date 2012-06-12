@@ -5,6 +5,16 @@ float smoothEnd(const float v)      { return sin(v * (PIb)); }
 float smoothBeginning(const float v) { return (1.0f - smoothEnd(1.0f - v)); }
 float smoothBothSides(const float v) { return smoothBeginning(smoothEnd(v)); }
 
+float elastic(const float n)
+{
+	if (n == 0.0f || n == 1.0f)
+	{
+		return n;
+	}
+	double p = 0.3f, s = p / 4.0f;
+	return pow(2.0f, -10.0f * n) * sin((n - s) * (2 * PI) / p) + 1;
+}
+
 float interpolate(const float a, const float b, const float bias)
 {
 	return a + ((b - a) * bias);
@@ -48,6 +58,11 @@ class InterpolationTimer
 		return (!isOver()) ? m_filter(min(max(float(m_elapsedTime) / float(m_time), 0.0f), 1.0f)) : 1.0f;
 	}
 
+	float getUnfilteredBias() const
+	{
+		return (!isOver()) ? (min(max(float(m_elapsedTime) / float(m_time), 0.0f), 1.0f)) : 1.0f;
+	}
+
 	void reset(const uint _millisecs)
 	{
 		m_time = _millisecs;
@@ -57,6 +72,11 @@ class InterpolationTimer
 	bool isOver() const
 	{
 		return (m_elapsedTime > m_time);
+	}
+
+	void setFilter(INTERPOLATION_FILTER@ filter)
+	{
+		@m_filter = @filter;
 	}
 
 	uint m_elapsedTime;

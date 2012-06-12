@@ -34,7 +34,7 @@
 		if (!m_dismissed)
 		{
 			Button::update();
-			alpha = m_interp.getBias();
+			alpha = m_interp.getUnfilteredBias();
 		}
 		else
 		{
