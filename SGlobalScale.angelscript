@@ -9,10 +9,13 @@
 
 	/// Checks the current screen dimension to keep scale up-to-date.
 	/// Avoids "fake screen sizes" like the one in Android 3.x
-	void updateScaleFactor(const float _absoluteSize)
+	void updateScaleFactor(const float _absoluteSize, const bool fixedHeight = true)
 	{
 		m_absoluteSize = _absoluteSize;
-		SetFixedHeight(m_absoluteSize);
+		if (fixedHeight)
+			SetFixedHeight(m_absoluteSize);
+		else
+			SetFixedWidth(m_absoluteSize);
 	}
 
 	float getAbsoluteSize()
