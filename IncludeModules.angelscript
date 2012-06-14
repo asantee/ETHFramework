@@ -29,6 +29,7 @@
 #include "ScoreCounter.angelscript"
 #include "WaypointManager.angelscript"
 #include "WaypointSprite.angelscript"
+#include "Notificator.angelscript"
 
 // Property structs
 #include "PageProperties.angelscript"
