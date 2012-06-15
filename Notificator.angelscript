@@ -17,6 +17,8 @@
 	uint insertionTime;
 }
 
+funcdef void NOTIFICATION_CALLBACK(Notification@ notification);
+
 class Notificator : GameController
 {
 	private Notification[] m_notifications;
@@ -29,6 +31,8 @@ class Notificator : GameController
 	private vector2 m_textOffset;
 	private vector2 m_iconSize;
 	private FloatColor m_color;
+	private NOTIFICATION_CALLBACK@ m_callback;
+	private NOTIFICATION_CALLBACK@ m_dismissCallback;
 
 	Notificator(const vector2 &in normalizedPos, const vector2 &in origin,
 				const float fontScale, const string &in font = "Verdana20_shadow.fnt",
@@ -42,6 +46,18 @@ class Notificator : GameController
 		m_textOffset = textOffset;
 		m_iconSize = vector2(22, 22);
 		m_color = FloatColor(COLOR_WHITE);
+		@m_callback = null;
+		@m_dismissCallback = null;
+	}
+
+	void setNotificationCallback(NOTIFICATION_CALLBACK@ callback)
+	{
+		@m_callback = @callback;
+	}
+
+	void setNotificationDismissCallback(NOTIFICATION_CALLBACK@ callback)
+	{
+		@m_dismissCallback = @callback;
 	}
 
 	void update()
@@ -56,6 +72,7 @@ class Notificator : GameController
 			{
 				if (m_elapsedTime - noti.insertionTime > noti.durationMS)
 				{
+					m_dismissCallback(@noti);
 					m_notifications.removeAt(t);
 					break;
 				}
@@ -164,6 +181,7 @@ class Notificator : GameController
 
 				if (noti.sound != "")
 					PlaySample(noti.sound);
+				m_callback(@noti);
 				m_stack.removeAt(t);
 				break;
 			}
