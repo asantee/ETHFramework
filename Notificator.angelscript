@@ -11,6 +11,7 @@
 	string message;
 	string bgImage;
 	string icon;
+	string sound;
 	uint durationMS;
 	uint delay;
 	uint insertionTime;
@@ -160,6 +161,9 @@ class Notificator : GameController
 			{
 				noti.insertionTime = m_elapsedTime;
 				m_notifications.insertLast(noti);
+
+				if (noti.sound != "")
+					PlaySample(noti.sound);
 				m_stack.removeAt(t);
 				break;
 			}
