@@ -100,10 +100,13 @@ class GameLayer : UILayer
 		m_currentLevel = currentLevel;
 		@m_props = @props;
 
-		// addButton parameters: button name id, sprite file name, normalized pos, normalized origin
-		addButton("menu_button", m_props.menuButton, m_props.menuButtonNormPos, m_props.menuButtonNormPos);
-		UIButton@ menuButton = getButton("menu_button");
-		menuButton.setCustomColor(m_props.menuButtonsCustomColor);
+		if (m_props.menuButton != "")
+		{
+			// addButton parameters: button name id, sprite file name, normalized pos, normalized origin
+			addButton("menu_button", m_props.menuButton, m_props.menuButtonNormPos, m_props.menuButtonNormPos);
+			UIButton@ menuButton = getButton("menu_button");
+			menuButton.setCustomColor(m_props.menuButtonsCustomColor);
+		}
 
 		if (m_props.restartLevelButton != "")
 		{
