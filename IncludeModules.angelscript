@@ -20,6 +20,8 @@
 #include "UserDataManager.angelscript"
 #include "GlobalSoundSwitch.angelscript"
 #include "GlobalMusicSwitch.angelscript"
+#include "ImageFrame.angelscript"
+#include "Displayable.angelscript"
 
 // Controllers
 #include "GameController.angelscript"
