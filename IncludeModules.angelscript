@@ -22,6 +22,7 @@
 #include "GlobalMusicSwitch.angelscript"
 #include "ImageFrame.angelscript"
 #include "Displayable.angelscript"
+#include "TextBoxFrame.angelscript"
 
 // Controllers
 #include "GameController.angelscript"

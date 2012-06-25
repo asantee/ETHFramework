@@ -21,7 +21,7 @@
 	void draw(const vector2 &in offset)
 	{
 		vector2 pos(offset + m_pos);
-		vector2 sizeFix(m_size * m_scale);
+		vector2 sizeFix(m_size);
 		SetupSpriteRects(m_backgroundTiles, 3, 3);
 		SetSpriteOrigin(m_backgroundTiles, vector2(0, 0));
 		const vector2 tileSize(GetSpriteFrameSize(m_backgroundTiles) * m_scale);
