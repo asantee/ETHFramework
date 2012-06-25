@@ -5,6 +5,7 @@ class Popup : UILayer
 	private string m_lastLayer;
 	private string m_popupSprite;
 	private UILayerManager@ m_layerManager;
+	private bool m_hasPausedGame;
 
 	bool tapScreenToClose;
 
@@ -16,11 +17,21 @@ class Popup : UILayer
 		m_popupSprite = spritePath;
 		const vector2 screenSize(GetScreenSize());
 		addSprite("ETHFramework/sprites/eth_framework_square.png", ARGB(150,0,0,0), V2_ZERO, screenSize, V2_ZERO);
-		addSprite(m_popupSprite, COLOR_WHITE, screenSize * 0.5f, V2_HALF);
+		if (m_popupSprite != "")
+			addSprite(m_popupSprite, COLOR_WHITE, screenSize * 0.5f, V2_HALF);
 		m_lastLayer = lastLayer;
 
 		addButton("close", closeButton, exitButtonPos, V2_HALF);
-		g_timeManager.pause();
+
+		if (!g_timeManager.isPaused())
+		{	
+			g_timeManager.pause();
+			m_hasPausedGame = true;
+		}
+		else
+		{
+			m_hasPausedGame = false;
+		}
 		tapScreenToClose = false;
 	}
 
@@ -61,7 +72,8 @@ class Popup : UILayer
 				m_layerManager.setCurrentLayer(m_lastLayer);
 				@m_layerManager = null;
 			}
-			g_timeManager.resume();
+			if (m_hasPausedGame)
+				g_timeManager.resume();
 		}
 	}
 

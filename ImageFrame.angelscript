@@ -6,6 +6,7 @@
 	private vector2 m_size;
 	private bool m_borderOutside;
 	private float m_scale;
+	private uint m_color;
 
 	ImageFrame(const string &in backgroundTiles, const vector2 &in pos, const vector2 &in origin,
 			   const vector2 &in size, const float scale = 1.0f, const bool borderOutside = false)
@@ -16,6 +17,17 @@
 		m_borderOutside = borderOutside;
 		m_scale = scale;
 		m_backgroundTiles = backgroundTiles;
+		m_color = 0xFFFFFFFF;
+	}
+
+	void setColor(const uint color)
+	{
+		m_color = color;
+	}
+
+	uint getColor() const
+	{
+		return m_color;
 	}
 
 	void draw(const vector2 &in offset)
@@ -72,7 +84,7 @@
 	
 	private void drawSprite(const string &in sprite, const vector2 &in pos, const vector2 &in origin, const vector2 &in size)
 	{
-		DrawShapedSprite(sprite, pos - (origin * size), size, 0xFFFFFFFF, 0.0f);
+		DrawShapedSprite(sprite, pos - (origin * size), size, m_color, 0.0f);
 	}
 
 }
