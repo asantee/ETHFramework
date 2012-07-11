@@ -49,7 +49,8 @@
 					m_currentFrame = last;
 				}
 			}
-			m_time = 0;
+			const float diff = m_time - stride;
+			m_time = diff;
 		}
 
 		m_currentStride = stride;
