@@ -38,6 +38,7 @@
 		if (m_time > stride)
 		{
 			m_currentFrame++;
+			m_time -= stride;
 			if (m_currentFrame > last)
 			{
 				if (repeat)
@@ -47,10 +48,9 @@
 				else
 				{
 					m_currentFrame = last;
+					m_time = 0;
 				}
 			}
-			const float diff = m_time - stride;
-			m_time = diff;
 		}
 
 		m_currentStride = stride;
