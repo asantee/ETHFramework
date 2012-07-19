@@ -7,12 +7,13 @@
 	private uint m_color;
 	private uint m_customColor;
 	private bool m_pressed;
-	private bool m_lastTouchInButton;
-	private vector2 m_lastDownPos;
 	private float m_buttonScale;
 	private string m_name;
 	private string m_buttonSound;
 	private uint m_elapsedTime;
+
+	private bool[] m_lastTouchInButton;
+	private vector2[] m_lastDownPos;
 
 	private vector2 m_currentBounceScale;
 	private vector2 m_bounceScaleA;
@@ -37,7 +38,6 @@
 		m_size = GetSpriteSize(m_spriteName) * m_buttonScale;
 		m_color = 0xFFFFFFFF;
 		m_pressed = false;
-		m_lastTouchInButton = false;
 		m_customColor = COLOR_WHITE;
 		m_elapsedTime = 0;
 		setBounce(V2_ONE, V2_ONE, 300);
@@ -45,6 +45,15 @@
 		m_currentBlinkAlpha = 1.0f;
 		m_blinkAlphaA = 1.0f;
 		m_blinkAlphaB = 1.0f;
+
+		const uint touchCount = GetInputHandle().GetMaxTouchCount();
+		m_lastTouchInButton.resize(touchCount);
+		m_lastDownPos.resize(touchCount);
+		for (uint t = 0; t < touchCount; t++)
+		{
+			m_lastTouchInButton[t] = false;
+			m_lastDownPos[t] = vector2(-1,-1);
+		}
 	}
 
 	void setSound(const string &in buttonSound)
@@ -166,38 +175,45 @@
 		m_elapsedTime += GetLastFrameElapsedTime();
 		m_color = 0xFFFFFFFF;
 		ETHInput@ input = GetInputHandle();
-		if (input.GetTouchState(0) == KS_HIT)
+		
+		const uint touchCount = input.GetMaxTouchCount();
+		for (uint t = 0; t < touchCount; t++)
 		{
-			m_lastTouchInButton = true;
-			m_lastDownPos = input.GetTouchPos(0);
-			if (isPointInButton(input.GetTouchPos(0)))
+			if (input.GetTouchState(t) == KS_HIT)
 			{
-				m_lastTouchInButton = true;
-			}
-			else
-			{
-				m_lastTouchInButton = false;
-			}
-		}
-		else if (input.GetTouchState(0) == KS_RELEASE)
-		{		
-			if (isPointInButton(m_lastDownPos) && m_lastTouchInButton)
-			{
-				if (!m_pressed && m_buttonSound != "")
+				m_lastTouchInButton[t] = true;
+				m_lastDownPos[t] = input.GetTouchPos(t);
+				if (isPointInButton(input.GetTouchPos(t)))
 				{
-					PlaySample(m_buttonSound);
+					m_lastTouchInButton[t] = true;
 				}
-				m_pressed = true;
+				else
+				{
+					m_lastTouchInButton[t] = false;
+				}
 			}
-			m_lastTouchInButton = false;
-		}
-		else if (input.GetTouchState(0) == KS_DOWN)
-		{
-			m_lastDownPos = input.GetTouchPos(0);
-		}
-		if (m_lastTouchInButton && isPointInButton(input.GetTouchPos(0)))
-		{
-			m_color = 0xFFCCCCCC;
+			else if (input.GetTouchState(t) == KS_RELEASE)
+			{		
+				if (isPointInButton(m_lastDownPos[t]) && m_lastTouchInButton[t])
+				{
+					if (!m_pressed && m_buttonSound != "")
+					{
+						PlaySample(m_buttonSound);
+					}
+					m_pressed = true;
+				}
+				m_lastTouchInButton[t] = false;
+			}
+			else if (input.GetTouchState(t) == KS_DOWN)
+			{
+				m_lastDownPos[t] = input.GetTouchPos(t);
+			}
+			if (m_lastTouchInButton[t] && isPointInButton(input.GetTouchPos(t)))
+			{
+				m_color = 0xFFCCCCCC;
+			}
+			if (m_lastTouchInButton[t])
+				break;
 		}
 		bounce();
 		blinkColor();
