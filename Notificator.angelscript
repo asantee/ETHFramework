@@ -72,7 +72,8 @@ class Notificator : GameController
 			{
 				if (m_elapsedTime - noti.insertionTime > noti.durationMS)
 				{
-					m_dismissCallback(@noti);
+					if (m_dismissCallback !is null)
+						m_dismissCallback(@noti);
 					m_notifications.removeAt(t);
 					break;
 				}
@@ -181,7 +182,8 @@ class Notificator : GameController
 
 				if (noti.sound != "")
 					PlaySample(noti.sound);
-				m_callback(@noti);
+				if (m_callback !is null)
+					m_callback(@noti);
 				m_stack.removeAt(t);
 				break;
 			}
