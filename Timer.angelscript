@@ -1,26 +1,37 @@
 ﻿class Timer : GameController
 {
-	private uint time;
+	private uint m_time;
+	private bool m_pausable;
 
 	Timer()
 	{
+		m_pausable = true;
+		reset();
+	}
+
+	Timer(bool pausable)
+	{
+		m_pausable = pausable;
 		reset();
 	}
 
 	void update()
 	{
-		time += g_timeManager.getLastFrameElapsedTime();
+		if (m_pausable)
+			m_time += g_timeManager.getLastFrameElapsedTime();
+		else
+			m_time += GetLastFrameElapsedTime();
 	}
 
 	void reset()
 	{
-		time = 0;
+		m_time = 0;
 	}
 
 	void draw() {}
 
 	uint getTime() const
 	{
-		return time;
+		return m_time;
 	}
 }
