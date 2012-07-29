@@ -23,8 +23,14 @@
 		m_currentFrame = m_currentFirst;
 	}
 
+	void setCurrentStride(const uint stride)
+	{
+		m_currentStride = stride;
+	}
+
 	uint set(const uint first, const uint last, const uint stride, const bool repeat = true)
 	{
+		m_currentStride = stride;
 		m_time += GetLastFrameElapsedTime();
 		if (first != m_currentFirst || last != m_currentLast)
 		{
@@ -35,10 +41,11 @@
 			return m_currentFrame;
 		}
 
-		if (m_time > stride)
+		if (m_time >= stride)
 		{
 			m_currentFrame++;
 			m_time -= stride;
+
 			if (m_currentFrame > last)
 			{
 				if (repeat)
@@ -53,7 +60,6 @@
 			}
 		}
 
-		m_currentStride = stride;
 		return m_currentFrame;
 	}
 
