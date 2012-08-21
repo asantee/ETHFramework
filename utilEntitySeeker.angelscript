@@ -212,6 +212,20 @@ ETHEntity@ seekEntityFromBucket(const vector2 &in bucket, const int entityID)
 	return null;
 }
 
+ETHEntity@ seekEntityFromBucket(const vector2 &in bucket, const string &in name)
+{
+	ETHEntityArray ents;
+	GetEntitiesFromBucket(bucket, ents);
+	for (uint t = 0; t < ents.size(); t++)
+	{
+		if (ents[t].GetEntityName() == name)
+		{
+			return ents[t];
+		}
+	}
+	return null;
+}
+
 ETHEntity@ chooseClosestContact(const vector2 &in a, const vector2 &in b, EntityChooser@ chooser)
 {
 	ETHEntityArray entities;

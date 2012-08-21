@@ -43,6 +43,11 @@ class WaypointManager : GameController
 		return m_timer.get();
 	}
 
+	float getBias() const
+	{
+		return m_timer.getBias();
+	}
+
 	Waypoint getCurrentPoint() const
 	{
 		const uint currentFrame = m_timer.get();
