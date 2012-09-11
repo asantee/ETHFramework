@@ -1,32 +1,18 @@
 ﻿/// Creates an array containing every entity within thisEntity's bucket and the buckets around it, including itself
 void getSurroundingEntities(ETHEntity @thisEntity, ETHEntityArray @outEntities)
 {
-	const vector2 bucket(thisEntity.GetCurrentBucket());
-	GetEntitiesFromBucket(bucket, outEntities);
-	GetEntitiesFromBucket(bucket+vector2(1, 0), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(1, 1), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(0, 1), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(-1, 1), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(-1, 0), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(-1, -1), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(0, -1), outEntities);
-	GetEntitiesFromBucket(bucket+vector2(1, -1), outEntities);
+	GetEntitiesAroundBucket(thisEntity.GetCurrentBucket(), outEntities);
 }
 
 /// Finds an entity named 'entityName' among all thisEntity's surrounding entities.
 ETHEntity @findAmongNeighbourEntities(ETHEntity @thisEntity, const string &in entityName)
 {
-	ETHEntityArray entityArray;
-	getSurroundingEntities(thisEntity, entityArray);
-	uint size = entityArray.size();
-	for (uint t=0; t<size; t++)
-	{
-		if (entityArray[t].GetEntityName() == entityName)
-		{
-			return @entityArray[t];
-		}
-	}
-	return null;
+	ETHEntityArray outEntities;
+	GetEntitiesAroundBucket(thisEntity.GetCurrentBucket(), outEntities, entityName);
+	if (outEntities.size() > 0)
+		return outEntities[0];
+	else
+		return null;
 }
 
 /// Finds all entities named 'entityName' among all thisEntity's surrounding entities.
