@@ -7,7 +7,7 @@
 
 	ScoreCounter(const int start, const int end, const uint stride)
 	{
-		super();
+		super(false);
 		m_start = start;
 		m_end = end;
 		m_stride = stride;

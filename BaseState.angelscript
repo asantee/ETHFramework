@@ -23,6 +23,11 @@
 		m_layerManager.addLayer(@layer);
 	}
 
+	void setCurrentLayer(const string &in layerName)
+	{
+		m_layerManager.setCurrentLayer(layerName);
+	}
+
 	void start()
 	{
 	}

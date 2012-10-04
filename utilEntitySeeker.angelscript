@@ -32,12 +32,17 @@ ETHEntity @findAmongNeighbourEntities(ETHEntity @thisEntity, const string &in en
 /// Finds all entities named 'entityName' among all thisEntity's surrounding entities.
 void findAllAmongNeighbourEntities(ETHEntity @thisEntity, const string &in entityName, ETHEntityArray @outEntities)
 {
+	findAllAmongNeighbourEntities(thisEntity, ByNameChooser(entityName), @outEntities);
+}
+
+void findAllAmongNeighbourEntities(ETHEntity @thisEntity, EntityChooser@ chooser, ETHEntityArray @outEntities)
+{
 	ETHEntityArray entityArray;
 	getSurroundingEntities(thisEntity, entityArray);
 	uint size = entityArray.size();
 	for (uint t=0; t<size; t++)
 	{
-		if (entityArray[t].GetEntityName() == entityName)
+		if (chooser.choose(entityArray[t]))
 		{
 			ETHEntity@ temp = entityArray[t];
 			outEntities.push_back(temp);
@@ -104,6 +109,19 @@ class ByIDChooser : EntityChooser
 }
 DefaultChooser g_defaultChooser;
 DynamicChooser g_dynamicChooser;
+
+class DynamicBodyChooser : EntityChooser
+{
+	bool choose(ETHEntity@ entity)
+	{
+		if (entity.IsStatic())
+			return false;
+		if (entity.GetPhysicsController() !is null)
+			return true;
+		else
+			return false;
+	}
+}
 
 vector2[] __neighbourBucketSearchPriority;
 
@@ -187,6 +205,20 @@ ETHEntity@ seekEntityFromBucket(const vector2 &in bucket, const int entityID)
 	for (uint t = 0; t < ents.size(); t++)
 	{
 		if (ents[t].GetID() == entityID)
+		{
+			return ents[t];
+		}
+	}
+	return null;
+}
+
+ETHEntity@ seekEntityFromBucket(const vector2 &in bucket, const string &in name)
+{
+	ETHEntityArray ents;
+	GetEntitiesFromBucket(bucket, ents);
+	for (uint t = 0; t < ents.size(); t++)
+	{
+		if (ents[t].GetEntityName() == name)
 		{
 			return ents[t];
 		}

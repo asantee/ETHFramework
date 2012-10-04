@@ -54,7 +54,7 @@ void bounce(ETHEntity@ thisEntity, const vector2 &in scaleA, const vector2 &in s
 
 /*
 Requires two properties:
-float stide
+float stride
 float speed
 */
 void linearMotion(ETHEntity@ thisEntity, const bool vertical, const float angle = 0.0f, const float startAngle = 0.0f)
