@@ -7,7 +7,7 @@
 bool fileExists(const string &in fileName, const bool inPackage = true)
 {
 	if (inPackage)
-		return (GetStringFromFileInPackage(getResourcePath() + fileName) != "");
+		return (FileInPackageExists(getResourcePath() + fileName));
 	else
-		return (GetStringFromFile(fileName) != "");
+		return (FileExists(fileName));
 }
