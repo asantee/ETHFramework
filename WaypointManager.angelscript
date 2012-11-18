@@ -43,6 +43,11 @@ class WaypointManager : GameController
 		return m_timer.get();
 	}
 
+	float getBias() const
+	{
+		return m_timer.getBias();
+	}
+
 	Waypoint getCurrentPoint() const
 	{
 		const uint currentFrame = m_timer.get();
@@ -102,7 +107,9 @@ class WaypointManager : GameController
 
 	void update()
 	{
-		m_timer.set(0, m_waypoints.length() - 1, m_waypoints[m_timer.get()].time, m_repeat);
+		const uint currentFrame = m_timer.get();
+		m_timer.set(0, m_waypoints.length() - 1, m_waypoints[currentFrame].time, m_repeat);
+		m_timer.setCurrentStride(m_waypoints[m_timer.get()].time);
 	}
 
 	void draw() { }

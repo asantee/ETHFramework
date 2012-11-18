@@ -100,15 +100,23 @@ class GameLayer : UILayer
 		m_currentLevel = currentLevel;
 		@m_props = @props;
 
-		// addButton parameters: button name id, sprite file name, normalized pos, normalized origin
-		addButton("menu_button", m_props.menuButton, m_props.menuButtonNormPos, m_props.menuButtonNormPos);
-		UIButton@ menuButton = getButton("menu_button");
-		menuButton.setCustomColor(m_props.menuButtonsCustomColor);
+		UIButton@ menuButton = null;
+		if (m_props.menuButton != "")
+		{
+			// addButton parameters: button name id, sprite file name, normalized pos, normalized origin
+			addButton("menu_button", m_props.menuButton, m_props.menuButtonNormPos, m_props.menuButtonNormPos);
+			@menuButton = getButton("menu_button");
+			menuButton.setCustomColor(m_props.menuButtonsCustomColor);
+		}
 
 		if (m_props.restartLevelButton != "")
 		{
+			vector2 menuButtonSize(0, 0);
+			if (menuButton !is null)
+				menuButtonSize = menuButton.getSize();
+
 			const float screenWidth = GetScreenSize().x;
-			const vector2 restartLevelButtonPos((screenWidth - menuButton.getSize().x) / screenWidth, 0.0f);
+			const vector2 restartLevelButtonPos((screenWidth - menuButtonSize.x) / screenWidth, 0.0f);
 			addButton("restart_level", m_props.restartLevelButton, restartLevelButtonPos, vector2(1,0));
 			UIButton@ restartButton = getButton("restart_level");
 			restartButton.setCustomColor(m_props.menuButtonsCustomColor);

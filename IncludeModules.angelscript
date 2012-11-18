@@ -20,6 +20,9 @@
 #include "UserDataManager.angelscript"
 #include "GlobalSoundSwitch.angelscript"
 #include "GlobalMusicSwitch.angelscript"
+#include "ImageFrame.angelscript"
+#include "Displayable.angelscript"
+#include "TextBoxFrame.angelscript"
 
 // Controllers
 #include "GameController.angelscript"
@@ -29,6 +32,7 @@
 #include "ScoreCounter.angelscript"
 #include "WaypointManager.angelscript"
 #include "WaypointSprite.angelscript"
+#include "Notificator.angelscript"
 
 // Property structs
 #include "PageProperties.angelscript"

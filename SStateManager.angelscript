@@ -5,12 +5,12 @@
 		@m_currentState = @state;
 		m_currentState.start();
 	}
-	
+
 	void runCurrentPreLoopFunction()
 	{
 		m_currentState.preLoop();
 	}
-	
+
 	void runCurrentLoopFunction()
 	{
 		m_currentState.loop();
@@ -19,6 +19,16 @@
 	void runCurrentOnResumeFunction()
 	{
 		m_currentState.onResume();
+	}
+
+	State@ getCurrentState()
+	{
+		return m_currentState;
+	}
+
+	const State@ getCurrentState() const
+	{
+		return m_currentState;
 	}
 
 	string getCurrentStateName() const
