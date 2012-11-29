@@ -75,11 +75,6 @@
 		if (entity.CheckCustomData(name) == DT_FLOAT)
 			entity.MultiplyFloat(name, getScale());
 	}
-
-	void scaleEntities()
-	{
-		ScaleEntities();
-	}	
 }
 
 SGlobalScale g_scale(DEFAULT_SCALE_HEIGHT);
