@@ -1,5 +1,9 @@
 ﻿class Waypoint
 {
+	Waypoint()
+	{
+	}
+
 	Waypoint(const vector2 &in _pos, const uint _time, FloatColor _color, INTERPOLATION_FILTER@ _filter = @smoothEnd,
 			 const float _angle = 0.0f)
 	{
