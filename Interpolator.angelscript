@@ -92,6 +92,7 @@ class PositionInterpolator : InterpolationTimer
 
 	PositionInterpolator()
 	{
+		super(0, false);
 	}
 
 	PositionInterpolator(const vector2 &in _a, const vector2 &in _b, const uint _millisecs, const bool dontPause = false)
