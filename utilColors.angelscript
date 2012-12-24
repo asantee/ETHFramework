@@ -1,5 +1,9 @@
 ﻿class FloatColor
 {
+	FloatColor()
+	{
+	}
+
 	FloatColor(const vector3 &in color)
 	{
 		a = 1.0f;

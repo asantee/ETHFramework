@@ -7,6 +7,10 @@
 	private vector2 m_touchHitPos;
 	private float m_offset;
 
+	Swyper()
+	{
+	}
+
 	Swyper(const int _numPages, const int currentPage = 0)
 	{
 		m_numPages = _numPages;

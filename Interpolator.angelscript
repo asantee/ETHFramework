@@ -90,6 +90,10 @@ class PositionInterpolator : InterpolationTimer
 	private vector2 m_a;
 	private vector2 m_b;
 
+	PositionInterpolator()
+	{
+	}
+
 	PositionInterpolator(const vector2 &in _a, const vector2 &in _b, const uint _millisecs, const bool dontPause = false)
 	{
 		super(_millisecs, dontPause);
