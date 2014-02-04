@@ -10,16 +10,10 @@
 
 	void addLayer(UILayer@ layer)
 	{
-		UILayer@ layerSeek = getLayer(layer.getName());
-		if (layerSeek !is null)
+		int layerIndex = getLayerIndex(layer.getName());
+		if (layerIndex != -1)
 		{
-			for (uint t = 0; t < m_layers.length(); t++)
-			{
-				if (m_layers[t].getName() == layer.getName())
-				{
-					@(m_layers[t]) = @layer;
-				}
-			}
+			@(m_layers[layerIndex]) = @layer;
 		}
 		else
 		{
